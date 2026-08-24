@@ -26,6 +26,7 @@
   let targetProgress = 0;
   let visualProgress = 0;
   let scrollFrame = 0;
+  let lastScrollFrameTime = performance.now();
   let hintHidden = false;
   let selectedChatTopic = "flynn";
   let chatTimers = [];
@@ -104,10 +105,12 @@
     window.cinematicWorld?.setProgress?.(bounded);
   }
 
-  function renderScrollProgress() {
+  function renderScrollProgress(time = performance.now()) {
     scrollFrame = 0;
+    const delta = Math.min(Math.max((time - lastScrollFrameTime) / 1000, .016), .5);
+    lastScrollFrameTime = time;
     if (reducedMotion) visualProgress = targetProgress;
-    else visualProgress += (targetProgress - visualProgress) * .14;
+    else visualProgress += (targetProgress - visualProgress) * (1 - Math.exp(-10 * delta));
     if (Math.abs(targetProgress - visualProgress) < .0005) visualProgress = targetProgress;
     applyScrollProgress(visualProgress);
     if (visualProgress !== targetProgress) {
