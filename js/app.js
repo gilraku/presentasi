@@ -15,8 +15,13 @@
   const sourcesDialog = document.getElementById("sources-dialog");
   const sourcesClose = document.getElementById("sources-close");
   const navigationHint = document.getElementById("navigation-hint");
-  const promptChoices = Array.from(document.querySelectorAll(".prompt-choice"));
-  const promptOutcome = document.getElementById("prompt-outcome");
+  const evidenceTabs = Array.from(document.querySelectorAll(".evidence-tab"));
+  const evidencePanels = Array.from(document.querySelectorAll(".evidence-panel"));
+  const timelineNodes = Array.from(document.querySelectorAll(".timeline-node"));
+  const timelineEras = Array.from(document.querySelectorAll(".timeline-era"));
+  const timelineCurrent = document.getElementById("timeline-current");
+  const chatTopics = Array.from(document.querySelectorAll(".chat-topic"));
+  const chatBody = document.getElementById("chat-body");
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const TRANSITION_MS = reducedMotion ? 20 : 900;
@@ -26,6 +31,8 @@
   let touchStartX = 0;
   let touchStartY = 0;
   let hintHidden = false;
+  let selectedChatTopic = "flynn";
+  let chatTimers = [];
 
   const pad = (value) => String(value).padStart(2, "0");
   const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
@@ -236,36 +243,83 @@
     if (!clickedInside) closeSources();
   }
 
-  const promptContent = {
-    shortcut: {
-      label: "Proses mental yang berkurang",
-      copy: "Lebih cepat selesai, tetapi proses mengingat, menilai, dan membangun argumen lebih sedikit terlatih."
-    },
-    coach: {
-      label: "Proses mental yang dipertahankan",
-      copy: "Lebih lambat, tetapi kita tetap melakukan retrieval, menguji alasan, memperbaiki kesalahan, dan membangun pemahaman."
-    }
+  function selectTabbedContent(selectedButton, buttons, panels, dataKey) {
+    const selectedId = selectedButton.dataset[dataKey];
+    buttons.forEach((button) => {
+      const selected = button === selectedButton;
+      button.classList.toggle("is-selected", selected);
+      button.setAttribute("aria-selected", String(selected));
+    });
+    panels.forEach((panel) => {
+      const selected = panel.id.endsWith(selectedId);
+      panel.classList.toggle("is-active", selected);
+      panel.hidden = !selected;
+    });
+  }
+
+  function selectEvidence(selectedButton) {
+    selectTabbedContent(selectedButton, evidenceTabs, evidencePanels, "evidence");
+  }
+
+  function selectTimelineEra(selectedButton) {
+    selectTabbedContent(selectedButton, timelineNodes, timelineEras, "era");
+    const index = timelineNodes.indexOf(selectedButton);
+    if (timelineCurrent && index >= 0) timelineCurrent.textContent = pad(index + 1);
+  }
+
+  const chatDialogues = {
+    flynn: [
+      { role: "user", text: "Jadi, IQ seluruh dunia sekarang sedang turun?" },
+      { role: "ai", text: "Tidak sesederhana itu. Ada pembalikan di sejumlah populasi, tetapi hasil lintas negara dan lintas tes tidak seragam." },
+      { role: "user", text: "Lalu apa arti data Norwegia?" },
+      { role: "ai emphasis", html: "Dataset nasionalnya besar. Analisis dalam keluarga mendukung peran <strong>lingkungan</strong>—bukan membuktikan bahwa AI atau smartphone adalah penyebabnya." }
+    ],
+    brainrot: [
+      { role: "user", text: "Apakah brainrot itu diagnosis medis?" },
+      { role: "ai", text: "Bukan satu diagnosis klinis resmi. Istilah ini populer untuk menggambarkan dugaan penurunan kondisi mental akibat konten daring yang remeh atau berlebihan." },
+      { role: "user", text: "Mengapa Balon membahasnya?" },
+      { role: "ai emphasis", html: "Sebagai peringatan tentang kebiasaan digital dan kurangnya latihan kognitif. Hubungan kausal dengan pembalikan Efek Flynn <strong>belum terbukti</strong>." }
+    ],
+    socrates: [
+      { role: "user", text: "Apakah orang dahulu juga takut teknologi membuat kita bodoh?" },
+      { role: "ai", text: "Dalam Phaedrus, Socrates mengisahkan kritik bahwa tulisan dapat melemahkan latihan ingatan dan memberi kesan tahu tanpa pemahaman." },
+      { role: "user", text: "Berarti kekhawatiran soal AI pasti berlebihan?" },
+      { role: "ai emphasis", html: "Tidak. Sejarah hanya membantu kita bertanya lebih tajam: <strong>kemampuan apa yang kita titipkan, dan apa yang masih kita latih?</strong>" }
+    ]
   };
 
-  function selectPromptMode(selectedButton) {
-    const mode = selectedButton.dataset.mode;
-    const content = promptContent[mode];
-    if (!content) return;
+  function clearChatTimers() {
+    chatTimers.forEach((timer) => window.clearTimeout(timer));
+    chatTimers = [];
+  }
 
-    promptChoices.forEach((button) => {
+  function playChat(topic = selectedChatTopic) {
+    if (!chatBody || !chatDialogues[topic]) return;
+    selectedChatTopic = topic;
+    clearChatTimers();
+    chatBody.replaceChildren();
+
+    chatDialogues[topic].forEach((message, index) => {
+      const addMessage = () => {
+        const bubble = document.createElement("div");
+        bubble.className = `chat-msg ${message.role}`;
+        if (message.html) bubble.innerHTML = message.html;
+        else bubble.textContent = message.text;
+        chatBody.appendChild(bubble);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      };
+      if (reducedMotion) addMessage();
+      else chatTimers.push(window.setTimeout(addMessage, 150 + index * 560));
+    });
+  }
+
+  function selectChatTopic(selectedButton) {
+    chatTopics.forEach((button) => {
       const selected = button === selectedButton;
       button.classList.toggle("is-selected", selected);
       button.setAttribute("aria-pressed", String(selected));
     });
-
-    promptOutcome.classList.add("is-changing");
-    window.setTimeout(() => {
-      promptOutcome.querySelector(".prompt-lab__label").textContent = content.label;
-      promptOutcome.querySelector(".prompt-lab__copy").textContent = content.copy;
-      promptOutcome.classList.remove("is-changing");
-    }, reducedMotion ? 0 : 170);
-
-    window.cinematicWorld?.setChoice?.(mode);
+    playChat(selectedButton.dataset.topic);
   }
 
   function initialSceneFromHash() {
@@ -280,7 +334,9 @@
   sourcesButton.addEventListener("click", openSources);
   sourcesClose.addEventListener("click", closeSources);
   sourcesDialog.addEventListener("click", onDialogClick);
-  promptChoices.forEach((button) => button.addEventListener("click", () => selectPromptMode(button)));
+  evidenceTabs.forEach((button) => button.addEventListener("click", () => selectEvidence(button)));
+  timelineNodes.forEach((button) => button.addEventListener("click", () => selectTimelineEra(button)));
+  chatTopics.forEach((button) => button.addEventListener("click", () => selectChatTopic(button)));
 
   window.addEventListener("keydown", onKeydown);
   window.addEventListener("wheel", onWheel, { passive: true });
@@ -289,6 +345,10 @@
   document.addEventListener("fullscreenchange", updateFullscreenLabel);
   window.addEventListener("hashchange", () => {
     goToScene(initialSceneFromHash(), { updateHash: false });
+  });
+  window.addEventListener("presentation:scenechange", (event) => {
+    if (event.detail.index === 4) playChat();
+    else clearChatTimers();
   });
 
   const initialIndex = initialSceneFromHash();
@@ -302,6 +362,7 @@
   window.cinematicWorld?.setScene?.(initialIndex, true);
   updateInterface();
   updateFullscreenLabel();
+  if (initialIndex === 4) playChat();
 
   window.setTimeout(() => navigationHint?.classList.add("is-hidden"), 8000);
   document.documentElement.classList.add("is-ready");
