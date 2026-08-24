@@ -96,10 +96,21 @@
       scene.style.setProperty("--art-opacity", clamp(sceneOpacity * .9, 0, .86).toFixed(4));
       scene.style.setProperty("--art-shift", `${(distance * direction * 3.2).toFixed(3)}vw`);
       scene.style.setProperty("--art-scale", (1.015 + absoluteDistance * .045).toFixed(4));
-      scene.style.zIndex = String(40 - Math.round(absoluteDistance * 10));
+      // Susunan lapisan harus tetap. Mengubah z-index di tengah persilangan
+      // opasitas dapat menimbulkan kedipan ketika dua adegan sama-sama terlihat.
+      scene.style.zIndex = String(index + 1);
     });
 
-    const nearestScene = clamp(Math.round(bounded), 0, total - 1);
+    // Beri sedikit histeresis agar status adegan aktif tidak bolak-balik ketika
+    // touchpad atau roda tetikus berhenti tepat di sekitar titik tengah.
+    let nearestScene = currentScene;
+    if (Math.abs(bounded - currentScene) > 1) {
+      nearestScene = clamp(Math.round(bounded), 0, total - 1);
+    } else if (bounded >= currentScene + .58) {
+      nearestScene = clamp(currentScene + 1, 0, total - 1);
+    } else if (bounded <= currentScene - .58) {
+      nearestScene = clamp(currentScene - 1, 0, total - 1);
+    }
     setCurrentScene(nearestScene);
     updateInterface(bounded);
     window.cinematicWorld?.setProgress?.(bounded);
@@ -133,16 +144,24 @@
 
   function goToScene(targetIndex, options = {}) {
     const nextIndex = clamp(targetIndex, 0, total - 1);
+    const immediate = reducedMotion || options.immediate;
     if (options.updateHash !== false) {
       history.replaceState(null, "", `#scene-${nextIndex + 1}`);
     }
     hideNavigationHint();
     window.scrollTo({
       top: nextIndex * sceneStep,
-      behavior: reducedMotion || options.immediate ? "auto" : "smooth"
+      behavior: immediate ? "auto" : "smooth"
     });
-    targetProgress = nextIndex;
-    if (!scrollFrame) scrollFrame = window.requestAnimationFrame(renderScrollProgress);
+
+    // Pada perpindahan halus, event scroll menjadi satu-satunya pengendali
+    // kemajuan visual. Mengubah target di sini sekaligus akan melawan posisi
+    // gulir peramban dan menghasilkan gerakan maju-mundur singkat.
+    if (immediate) {
+      targetProgress = nextIndex;
+      visualProgress = nextIndex;
+      if (!scrollFrame) scrollFrame = window.requestAnimationFrame(renderScrollProgress);
+    }
   }
 
   function nextScene() {
