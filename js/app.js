@@ -7,6 +7,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   const slides = [...document.querySelectorAll('.slide')];
   const btns = [...document.querySelectorAll('.nav button')];
+  const transitionCurtain = document.getElementById('transitionCurtain');
+  const transitionNumber = document.getElementById('transitionNumber');
+  const transitionTitle = document.getElementById('transitionTitle');
+  const fullscreenBtn = document.getElementById('fullscreenBtn');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const roman = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
+  const sceneTitles = ['Pembuka', 'Efek Flynn', 'Data Norwegia', 'Ingatan', 'AI & Pemahaman', 'Perhatian', 'Ketahanan', 'Kesimpulan'];
 
   // Trivia Modal Elements
   const triviaModal = document.getElementById('triviaModal');
@@ -20,42 +27,70 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   let current = 0;
+  let transitioning = false;
+
+  function commitSlide(n) {
+    slides[current].classList.remove('active');
+    if (btns[current]) {
+      btns[current].classList.remove('active');
+      btns[current].removeAttribute('aria-current');
+    }
+
+    current = n;
+
+    // Trigger DOM reflow to re-trigger CSS animations on slide entrance
+    void slides[current].offsetWidth;
+    slides[current].classList.add('active');
+
+    if (btns[current]) {
+      btns[current].classList.add('active');
+      btns[current].setAttribute('aria-current', 'step');
+    }
+
+    const countEl = document.getElementById('count');
+    if (countEl) countEl.textContent = `${String(current + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+
+    const progEl = document.getElementById('progress');
+    if (progEl) progEl.style.width = `${(current + 1) / slides.length * 100}%`;
+
+    window.dispatchEvent(new CustomEvent('slidechange', { detail: { index: current } }));
+
+    if (current === 4) {
+      pChips.forEach((chip, index) => chip.classList.toggle('active', index === 0));
+      playChatDialogue('science');
+    }
+  }
 
   // Master Slide Navigation Function
   function go(n) {
     n = Math.max(0, Math.min(slides.length - 1, n));
-    if (n === current && slides[current].classList.contains('active')) return;
-    
-    slides[current].classList.remove('active');
-    if (btns[current]) btns[current].classList.remove('active');
-    
-    current = n;
-    
-    // Trigger DOM reflow to re-trigger CSS animations on slide entrance
-    void slides[current].offsetWidth;
-    
-    slides[current].classList.add('active');
-    if (btns[current]) btns[current].classList.add('active');
-    
-    const countEl = document.getElementById('count');
-    if (countEl) countEl.textContent = String(current + 1).padStart(2, '0') + ' / 08';
+    if (transitioning || (n === current && slides[current].classList.contains('active'))) return;
 
-    const progEl = document.getElementById('progress');
-    if (progEl) progEl.style.width = ((current + 1) / slides.length * 100) + '%';
+    const direction = n > current ? 1 : -1;
+    window.dispatchEvent(new CustomEvent('slidetransition', { detail: { from: current, to: n, direction } }));
 
-    // Dispatch global event for Three.js engine and other listeners
-    window.dispatchEvent(new CustomEvent('slidechange', { detail: { index: current } }));
+    if (transitionNumber) transitionNumber.textContent = roman[n] || String(n + 1);
+    if (transitionTitle) transitionTitle.textContent = sceneTitles[n] || `Slide ${n + 1}`;
 
-    // If landing on slide 5 (AI & Cognition), trigger smooth initial dialogue
-    if (current === 4) {
-      playChatDialogue('science');
+    if (prefersReducedMotion || !transitionCurtain) {
+      commitSlide(n);
+      return;
     }
+
+    transitioning = true;
+    transitionCurtain.classList.add('open');
+    window.setTimeout(() => commitSlide(n), 330);
+    window.setTimeout(() => {
+      transitionCurtain.classList.remove('open');
+      transitioning = false;
+    }, 760);
   }
 
   // Bind navigation buttons if present
   btns.forEach(b => {
     b.onclick = () => go(+b.dataset.i);
   });
+  if (btns[0]) btns[0].setAttribute('aria-current', 'step');
 
   // Click on slide count indicator to go forward (or loop back to start)
   const countEl = document.getElementById('count');
@@ -66,8 +101,23 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
 
+  async function toggleFullscreen() {
+    try {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch (error) {
+      console.warn('Fullscreen tidak tersedia:', error);
+    }
+  }
+
+  if (fullscreenBtn) fullscreenBtn.onclick = toggleFullscreen;
+
   // Scientific Trivia Modal Controls & Sub-Tabs
   function toggleTrivia(open) {
+    if (!triviaModal) return;
     if (open === undefined) {
       triviaModal.classList.toggle('open');
     } else if (open) {
@@ -75,6 +125,10 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       triviaModal.classList.remove('open');
     }
+    const isOpen = triviaModal.classList.contains('open');
+    triviaModal.setAttribute('aria-hidden', String(!isOpen));
+    triviaModal.toggleAttribute('inert', !isOpen);
+    if (isOpen && btnCloseTrivia) btnCloseTrivia.focus();
   }
 
   if (btnTrivia) btnTrivia.onclick = () => toggleTrivia(true);
@@ -111,6 +165,18 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     if (triviaModal && triviaModal.classList.contains('open')) return;
+
+    if (key === 'f') {
+      e.preventDefault();
+      toggleFullscreen();
+      return;
+    }
+
+    if (/^[1-8]$/.test(e.key)) {
+      e.preventDefault();
+      go(Number(e.key) - 1);
+      return;
+    }
 
     if (['ArrowRight', 'PageDown', ' '].includes(e.key)) {
       e.preventDefault();
@@ -166,13 +232,13 @@ document.addEventListener('DOMContentLoaded', () => {
     ],
     cognition: [
       { type: 'user', text: 'Apa bedanya tahu sebuah fakta dengan benar-benar memahaminya?' },
-      { type: 'ai', small: 'AI RESPONSE', text: 'Tahu fakta adalah rekaman memori instan (seperti mencari di mesin pencari). Memahami adalah kemampuan menghubungkan konsep dan menerapkannya pada masalah baru.' },
-      { type: 'user', text: 'Kenapa menyerahkan semua jawaban ke AI bisa membuat pikiran lelah?' },
-      { type: 'ai', isEmphasis: true, small: 'AI REFLECTION', text: 'Karena otot kognitif hanya terlatih saat otak mengalami <strong>kesulitan produktif</strong>—proses berpikir mandiri sebelum mendapatkan kesimpulan.' }
+      { type: 'ai', small: 'AI RESPONSE', text: 'Mengetahui fakta berarti mampu mengenali atau mengingat informasinya. Memahami berarti mampu menghubungkan konsep, menjelaskannya kembali, dan menerapkannya pada masalah baru.' },
+      { type: 'user', text: 'Apa risikonya jika semua jawaban langsung aku serahkan ke AI?' },
+      { type: 'ai', isEmphasis: true, small: 'AI REFLECTION', text: 'Kamu bisa kehilangan kesempatan untuk melatih <strong>proses berpikir mandiri</strong>. Karena itu, susun pemahaman awalmu lebih dulu lalu gunakan AI untuk menguji dan memperbaikinya.' }
     ],
     philosophy: [
       { type: 'user', text: 'Apakah kekhawatiran terhadap teknologi kemudahan ini hal baru dalam sejarah?' },
-      { type: 'ai', small: 'AI RESPONSE', text: '2.400 tahun lalu, filsuf Socrates mengkritik penemuan tulisan karena dianggap membuat manusia berhenti melatih daya ingatnya sendiri.' },
+      { type: 'ai', small: 'AI RESPONSE', text: 'Dalam dialog <em>Phaedrus</em>, Plato menampilkan Socrates yang mengisahkan kekhawatiran bahwa tulisan dapat membuat manusia bergantung pada tanda dari luar.' },
       { type: 'user', text: 'Lalu apa bedanya era tulisan kuno dengan era AI sekarang?' },
       { type: 'ai', isEmphasis: true, small: 'AI REFLECTION', text: 'Tulisan bersifat pasif merekam. AI bersifat <strong>generatif aktif</strong>—ia mampu menyusun kesimpulan menggantikan kita jika kita tidak berhati-hati.' }
     ]

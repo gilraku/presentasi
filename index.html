@@ -1,15 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Reversal of the Flynn Effect and Cognitive Laziness · Richard Balon, MD</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
-    rel="stylesheet">
+  <meta name="description"
+    content="Presentasi interaktif tentang pembalikan Efek Flynn, kemalasan kognitif, dan penggunaan teknologi secara sadar.">
+  <title>The Cognitive Renaissance · Interactive Presentation</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="preload" as="image" href="assets/slide1-contemplation.jpg">
   <link rel="preload" as="image" href="assets/slide2-flynn-expansion.jpg">
@@ -30,8 +27,38 @@
     <rect width="100%" height="100%" filter="url(#grain)" />
   </svg>
 
+  <!-- Persistent scene index, inspired by editorial exhibition navigation -->
+  <aside class="scene-index nav" aria-label="Daftar slide">
+    <div class="scene-brand">
+      <span>The Cognitive</span>
+      <strong>Renaissance</strong>
+      <span>Edition</span>
+    </div>
+    <div class="scene-list">
+      <button type="button" class="active" data-i="0" aria-label="Slide 1, Pembuka"><i>I</i><span>Pembuka</span></button>
+      <button type="button" data-i="1" aria-label="Slide 2, Efek Flynn"><i>II</i><span>Efek Flynn</span></button>
+      <button type="button" data-i="2" aria-label="Slide 3, Data Norwegia"><i>III</i><span>Data Norwegia</span></button>
+      <button type="button" data-i="3" aria-label="Slide 4, Ingatan"><i>IV</i><span>Ingatan</span></button>
+      <button type="button" data-i="4" aria-label="Slide 5, AI dan pemahaman"><i>V</i><span>AI &amp; Pemahaman</span></button>
+      <button type="button" data-i="5" aria-label="Slide 6, Perhatian"><i>VI</i><span>Perhatian</span></button>
+      <button type="button" data-i="6" aria-label="Slide 7, Ketahanan"><i>VII</i><span>Ketahanan</span></button>
+      <button type="button" data-i="7" aria-label="Slide 8, Kesimpulan"><i>VIII</i><span>Kesimpulan</span></button>
+    </div>
+  </aside>
+
+  <!-- Cinematic scene change: the WebGL object morphs between chapters -->
+  <div class="transition-curtain" id="transitionCurtain" aria-hidden="true">
+    <div class="transition-three-wrap" id="transition-three-wrap"></div>
+    <div class="transition-copy">
+      <span id="transitionNumber">II</span>
+      <strong id="transitionTitle">Efek Flynn</strong>
+    </div>
+  </div>
+
   <div class="deck">
     <div class="count" id="count" title="Klik untuk lanjut slide">01 / 08</div>
+    <button class="fullscreen-btn" id="fullscreenBtn" type="button" title="Layar penuh (F)"
+      aria-label="Aktifkan layar penuh">⛶</button>
     <div class="progress"><i id="progress"></i></div>
 
     <!-- SLIDE 01 · PEMBUKA (OFFICIAL SOURCE PAPER TITLE) -->
@@ -66,8 +93,9 @@
       <div class="copy panel">
         <div class="kicker">02 // Sejarah Kognitif</div>
         <h2>Mengenal<br>Efek Flynn.</h2>
-        <p class="lead">Dinamai dari peneliti James Flynn, fenomena ini mencatat bahwa sepanjang abad ke-20, rata-rata
-          skor tes kecerdasan manusia di dunia naik stabil sekitar <strong>+3 poin setiap 10 tahun</strong>.</p>
+        <p class="lead">Dinamai dari peneliti James Flynn, fenomena ini menggambarkan kenaikan skor tes IQ di banyak
+          negara selama abad ke-20—sering diringkas sekitar <strong>+3 poin setiap 10 tahun</strong>, meskipun besar
+          kenaikannya berbeda menurut negara, periode, dan jenis tes.</p>
 
         <div class="drivers-list">
           <div class="driver-card ds-1">
@@ -99,7 +127,7 @@
     <!-- SLIDE 03 · PEMBALIKAN EFEK FLYNN (INSTANT SVG TOOLTIPS + BEDAH RISET) -->
     <section class="slide s3">
       <div class="copy panel">
-        <div class="kicker">03 // Tren Dunia</div>
+        <div class="kicker">03 // Studi Kohort Norwegia</div>
         <h2>Pembalikan<br>Efek Flynn</h2>
         <p class="lead">Namun setelah seabad grafik ini terus menanjak, sejumlah data kohort modern menunjukkan laju
           kenaikan ini mulai melambat—bahkan berbalik menurun pada generasi muda.</p>
@@ -109,10 +137,10 @@
           <div class="chart-topbar">
             <div class="chart-heading">
               <h3>Tren Skor Tes Kemampuan (1962–1991)</h3>
-              <p>Data kohort pemuda Norwegia (usia 18–19 tahun)</p>
+              <p>736.808 pria Norwegia, kohort kelahiran 1962–1991</p>
             </div>
             <div class="chart-badge-group">
-              <button class="btn-trivia" id="btnTrivia" title="Buka Trivia &amp; Fakta Jurnal Ilmiah (Key: T / I)">
+              <button type="button" class="btn-trivia" id="btnTrivia" title="Buka catatan sumber (T / I)">
                 <span>📜 BEDAH RISET ILMIAH</span>
               </button>
               <span class="chart-pill cp-study">PNAS (2018)</span>
@@ -121,7 +149,7 @@
           </div>
 
           <div class="chart-canvas-wrap">
-            <svg class="flynn-svg-canvas" viewBox="0 0 920 420" preserveAspectRatio="none"
+            <svg class="flynn-svg-canvas" viewBox="0 0 920 420" preserveAspectRatio="none" role="img"
               aria-label="Grafik Efek Flynn dan Pembalikannya">
               <defs>
                 <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -202,7 +230,7 @@
                   <text x="125" y="-32" text-anchor="middle" font-size="10" font-weight="700" fill="#c9a050"
                     font-family="'Cinzel',serif" letter-spacing="1.5">1962 · SKOR 99,5</text>
                   <text x="125" y="-14" text-anchor="middle" font-size="10.5" font-weight="400" fill="#f7f4ee"
-                    font-family="'DM Sans',sans-serif">Ledakan sekolah formal &amp; tes logika pascaperang.</text>
+                    font-family="'DM Sans',sans-serif">Awal rentang kohort dalam data wajib militer.</text>
                 </g>
               </g>
 
@@ -228,7 +256,7 @@
                   <text x="0" y="-32" text-anchor="middle" font-size="10" font-weight="700" fill="#c9a050"
                     font-family="'Cinzel',serif" letter-spacing="1.5">🏆 1975 · SKOR 102,3 (PUNCAK)</text>
                   <text x="0" y="-14" text-anchor="middle" font-size="10.5" font-weight="400" fill="#f7f4ee"
-                    font-family="'DM Sans',sans-serif">Puncak latihan berpikir mandiri tanpa kalkulator/PC.</text>
+                    font-family="'DM Sans',sans-serif">Titik tertinggi rata-rata dalam kohort yang diteliti.</text>
                 </g>
               </g>
 
@@ -249,7 +277,7 @@
                   <text x="0" y="-32" text-anchor="middle" font-size="10" font-weight="700" fill="#c9a050"
                     font-family="'Cinzel',serif" letter-spacing="1.5">📉 1989 · SKOR 99,4 (AWAL TURUN)</text>
                   <text x="0" y="-14" text-anchor="middle" font-size="10.5" font-weight="400" fill="#f7f4ee"
-                    font-family="'DM Sans',sans-serif">Masuknya komputer pribadi &amp; otomatisasi kerja.</text>
+                    font-family="'DM Sans',sans-serif">Penurunan teramati; penyebab spesifik belum diketahui.</text>
                 </g>
               </g>
 
@@ -270,7 +298,7 @@
                   <text x="-125" y="-32" text-anchor="middle" font-size="10" font-weight="700" fill="#c9a050"
                     font-family="'Cinzel',serif" letter-spacing="1.5">🌐 1991 · SKOR 99,7 (ERA WEB)</text>
                   <text x="-125" y="-14" text-anchor="middle" font-size="10.5" font-weight="400" fill="#f7f4ee"
-                    font-family="'DM Sans',sans-serif">Lahirnya era internet &amp; pelepasan memori ke search.</text>
+                    font-family="'DM Sans',sans-serif">Akhir rentang data; skor naik sedikit dari 1989.</text>
                 </g>
               </g>
             </svg>
@@ -279,11 +307,11 @@
           <div class="chart-bottom-insights">
             <div class="insight-pill">
               <span class="ip-emoji">📈</span>
-              <div><strong>1962–1975:</strong> Otak terlatih aktif oleh kurikulum &amp; lingkungan kerja.</div>
+              <div><strong>1962–1975:</strong> Kenaikan skor juga terlihat di antara saudara kandung.</div>
             </div>
             <div class="insight-pill">
               <span class="ip-emoji">⚡</span>
-              <div><strong>1975–1989:</strong> Otomasi &amp; teknologi instan mulai mengurangi latihan otak.</div>
+              <div><strong>1975–1991:</strong> Penurunan di dalam keluarga mendukung peran faktor lingkungan.</div>
             </div>
           </div>
         </div>
@@ -295,8 +323,8 @@
       <div class="copy panel">
         <div class="kicker">04 // Cara Kita Mengingat</div>
         <h2>Ingatan<br>dititipkan.</h2>
-        <p class="lead">Nomor telepon, jadwal harian, arah jalan, sampai informasi umum. Hal-hal yang dulu kita simpan
-          di kepala, kini sepenuhnya kita titipkan ke perangkat saku.</p>
+        <p class="lead">Nomor telepon, jadwal harian, arah jalan, sampai informasi umum. Banyak hal yang dulu kita simpan
+          di kepala kini lebih sering kita titipkan ke perangkat saku.</p>
 
         <div class="offload-grid">
           <div class="offload-item oi-1">
@@ -312,7 +340,7 @@
           <div class="offload-item oi-3">
             <span class="offload-cat">03 // PETA</span>
             <strong>Arah Navigasi</strong>
-            <p>Dulu membaca tanda jalan, kini sepenuhnya dipandu suara peta digital.</p>
+            <p>Dulu membaca tanda jalan; kini banyak perjalanan dipandu suara peta digital.</p>
           </div>
           <div class="offload-item oi-4">
             <span class="offload-cat">04 // ILMU</span>
@@ -339,9 +367,9 @@
       <div class="visual panel">
         <!-- Interactive Topic Chips (Poin 2) -->
         <div class="prompt-chips">
-          <button class="p-chip active" data-topic="science">🧪 Sains: Titik Didih</button>
-          <button class="p-chip" data-topic="cognition">🧠 Kognisi: Tahu vs Paham</button>
-          <button class="p-chip" data-topic="philosophy">🏛️ Filsafat: Socrates</button>
+          <button type="button" class="p-chip active" data-topic="science">🧪 Sains: Titik Didih</button>
+          <button type="button" class="p-chip" data-topic="cognition">🧠 Kognisi: Tahu vs Paham</button>
+          <button type="button" class="p-chip" data-topic="philosophy">🏛️ Filsafat: Socrates</button>
         </div>
 
         <div class="chat-window">
@@ -397,9 +425,9 @@
       <div class="copy panel">
         <div class="kicker">06 // Dampak Kebiasaan</div>
         <h2>Kabut di atas<br>perhatian.</h2>
-        <p class="lead">Balon mengingatkan bahwa kebiasaan terus-menerus menatap layar, menonton video kilat, dan
-          menerima distraksi tanpa henti membuat pikiran kita mudah lelah (<em>“brain rot”</em>)—fokus kita cepat buyar
-          bahkan sebelum sempat berpikir mendalam.</p>
+        <p class="lead">Balon mengusulkan bahwa penggunaan layar berlebihan, konsumsi konten singkat, dan ketergantungan
+          pada jawaban instan mungkin ikut mengurangi latihan kognitif. Namun, hubungan sebab-akibatnya belum dapat
+          dipastikan dari data yang tersedia.</p>
       </div>
     </section>
 
@@ -408,15 +436,15 @@
       <div class="copy panel">
         <div class="kicker">07 // Langkah Pemulihan</div>
         <h2>Membangun<br>ketahanan.</h2>
-        <p class="lead">Cara untuk mengatasinya adalah dengan melatih kembali kebiasaan berpikir kita secara sadar dan
-          bertahap:</p>
+        <p class="lead">Editorial Balon menawarkan beberapa langkah praktis untuk menjaga keterlibatan kognitif secara
+          sadar dan bertahap:</p>
 
         <div class="editorial-steps">
           <div class="step-item si-1">
             <div class="step-num">01</div>
             <div class="step-content">
               <strong>Beri jeda sejenak</strong>
-              <p>Coba ingat atau pecahkan masalah sendiri dulu selama 30 detik sebelum membuka HP.</p>
+              <p>Coba ingat atau susun jawaban awal sendiri sebelum membuka HP atau meminta bantuan AI.</p>
             </div>
           </div>
           <div class="step-item si-2">
@@ -472,22 +500,22 @@
   </div>
 
   <!-- Scientific Trivia & Research Modal -->
-  <div class="trivia-modal" id="triviaModal">
-    <div class="tm-dialog">
+  <div class="trivia-modal" id="triviaModal" aria-hidden="true" inert>
+    <div class="tm-dialog" role="dialog" aria-modal="true" aria-labelledby="researchDialogTitle">
       <!-- Modal Header -->
       <div class="tm-header">
         <div class="tm-title">
-          <span class="tm-kicker">✦ DOKUMEN RISET ILMIAH RESMI</span>
-          <h3>Reversal of the Flynn Effect and Cognitive Laziness</h3>
-          <p>Richard Balon, MD · Wayne State University School of Medicine (Annals of Clinical Psychiatry, 2026)</p>
+          <span class="tm-kicker">✦ CATATAN SUMBER &amp; KONTEKS</span>
+          <h3 id="researchDialogTitle">Temuan, Interpretasi, dan Batas Bukti</h3>
+          <p>Memisahkan hasil penelitian, interpretasi editorial, dan sintesis praktis presentasi.</p>
         </div>
         <div class="tm-nav-controls">
           <div class="tm-tabs">
-            <button class="tm-tab active" data-view="pillars">🏛️ 4 PILAR RISET</button>
-            <button class="tm-tab" data-view="timeline">⏳ SEJARAH KEPANIKAN</button>
-            <button class="tm-tab" data-view="matrix">⚖️ MATRIKS SINTESIS</button>
+            <button type="button" class="tm-tab active" data-view="pillars">🏛️ 4 SUMBER UTAMA</button>
+            <button type="button" class="tm-tab" data-view="timeline">⏳ SEJARAH KEPANIKAN</button>
+            <button type="button" class="tm-tab" data-view="matrix">⚖️ MATRIKS SINTESIS</button>
           </div>
-          <button class="btn-close-tm" id="btnCloseTrivia">✕ TUTUP [ESC]</button>
+          <button type="button" class="btn-close-tm" id="btnCloseTrivia">✕ TUTUP [ESC]</button>
         </div>
       </div>
 
@@ -500,10 +528,10 @@
               <span class="tpc-source-badge">CAMBRIDGE UNIV. PRESS · 2012</span>
               <span class="tpc-stat">+3 IQ / Dekade</span>
             </div>
-            <h4>Kenapa 1975 Menjadi Puncak Kecerdasan Dunia?</h4>
-            <p>Bukan karena penemuan ilmuwan jenius individu, melainkan <strong>perluasan kurikulum penalaran abstrak
-                pada masyarakat umum</strong>. Generasi pascaperang hingga 1975 dilatih mengenakan <em>“scientific
-                spectacles”</em> (kacamata ilmiah) untuk memecahkan logika tanpa kalkulator saku atau komputer.</p>
+            <h4>Konteks Umum Efek Flynn: Skor Tes Naik Lintas Generasi</h4>
+            <p>James Flynn mendokumentasikan kenaikan skor tes IQ selama abad ke-20. Salah satu penjelasan yang ia
+              ajukan adalah perubahan lingkungan kognitif—termasuk pendidikan yang makin menuntut penalaran abstrak—
+              bukan perubahan genetik yang cepat.</p>
             <div class="tpc-footer">Sumber: Flynn, J. R. <em>Are We Getting Smarter? Rising IQ in the 21st Century</em>.
               Cambridge Univ. Press.</div>
           </div>
@@ -514,12 +542,13 @@
               <span class="tpc-source-badge">PNAS · ACADEMY OF SCIENCES · 2018</span>
               <span class="tpc-stat">730k+ Kohort</span>
             </div>
-            <h4>Bukti Riset 730.000 Pemuda: Faktor Lingkungan, Bukan Gen</h4>
-            <p>Studi terbesar dunia membuktikan pembalikan skor Efek Flynn <strong>terjadi bahkan di antara saudara
-                kandung (kakak vs adik) dalam keluarga yang sama</strong>. Penurunan ini murni dipicu oleh pergeseran
-              lingkungan belajar: hiburan visual kilat, berkurangnya bacaan panjang, dan delegasi hitungan ke mesin.</p>
+            <h4>Bukti Dalam Keluarga: Faktor Lingkungan, Bukan Penyebab Spesifik</h4>
+            <p>Bratsberg dan Rogeberg menunjukkan bahwa kenaikan, titik balik, dan penurunan skor dapat ditemukan
+              <strong>di antara saudara kandung dalam keluarga yang sama</strong>. Ini memperkuat peran lingkungan dan
+              melemahkan penjelasan berbasis perubahan komposisi genetik, tetapi studi tersebut tidak menetapkan
+              teknologi, pola membaca, atau media tertentu sebagai penyebab langsung.</p>
             <div class="tpc-footer">Sumber: Bratsberg, B., &amp; Rogeberg, O. <em>Flynn effect and its reversal are
-                environmentally caused</em>. PNAS, 115(26).</div>
+                environmentally caused</em>. PNAS, 115(26), 6674–6678. DOI: 10.1073/pnas.1718793115.</div>
           </div>
 
           <!-- Pillar III -->
@@ -528,13 +557,12 @@
               <span class="tpc-source-badge">ANNALS OF CLINICAL PSYCHIATRY · 2026</span>
               <span class="tpc-stat">Neuroplastisitas</span>
             </div>
-            <h4>Teori "Cognitive Laziness" &amp; Prinsip 'Use It or Lose It'</h4>
-            <p>Dr. Richard Balon menegaskan bahwa sirkuit sinapsis otak bekerja seperti otot yang membutuhkan
-              <strong>kesulitan produktif (*productive struggle*)</strong>. Ketika teknologi dan AI menyajikan jawaban
-              instan, pelepasan beban kognitif berlebih (*cognitive offloading*) memicu kemalasan dan melemahkan
-              ketajaman analisis.</p>
+            <h4>Editorial “Cognitive Laziness”: Hipotesis yang Perlu Diuji</h4>
+            <p>Richard Balon menghubungkan kemudahan teknologi dengan kemungkinan berkurangnya keterlibatan kognitif.
+              Namun, ia juga menyatakan bahwa data saat ini belum cukup untuk memastikan pembalikan Efek Flynn
+              disebabkan oleh penggunaan smartphone, AI, atau penurunan nilai pendidikan.</p>
             <div class="tpc-footer">Sumber: Balon, R. <em>Reversal of the Flynn Effect and Cognitive Laziness</em>. Ann
-              Clin Psychiatry, 38(1), 3–5.</div>
+              Clin Psychiatry, 37(2), 59–61. DOI: 10.1177/10401237261438653.</div>
           </div>
 
           <!-- Pillar IV -->
@@ -543,12 +571,12 @@
               <span class="tpc-source-badge">SCIENCE · HARVARD &amp; COLUMBIA · 2011</span>
               <span class="tpc-stat">Digital Amnesia</span>
             </div>
-            <h4>The Google Effect: Memori Bergeser ke 'Lokasi Pencarian'</h4>
-            <p>Riset ilmiah di jurnal <em>Science</em> membuktikan bahwa ketika orang tahu informasi dapat diakses kapan
-              saja melalui internet, otak secara otomatis <strong>berhenti menyimpan data mentah</strong> dan hanya
-              mengingat tautan atau direktori tempat mencarinya (*transactive memory*).</p>
+            <h4>The Google Effect: Apa yang Diingat Dapat Bergeser</h4>
+            <p>Dalam empat eksperimen, peserta cenderung lebih sulit mengingat informasi yang mereka harapkan tetap
+              tersedia di komputer, tetapi lebih baik mengingat <strong>di mana informasi itu tersimpan</strong>.
+              Temuan ini mendukung konsep memori transaktif, bukan berarti otak sepenuhnya berhenti menyimpan fakta.</p>
             <div class="tpc-footer">Sumber: Sparrow, B., Liu, J., &amp; Wegner, D. M. <em>Google Effects on Memory</em>.
-              Science, 333(6043), 776–778.</div>
+              Science, 333(6043), 776–778. DOI: 10.1126/science.1207745.</div>
           </div>
         </div>
       </div>
@@ -625,10 +653,9 @@
             </div>
             <div class="tmt-body">
               <strong>"Reversal of the Flynn Effect and Cognitive Laziness" (Richard Balon, MD)</strong>
-              <p><strong>Pembeda Utama Zaman Ini:</strong> Kalkulator &amp; mesin pencari hanya mengotomasi tugas
-                mekanis/pencarian. Namun AI generatif mulai mengambil alih <em>perumusan argumen dan sintesis berpikir
-                  kita</em>. Oleh karena itu, kita harus menjaga batas antara <em>alat bantu</em> vs <em>penyerahan
-                  nalar total</em>.</p>
+              <p><strong>Pertanyaan Utama Zaman Ini:</strong> AI generatif bukan hanya mencari informasi, tetapi dapat
+                menyusun argumen dan sintesis. Belum ada bukti bahwa hal ini menjelaskan pembalikan Efek Flynn, tetapi
+                risikonya layak diuji dan dikelola dengan penggunaan yang sadar.</p>
               <span class="tmt-tag">PESAN KUNCI: Gunakan kemudahan untuk akselerasi, jangan serahkan kapasitas berpikir
                 mandiri.</span>
             </div>
@@ -645,7 +672,7 @@
               <span class="tmm-icon">🟢</span>
               <h4>Sinergi Kognitif (Pemberdayaan)</h4>
             </div>
-            <p class="lead-text">Cara ideal menggunakan AI dan teknologi kemudahan sebagai alat pengungkit nalar
+            <p class="lead-text">Sintesis praktis presentasi untuk menggunakan AI sebagai alat pengungkit nalar
               (*cognitive leverage*):</p>
             <div class="tmm-list">
               <div class="tmm-item">
@@ -672,8 +699,7 @@
               <span class="tmm-icon">🔴</span>
               <h4>Kemalasan Kognitif (Atrofi Nalar)</h4>
             </div>
-            <p class="lead-text">Pola kebiasaan yang memicu penurunan daya pikir mandiri menurut kajian Richard Balon,
-              MD:</p>
+            <p class="lead-text">Pola penggunaan yang berisiko mengurangi keterlibatan berpikir mandiri:</p>
             <div class="tmm-list">
               <div class="tmm-item">
                 <strong>Langsung Meminta Jawaban Jadi di Awal</strong>
@@ -698,7 +724,7 @@
   </div>
 
   <!-- Three.js Visual Effects & Presentation Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="vendor/three.r128.min.js"></script>
   <script src="js/three-fx.js"></script>
   <script src="js/app.js"></script>
 </body>

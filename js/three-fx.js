@@ -15,6 +15,7 @@
   // Active slide index tracker
   let currentSlide = 0;
   const scenes = [];
+  let transitionScene = null;
 
   /**
    * Helper to create a soft radial particle texture
@@ -39,6 +40,108 @@
   }
 
   const particleTexture = createParticleTexture();
+
+  /* =========================================================================
+     CINEMATIC CHAPTER TRANSITION · PERSISTENT MORPHING COGNITIVE ORB
+     ========================================================================= */
+  function initTransitionScene() {
+    const container = document.getElementById('transition-three-wrap');
+    if (!container) return null;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(48, container.clientWidth / container.clientHeight, 0.1, 100);
+    camera.position.z = 14;
+
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    const orb = new THREE.Group();
+    scene.add(orb);
+
+    const goldLine = new THREE.LineBasicMaterial({ color: 0xc9a050, transparent: true, opacity: 0.55 });
+    const paleLine = new THREE.LineBasicMaterial({ color: 0xf7f4ee, transparent: true, opacity: 0.18 });
+    const coreGeometry = new THREE.IcosahedronGeometry(3.15, 2);
+    const core = new THREE.LineSegments(new THREE.WireframeGeometry(coreGeometry), goldLine);
+    orb.add(core);
+
+    const rings = [];
+    [4.25, 5.15, 6.05].forEach((radius, index) => {
+      const ringGeometry = new THREE.TorusGeometry(radius, 0.012, 6, 120);
+      const ring = new THREE.LineSegments(new THREE.WireframeGeometry(ringGeometry), index === 1 ? goldLine : paleLine);
+      ring.rotation.x = Math.PI * (0.18 + index * 0.21);
+      ring.rotation.y = Math.PI * (0.13 + index * 0.17);
+      rings.push(ring);
+      orb.add(ring);
+    });
+
+    const dustCount = 420;
+    const dustGeometry = new THREE.BufferGeometry();
+    const dustPositions = new Float32Array(dustCount * 3);
+    for (let i = 0; i < dustCount; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 3.8 + Math.random() * 7;
+      dustPositions[i * 3] = Math.cos(angle) * radius;
+      dustPositions[i * 3 + 1] = (Math.random() - 0.5) * 9;
+      dustPositions[i * 3 + 2] = Math.sin(angle) * radius * 0.35;
+    }
+    dustGeometry.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
+    const dustMaterial = new THREE.PointsMaterial({
+      color: 0xe0bd72,
+      size: 0.2,
+      map: particleTexture,
+      transparent: true,
+      opacity: 0.58,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const dust = new THREE.Points(dustGeometry, dustMaterial);
+    scene.add(dust);
+
+    let activeUntil = 0;
+    let direction = 1;
+    let startTime = 0;
+
+    function trigger(event) {
+      direction = event.detail && event.detail.direction < 0 ? -1 : 1;
+      startTime = performance.now();
+      activeUntil = startTime + 900;
+      orb.rotation.set(Math.random() * 0.5, Math.random() * 0.5, 0);
+      orb.scale.setScalar(0.72);
+    }
+
+    function resize() {
+      if (!container.clientWidth || !container.clientHeight) return;
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    }
+
+    function isActive(time) {
+      return time <= activeUntil;
+    }
+
+    function render(time) {
+      const elapsed = Math.max(0, time - startTime);
+      const progress = Math.min(1, elapsed / 760);
+      const pulse = 0.72 + Math.sin(progress * Math.PI) * 0.38;
+
+      orb.scale.setScalar(pulse);
+      orb.rotation.x += 0.004 * direction;
+      orb.rotation.y += 0.008 * direction;
+      core.rotation.z -= 0.006 * direction;
+      rings.forEach((ring, index) => {
+        ring.rotation.z += (0.003 + index * 0.0015) * (index % 2 ? -direction : direction);
+      });
+      dust.rotation.y = time * 0.00022 * direction;
+      dust.rotation.z = Math.sin(time * 0.0004) * 0.15;
+      renderer.render(scene, camera);
+    }
+
+    window.addEventListener('slidetransition', trigger);
+    return { render, resize, isActive };
+  }
 
   /* =========================================================================
      1. SLIDE 01 · 3D CELESTIAL ARMILLARY SPHERE & STARDUST
@@ -401,13 +504,24 @@
      LIFECYCLE & RENDER DISPATCHER
      ========================================================================= */
   function init() {
-    const s1 = initSlide1();
+    function safeInit(factory, label) {
+      try {
+        return factory();
+      } catch (error) {
+        console.warn(`Efek Three.js ${label} dinonaktifkan:`, error);
+        return null;
+      }
+    }
+
+    transitionScene = safeInit(initTransitionScene, 'transisi');
+
+    const s1 = safeInit(initSlide1, 'slide 1');
     if (s1) scenes.push(s1);
 
-    const s6 = initSlide6();
+    const s6 = safeInit(initSlide6, 'slide 6');
     if (s6) scenes.push(s6);
 
-    const s8 = initSlide8();
+    const s8 = safeInit(initSlide8, 'slide 8');
     if (s8) scenes.push(s8);
 
     // Listen to slide changes from presentation engine
@@ -431,6 +545,7 @@
     // Window resize observer
     window.addEventListener('resize', () => {
       scenes.forEach(s => s.resize());
+      if (transitionScene) transitionScene.resize();
     });
 
     // Master Animation Loop (Only renders active slide's scene for 0% idle GPU load)
@@ -442,6 +557,10 @@
         if (s.slideIndex === currentSlide) {
           s.render(time);
         }
+      }
+
+      if (transitionScene && transitionScene.isActive(time)) {
+        transitionScene.render(time);
       }
     }
 
