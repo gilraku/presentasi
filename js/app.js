@@ -1,275 +1,390 @@
-/**
- * Presentation Controller & Interactive Engine
- * Reversal of the Flynn Effect and Cognitive Laziness
- * Richard Balon, MD (Annals of Clinical Psychiatry · 2026)
- */
+(() => {
+  "use strict";
 
-document.addEventListener('DOMContentLoaded', () => {
-  const slides = [...document.querySelectorAll('.slide')];
-  const btns = [...document.querySelectorAll('.nav button')];
+  const scenes = Array.from(document.querySelectorAll(".scene"));
+  const total = scenes.length;
+  const body = document.body;
+  const chapterLabel = document.getElementById("chapter-label");
+  const currentLabel = document.getElementById("scene-current");
+  const totalLabel = document.getElementById("scene-total");
+  const progressFill = document.getElementById("progress-fill");
+  const previousButton = document.getElementById("prev-button");
+  const nextButton = document.getElementById("next-button");
+  const fullscreenButton = document.getElementById("fullscreen-button");
+  const sourcesButton = document.getElementById("sources-button");
+  const sourcesDialog = document.getElementById("sources-dialog");
+  const sourcesClose = document.getElementById("sources-close");
+  const navigationHint = document.getElementById("navigation-hint");
+  const chatTopics = Array.from(document.querySelectorAll(".chat-topic"));
+  const chatBody = document.getElementById("chat-body");
+  const scrollTrack = document.getElementById("scroll-track");
 
-  // Trivia Modal Elements
-  const triviaModal = document.getElementById('triviaModal');
-  const btnTrivia = document.getElementById('btnTrivia');
-  const btnCloseTrivia = document.getElementById('btnCloseTrivia');
-  const tmTabs = [...document.querySelectorAll('.tm-tab')];
-  const tmViews = {
-    pillars: document.getElementById('view-pillars'),
-    timeline: document.getElementById('view-timeline'),
-    matrix: document.getElementById('view-matrix')
-  };
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const SCENE_SCROLL_RATIO = reducedMotion ? 1 : 1.35;
+  let currentScene = 0;
+  let sceneStep = Math.max(1, window.innerHeight * SCENE_SCROLL_RATIO);
+  let targetProgress = 0;
+  let visualProgress = 0;
+  let scrollFrame = 0;
+  let lastScrollFrameTime = performance.now();
+  let hintHidden = false;
+  let selectedChatTopic = "flynn";
+  let chatTimers = [];
 
-  let current = 0;
+  body.classList.add("scroll-driven");
 
-  // Master Slide Navigation Function
-  function go(n) {
-    n = Math.max(0, Math.min(slides.length - 1, n));
-    if (n === current && slides[current].classList.contains('active')) return;
-    
-    slides[current].classList.remove('active');
-    if (btns[current]) btns[current].classList.remove('active');
-    
-    current = n;
-    
-    // Trigger DOM reflow to re-trigger CSS animations on slide entrance
-    void slides[current].offsetWidth;
-    
-    slides[current].classList.add('active');
-    if (btns[current]) btns[current].classList.add('active');
-    
-    const countEl = document.getElementById('count');
-    if (countEl) countEl.textContent = String(current + 1).padStart(2, '0') + ' / 08';
+  const pad = (value) => String(value).padStart(2, "0");
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
-    const progEl = document.getElementById('progress');
-    if (progEl) progEl.style.width = ((current + 1) / slides.length * 100) + '%';
-
-    // Dispatch global event for Three.js engine and other listeners
-    window.dispatchEvent(new CustomEvent('slidechange', { detail: { index: current } }));
-
-    // If landing on slide 5 (AI & Cognition), trigger smooth initial dialogue
-    if (current === 4) {
-      playChatDialogue('science');
-    }
+  function setChapter(text) {
+    if (!chapterLabel || chapterLabel.textContent === text) return;
+    chapterLabel.classList.add("is-changing");
+    window.setTimeout(() => {
+      chapterLabel.textContent = text;
+      chapterLabel.classList.remove("is-changing");
+    }, reducedMotion ? 0 : 160);
   }
 
-  // Bind navigation buttons if present
-  btns.forEach(b => {
-    b.onclick = () => go(+b.dataset.i);
-  });
-
-  // Click on slide count indicator to go forward (or loop back to start)
-  const countEl = document.getElementById('count');
-  if (countEl) {
-    countEl.style.cursor = 'pointer';
-    countEl.onclick = () => {
-      go(current < slides.length - 1 ? current + 1 : 0);
-    };
+  function updateInterface(progress = currentScene) {
+    currentLabel.textContent = pad(currentScene + 1);
+    totalLabel.textContent = pad(total);
+    progressFill.style.width = `${((progress + 1) / total) * 100}%`;
+    previousButton.disabled = currentScene === 0;
+    nextButton.disabled = currentScene === total - 1;
+    setChapter(scenes[currentScene].dataset.chapter || "");
   }
 
-  // Scientific Trivia Modal Controls & Sub-Tabs
-  function toggleTrivia(open) {
-    if (open === undefined) {
-      triviaModal.classList.toggle('open');
-    } else if (open) {
-      triviaModal.classList.add('open');
-    } else {
-      triviaModal.classList.remove('open');
-    }
+  function hideNavigationHint() {
+    if (hintHidden) return;
+    hintHidden = true;
+    navigationHint?.classList.add("is-hidden");
   }
 
-  if (btnTrivia) btnTrivia.onclick = () => toggleTrivia(true);
-  if (btnCloseTrivia) btnCloseTrivia.onclick = () => toggleTrivia(false);
-
-  tmTabs.forEach(tab => {
-    tab.onclick = () => {
-      tmTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      const target = tab.dataset.view;
-      Object.keys(tmViews).forEach(k => {
-        if (tmViews[k]) {
-          if (k === target) {
-            tmViews[k].classList.add('active');
-          } else {
-            tmViews[k].classList.remove('active');
-          }
-        }
-      });
-    };
-  });
-
-  // Keyboard Navigation
-  document.addEventListener('keydown', e => {
-    const key = e.key.toLowerCase();
-    
-    if (key === 't' || key === 'i') {
-      e.preventDefault();
-      toggleTrivia();
-      return;
-    }
-    if (e.key === 'Escape') {
-      toggleTrivia(false);
-      return;
-    }
-    if (triviaModal && triviaModal.classList.contains('open')) return;
-
-    if (['ArrowRight', 'PageDown', ' '].includes(e.key)) {
-      e.preventDefault();
-      go(current + 1);
-    }
-    if (['ArrowLeft', 'PageUp'].includes(e.key)) {
-      e.preventDefault();
-      go(current - 1);
-    }
-    if (e.key === 'Home') { e.preventDefault(); go(0); }
-    if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
-  });
-
-  // Touch Navigation for Tablets and Mobile
-  let touchStartY = 0, touchStartX = 0;
-  document.addEventListener('touchstart', e => {
-    touchStartY = e.touches[0].clientY;
-    touchStartX = e.touches[0].clientX;
-  }, { passive: true });
-
-  document.addEventListener('touchend', e => {
-    if (triviaModal && triviaModal.classList.contains('open')) return;
-    const diffY = touchStartY - e.changedTouches[0].clientY;
-    const diffX = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 45) {
-      go(current + (diffX > 0 ? 1 : -1));
-    } else if (Math.abs(diffY) > 50) {
-      go(current + (diffY > 0 ? 1 : -1));
-    }
-  }, { passive: true });
-
-  // Mobile Tap Support for SVG Data Nodes (Slide 03)
-  const nodeGroups = [...document.querySelectorAll('.node-group')];
-  nodeGroups.forEach(node => {
-    node.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isActive = node.classList.contains('active');
-      nodeGroups.forEach(n => n.classList.remove('active'));
-      if (!isActive) node.classList.add('active');
+  function setCurrentScene(nextIndex, updateHash = true) {
+    if (nextIndex === currentScene && scenes[nextIndex].classList.contains("is-active")) return;
+    currentScene = clamp(nextIndex, 0, total - 1);
+    scenes.forEach((scene, index) => {
+      const active = index === currentScene;
+      scene.classList.toggle("is-active", active);
+      scene.classList.remove("is-exiting");
+      scene.setAttribute("aria-hidden", String(!active));
     });
-  });
-  document.addEventListener('click', () => {
-    nodeGroups.forEach(n => n.classList.remove('active'));
-  });
+    body.dataset.scene = String(currentScene);
+    updateInterface(visualProgress);
+    hideNavigationHint();
+    if (updateHash) {
+      history.replaceState(null, "", `#scene-${currentScene + 1}`);
+    }
+    window.dispatchEvent(new CustomEvent("presentation:scenechange", {
+      detail: { index: currentScene, total }
+    }));
+  }
 
-  // Interactive AI Sandbox Engine (Natural Turn-Taking Dialogue)
-  const chatData = {
-    science: [
-      { type: 'user', text: 'Jelaskan kenapa air mendidih pada suhu 100°C di permukaan laut.' },
-      { type: 'ai', small: 'AI RESPONSE', text: 'Karena pada tekanan 1 atm, tekanan uap air sama dengan tekanan udara sekitar. Tapi sekadar membaca rumus ini belum tentu sama dengan paham cara kerjanya.' },
-      { type: 'user', text: 'Berarti setelah baca ini, aku belum tentu benar-benar paham?' },
-      { type: 'ai', isEmphasis: true, small: 'AI REFLECTION', text: 'Belum tentu. Kamu baru memegang <strong>jawabannya</strong>. Pemahaman yang asli baru terbentuk saat kamu bisa menjelaskannya dengan kata-katamu sendiri.' }
+  function applyScrollProgress(progress) {
+    const bounded = clamp(progress, 0, total - 1);
+    scenes.forEach((scene, index) => {
+      const distance = index - bounded;
+      const absoluteDistance = Math.abs(distance);
+      const sceneOpacity = clamp(1 - absoluteDistance, 0, 1);
+      const contentOpacity = clamp((.7 - absoluteDistance) / .38, 0, 1);
+      const direction = index % 2 === 0 ? 1 : -1;
+      scene.style.setProperty("--scene-opacity", sceneOpacity.toFixed(4));
+      scene.style.setProperty("--scene-shift", `${(distance * 7.5).toFixed(3)}vh`);
+      scene.style.setProperty("--scene-scale", (1 + absoluteDistance * .024).toFixed(4));
+      scene.style.setProperty("--content-opacity", contentOpacity.toFixed(4));
+      scene.style.setProperty("--content-shift", `${(distance * 8.5).toFixed(3)}vh`);
+      scene.style.setProperty("--art-opacity", clamp(sceneOpacity * .9, 0, .86).toFixed(4));
+      scene.style.setProperty("--art-shift", `${(distance * direction * 3.2).toFixed(3)}vw`);
+      scene.style.setProperty("--art-scale", (1.015 + absoluteDistance * .045).toFixed(4));
+      // Susunan lapisan harus tetap. Mengubah z-index di tengah persilangan
+      // opasitas dapat menimbulkan kedipan ketika dua adegan sama-sama terlihat.
+      scene.style.zIndex = String(index + 1);
+    });
+
+    // Beri sedikit histeresis agar status adegan aktif tidak bolak-balik ketika
+    // touchpad atau roda tetikus berhenti tepat di sekitar titik tengah.
+    let nearestScene = currentScene;
+    if (Math.abs(bounded - currentScene) > 1) {
+      nearestScene = clamp(Math.round(bounded), 0, total - 1);
+    } else if (bounded >= currentScene + .58) {
+      nearestScene = clamp(currentScene + 1, 0, total - 1);
+    } else if (bounded <= currentScene - .58) {
+      nearestScene = clamp(currentScene - 1, 0, total - 1);
+    }
+    setCurrentScene(nearestScene);
+    updateInterface(bounded);
+    window.cinematicWorld?.setProgress?.(bounded);
+  }
+
+  function renderScrollProgress(time = performance.now()) {
+    scrollFrame = 0;
+    const delta = Math.min(Math.max((time - lastScrollFrameTime) / 1000, .016), .5);
+    lastScrollFrameTime = time;
+    if (reducedMotion) visualProgress = targetProgress;
+    else visualProgress += (targetProgress - visualProgress) * (1 - Math.exp(-10 * delta));
+    if (Math.abs(targetProgress - visualProgress) < .0005) visualProgress = targetProgress;
+    applyScrollProgress(visualProgress);
+    if (visualProgress !== targetProgress) {
+      scrollFrame = window.requestAnimationFrame(renderScrollProgress);
+    }
+  }
+
+  function requestScrollRender() {
+    targetProgress = clamp(window.scrollY / sceneStep, 0, total - 1);
+    if (!scrollFrame) scrollFrame = window.requestAnimationFrame(renderScrollProgress);
+  }
+
+  function updateScrollGeometry() {
+    sceneStep = Math.max(1, window.innerHeight * SCENE_SCROLL_RATIO);
+    if (scrollTrack) {
+      scrollTrack.style.height = `${sceneStep * (total - 1) + window.innerHeight}px`;
+    }
+    requestScrollRender();
+  }
+
+  function goToScene(targetIndex, options = {}) {
+    const nextIndex = clamp(targetIndex, 0, total - 1);
+    const immediate = reducedMotion || options.immediate;
+    if (options.updateHash !== false) {
+      history.replaceState(null, "", `#scene-${nextIndex + 1}`);
+    }
+    hideNavigationHint();
+    window.scrollTo({
+      top: nextIndex * sceneStep,
+      behavior: immediate ? "auto" : "smooth"
+    });
+
+    // Pada perpindahan halus, event scroll menjadi satu-satunya pengendali
+    // kemajuan visual. Mengubah target di sini sekaligus akan melawan posisi
+    // gulir peramban dan menghasilkan gerakan maju-mundur singkat.
+    if (immediate) {
+      targetProgress = nextIndex;
+      visualProgress = nextIndex;
+      if (!scrollFrame) scrollFrame = window.requestAnimationFrame(renderScrollProgress);
+    }
+  }
+
+  function nextScene() {
+    goToScene(currentScene + 1);
+  }
+
+  function previousScene() {
+    goToScene(currentScene - 1);
+  }
+
+  function isInteractiveTarget(target) {
+    return target instanceof Element && Boolean(target.closest("button, a, input, textarea, select, dialog"));
+  }
+
+  function onKeydown(event) {
+    const dialogOpen = sourcesDialog?.open;
+    if (dialogOpen) {
+      if (event.key === "Escape") closeSources();
+      return;
+    }
+
+    if (isInteractiveTarget(event.target) && !["Escape", "f", "F"].includes(event.key)) return;
+
+    const sceneNumber = Number.parseInt(event.key, 10);
+    if (Number.isInteger(sceneNumber) && sceneNumber >= 1 && sceneNumber <= total) {
+      event.preventDefault();
+      goToScene(sceneNumber - 1);
+      return;
+    }
+
+    switch (event.key) {
+      case "ArrowRight":
+      case "ArrowDown":
+      case "PageDown":
+      case " ":
+        event.preventDefault();
+        nextScene();
+        break;
+      case "ArrowLeft":
+      case "ArrowUp":
+      case "PageUp":
+        event.preventDefault();
+        previousScene();
+        break;
+      case "Home":
+        event.preventDefault();
+        goToScene(0);
+        break;
+      case "End":
+        event.preventDefault();
+        goToScene(total - 1);
+        break;
+      case "f":
+      case "F":
+        event.preventDefault();
+        toggleFullscreen();
+        break;
+      case "s":
+      case "S":
+        event.preventDefault();
+        openSources();
+        break;
+      default:
+        break;
+    }
+  }
+
+  async function toggleFullscreen() {
+    try {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch (error) {
+      console.warn("Mode layar penuh tidak tersedia:", error);
+    }
+  }
+
+  function updateFullscreenLabel() {
+    const isFullscreen = Boolean(document.fullscreenElement);
+    fullscreenButton.setAttribute("aria-label", isFullscreen ? "Keluar dari layar penuh" : "Masuk layar penuh");
+    fullscreenButton.title = isFullscreen ? "Keluar layar penuh (F)" : "Layar penuh (F)";
+  }
+
+  function openSources() {
+    if (!sourcesDialog) return;
+    if (typeof sourcesDialog.showModal === "function") {
+      if (!sourcesDialog.open) sourcesDialog.showModal();
+    } else {
+      sourcesDialog.setAttribute("open", "");
+    }
+  }
+
+  function closeSources() {
+    if (!sourcesDialog) return;
+    if (typeof sourcesDialog.close === "function" && sourcesDialog.open) {
+      sourcesDialog.close();
+    } else {
+      sourcesDialog.removeAttribute("open");
+    }
+  }
+
+  function onDialogClick(event) {
+    if (event.target !== sourcesDialog) return;
+    const bounds = sourcesDialog.getBoundingClientRect();
+    const clickedInside = (
+      event.clientX >= bounds.left &&
+      event.clientX <= bounds.right &&
+      event.clientY >= bounds.top &&
+      event.clientY <= bounds.bottom
+    );
+    if (!clickedInside) closeSources();
+  }
+
+  const chatDialogues = {
+    flynn: [
+      { role: "user", text: "Apakah skor IQ seluruh dunia sedang turun?" },
+      { role: "ai", text: "Belum dapat disimpulkan demikian. Penurunan ditemukan di sejumlah negara, tetapi hasilnya tidak sama di setiap tempat dan jenis tes." },
+      { role: "user", text: "Apa yang ditunjukkan oleh studi Norwegia?" },
+      { role: "ai emphasis", html: "Rata-rata skor meningkat sampai kelompok kelahiran 1975, kemudian menurun. Penelitian tersebut mendukung peran <strong>faktor lingkungan</strong>, tetapi tidak menetapkan satu penyebab tertentu." }
     ],
-    cognition: [
-      { type: 'user', text: 'Apa bedanya tahu sebuah fakta dengan benar-benar memahaminya?' },
-      { type: 'ai', small: 'AI RESPONSE', text: 'Tahu fakta adalah rekaman memori instan (seperti mencari di mesin pencari). Memahami adalah kemampuan menghubungkan konsep dan menerapkannya pada masalah baru.' },
-      { type: 'user', text: 'Kenapa menyerahkan semua jawaban ke AI bisa membuat pikiran lelah?' },
-      { type: 'ai', isEmphasis: true, small: 'AI REFLECTION', text: 'Karena otot kognitif hanya terlatih saat otak mengalami <strong>kesulitan produktif</strong>—proses berpikir mandiri sebelum mendapatkan kesimpulan.' }
+    brainrot: [
+      { role: "user", text: "Apakah brainrot merupakan diagnosis medis?" },
+      { role: "ai", text: "Bukan. Istilah ini digunakan secara populer untuk menggambarkan dugaan penurunan kondisi mental akibat terlalu banyak mengonsumsi konten daring yang remeh." },
+      { role: "user", text: "Mengapa Balon membahasnya?" },
+      { role: "ai emphasis", html: "Balon membahasnya sebagai kemungkinan dampak kebiasaan digital dan kurangnya latihan berpikir. Hubungannya dengan pembalikan Efek Flynn <strong>belum terbukti</strong>." }
     ],
-    philosophy: [
-      { type: 'user', text: 'Apakah kekhawatiran terhadap teknologi kemudahan ini hal baru dalam sejarah?' },
-      { type: 'ai', small: 'AI RESPONSE', text: '2.400 tahun lalu, filsuf Socrates mengkritik penemuan tulisan karena dianggap membuat manusia berhenti melatih daya ingatnya sendiri.' },
-      { type: 'user', text: 'Lalu apa bedanya era tulisan kuno dengan era AI sekarang?' },
-      { type: 'ai', isEmphasis: true, small: 'AI REFLECTION', text: 'Tulisan bersifat pasif merekam. AI bersifat <strong>generatif aktif</strong>—ia mampu menyusun kesimpulan menggantikan kita jika kita tidak berhati-hati.' }
+    socrates: [
+      { role: "user", text: "Apakah kekhawatiran terhadap teknologi sudah ada sejak dahulu?" },
+      { role: "ai", text: "Ya. Dalam Phaedrus, Socrates mengkhawatirkan bahwa tulisan dapat membuat orang kurang melatih ingatan." },
+      { role: "user", text: "Apakah itu berarti kekhawatiran terhadap AI pasti keliru?" },
+      { role: "ai emphasis", html: "Tidak. Sejarah tidak menentukan bahwa teknologi selalu baik atau buruk. Kita tetap perlu menilai <strong>kemampuan apa yang berkurang karena jarang digunakan</strong>." }
     ]
   };
 
-  const pChips = [...document.querySelectorAll('.p-chip')];
-  const chatBody = document.getElementById('chatBody');
-  const typingBubble = document.getElementById('typingBubble');
-  let chatTimeouts = [];
-
-  function clearChatTimeouts() {
-    chatTimeouts.forEach(t => clearTimeout(t));
-    chatTimeouts = [];
+  function clearChatTimers() {
+    chatTimers.forEach((timer) => window.clearTimeout(timer));
+    chatTimers = [];
   }
 
-  function playChatDialogue(topic) {
-    const dialog = chatData[topic];
-    if (!dialog || !chatBody) return;
+  function playChat(topic = selectedChatTopic) {
+    if (!chatBody || !chatDialogues[topic]) return;
+    selectedChatTopic = topic;
+    clearChatTimers();
+    chatBody.replaceChildren();
 
-    clearChatTimeouts();
-    chatBody.innerHTML = '';
-
-    // Step 1: User message 1 appears
-    const u1 = createChatMsg(dialog[0]);
-    chatBody.appendChild(u1);
-    setTimeout(() => u1.classList.add('show'), 40);
-
-    // Step 2: Show typing bubble for AI
-    chatTimeouts.push(setTimeout(() => {
-      if (typingBubble) {
-        typingBubble.style.display = 'block';
-        chatBody.appendChild(typingBubble);
+    chatDialogues[topic].forEach((message, index) => {
+      const addMessage = () => {
+        const bubble = document.createElement("div");
+        bubble.className = `chat-msg ${message.role}`;
+        if (message.html) bubble.innerHTML = message.html;
+        else bubble.textContent = message.text;
+        chatBody.appendChild(bubble);
         chatBody.scrollTop = chatBody.scrollHeight;
-      }
-    }, 400));
-
-    // Step 3: AI response 1 appears
-    chatTimeouts.push(setTimeout(() => {
-      if (typingBubble) typingBubble.style.display = 'none';
-      const a1 = createChatMsg(dialog[1]);
-      chatBody.appendChild(a1);
-      setTimeout(() => a1.classList.add('show'), 40);
-      chatBody.scrollTop = chatBody.scrollHeight;
-    }, 1400));
-
-    // Step 4: User follow-up message 2 appears
-    chatTimeouts.push(setTimeout(() => {
-      const u2 = createChatMsg(dialog[2]);
-      chatBody.appendChild(u2);
-      setTimeout(() => u2.classList.add('show'), 40);
-      chatBody.scrollTop = chatBody.scrollHeight;
-    }, 2500));
-
-    // Step 5: Show typing bubble for final AI reflection
-    chatTimeouts.push(setTimeout(() => {
-      if (typingBubble) {
-        typingBubble.style.display = 'block';
-        chatBody.appendChild(typingBubble);
-        chatBody.scrollTop = chatBody.scrollHeight;
-      }
-    }, 3200));
-
-    // Step 6: Final AI reflection message appears
-    chatTimeouts.push(setTimeout(() => {
-      if (typingBubble) typingBubble.style.display = 'none';
-      const a2 = createChatMsg(dialog[3]);
-      chatBody.appendChild(a2);
-      setTimeout(() => a2.classList.add('show'), 40);
-      chatBody.scrollTop = chatBody.scrollHeight;
-    }, 4400));
+      };
+      if (reducedMotion) addMessage();
+      else chatTimers.push(window.setTimeout(addMessage, 150 + index * 560));
+    });
   }
 
-  function createChatMsg(msg) {
-    const div = document.createElement('div');
-    div.className = `chat-msg ${msg.type} ${msg.isEmphasis ? 'emphasis' : ''}`;
-    
-    if (msg.small) {
-      const small = document.createElement('small');
-      small.textContent = msg.small;
-      div.appendChild(small);
-    }
-    
-    const span = document.createElement('span');
-    span.innerHTML = msg.text;
-    div.appendChild(span);
-    
-    return div;
+  function selectChatTopic(selectedButton) {
+    chatTopics.forEach((button) => {
+      const selected = button === selectedButton;
+      button.classList.toggle("is-selected", selected);
+      button.setAttribute("aria-pressed", String(selected));
+    });
+    playChat(selectedButton.dataset.topic);
   }
 
-  pChips.forEach(chip => {
-    chip.onclick = () => {
-      pChips.forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-      playChatDialogue(chip.dataset.topic);
-    };
+  function initialSceneFromHash() {
+    const match = window.location.hash.match(/^#scene-(\d+)$/);
+    if (!match) return 0;
+    return clamp(Number(match[1]) - 1, 0, total - 1);
+  }
+
+  previousButton.addEventListener("click", previousScene);
+  nextButton.addEventListener("click", nextScene);
+  fullscreenButton.addEventListener("click", toggleFullscreen);
+  sourcesButton.addEventListener("click", openSources);
+  sourcesClose.addEventListener("click", closeSources);
+  sourcesDialog.addEventListener("click", onDialogClick);
+  chatTopics.forEach((button) => button.addEventListener("click", () => selectChatTopic(button)));
+
+  window.addEventListener("keydown", onKeydown);
+  window.addEventListener("scroll", requestScrollRender, { passive: true });
+  window.addEventListener("resize", updateScrollGeometry, { passive: true });
+  document.addEventListener("fullscreenchange", updateFullscreenLabel);
+  window.addEventListener("hashchange", () => {
+    goToScene(initialSceneFromHash(), { updateHash: false });
+  });
+  window.addEventListener("presentation:scenechange", (event) => {
+    if (event.detail.index === 4) playChat();
+    else clearChatTimers();
   });
 
-  // Initialize on load
-  playChatDialogue('science');
-});
+  const initialIndex = initialSceneFromHash();
+  currentScene = initialIndex;
+  targetProgress = initialIndex;
+  visualProgress = initialIndex;
+  scenes.forEach((scene, index) => {
+    const active = index === initialIndex;
+    scene.classList.toggle("is-active", active);
+    scene.setAttribute("aria-hidden", String(!active));
+  });
+  body.dataset.scene = String(initialIndex);
+  updateScrollGeometry();
+  window.scrollTo({ top: initialIndex * sceneStep, behavior: "auto" });
+  targetProgress = initialIndex;
+  visualProgress = initialIndex;
+  applyScrollProgress(initialIndex);
+  window.cinematicWorld?.setScene?.(initialIndex, true);
+  updateFullscreenLabel();
+  if (initialIndex === 4) playChat();
+
+  window.setTimeout(() => navigationHint?.classList.add("is-hidden"), 8000);
+  document.documentElement.classList.add("is-ready");
+
+  window.__presentation = {
+    goTo: goToScene,
+    next: nextScene,
+    previous: previousScene,
+    get current() { return currentScene; },
+    total
+  };
+})();

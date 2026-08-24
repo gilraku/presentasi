@@ -1,706 +1,278 @@
 <!doctype html>
 <html lang="id">
-
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Reversal of the Flynn Effect and Cognitive Laziness · Richard Balon, MD</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
-    rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#070706">
+  <meta name="description" content="Presentasi web sinematik tentang editorial Richard Balon mengenai pembalikan Efek Flynn, istilah brainrot, dan kemalasan kognitif.">
+  <title>Reversal of the Flynn Effect and Cognitive Laziness — Gilang Swandaru</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="preload" as="image" href="assets/slide1-contemplation.jpg">
-  <link rel="preload" as="image" href="assets/slide2-flynn-expansion.jpg">
-  <link rel="preload" as="image" href="assets/slide4-memory-offload.jpg">
-  <link rel="preload" as="image" href="assets/slide6-fractured-attention.jpg">
-  <link rel="preload" as="image" href="assets/slide7-mindful-reading.jpg">
-  <link rel="preload" as="image" href="assets/slide8-wisdom-horizon.jpg">
 </head>
+<body data-scene="0">
+  <a class="skip-link" href="#scene-1">Lewati ke isi presentasi</a>
 
-<body>
-
-  <!-- Archival Paper Texture Grain -->
-  <svg class="grain-overlay" aria-hidden="true">
-    <filter id="grain">
-      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
-      <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.035 0" />
-    </filter>
-    <rect width="100%" height="100%" filter="url(#grain)" />
-  </svg>
-
-  <div class="deck">
-    <div class="count" id="count" title="Klik untuk lanjut slide">01 / 08</div>
-    <div class="progress"><i id="progress"></i></div>
-
-    <!-- SLIDE 01 · PEMBUKA (OFFICIAL SOURCE PAPER TITLE) -->
-    <section class="slide s1 active">
-      <div class="copy panel">
-        <div class="kicker">01 // Annals of Clinical Psychiatry · 2026</div>
-        <h1>Reversal of the Flynn Effect<br><em>and Cognitive Laziness</em></h1>
-        <div class="question">Ketika teknologi, otomasi, dan AI membuat banyak hal terasa instan, pertanyaan pentingnya
-          adalah: <em>apakah kemudahan ini memicu kemalasan kognitif yang melemahkan daya pikir mandiri manusia?</em>
-        </div>
-        <div class="meta">
-          <div class="meta-item">
-            <span class="author">Richard Balon, MD</span>
-            <span>Wayne State University School of Medicine</span>
-          </div>
-          <div class="meta-item presenter-tag">
-            <span class="meta-label">Dipresentasikan oleh</span>
-            <span class="presenter-name">Gilang Swandaru</span>
-          </div>
-        </div>
-      </div>
-      <div class="visual panel">
-        <img loading="eager" decoding="async" src="assets/slide1-contemplation.jpg"
-          onerror="this.onerror=null;this.src='assets/cover-contemplation.jpg'"
-          alt="Seseorang duduk merenung di perpustakaan klasik di dekat jendela">
-        <div class="three-canvas-wrap" id="s1-three-wrap"></div>
-      </div>
-    </section>
-
-    <!-- SLIDE 02 · MENGENAL EFEK FLYNN (BOX-FREE EDITORIAL) -->
-    <section class="slide s2">
-      <div class="copy panel">
-        <div class="kicker">02 // Sejarah Kognitif</div>
-        <h2>Mengenal<br>Efek Flynn.</h2>
-        <p class="lead">Dinamai dari peneliti James Flynn, fenomena ini mencatat bahwa sepanjang abad ke-20, rata-rata
-          skor tes kecerdasan manusia di dunia naik stabil sekitar <strong>+3 poin setiap 10 tahun</strong>.</p>
-
-        <div class="drivers-list">
-          <div class="driver-card ds-1">
-            <div class="driver-hdr"><span class="driver-num">01</span><span class="driver-tag">PENDIDIKAN</span></div>
-            <strong>Sekolah yang Meluas</strong>
-            <p>Masyarakat semakin terbiasa membaca, berhitung, dan menalar logika abstrak sejak usia dini di bangku
-              sekolah.</p>
-          </div>
-          <div class="driver-card ds-2">
-            <div class="driver-hdr"><span class="driver-num">02</span><span class="driver-tag">TUNTUTAN KERJA</span></div>
-            <strong>Tugas yang Makin Kompleks</strong>
-            <p>Pekerjaan manusia bergeser dari sekadar tenaga fisik ke tugas analitis, perencanaan, dan pemecahan masalah.
-            </p>
-          </div>
-          <div class="driver-card ds-3">
-            <div class="driver-hdr"><span class="driver-num">03</span><span class="driver-tag">LATIHAN OTAK</span></div>
-            <strong>Lingkungan yang Mengasah Pikiran</strong>
-            <p>Skor naik bukan karena genetika berubah, melainkan karena lingkungan sehari-hari menuntut kita untuk terus
-              berpikir mandiri.</p>
-          </div>
-        </div>
-      </div>
-      <div class="visual panel">
-        <img loading="eager" decoding="async" src="assets/slide2-flynn-expansion.jpg"
-          alt="Ilustrasi etsa Da Vinci tentang anatomi nalar dan ekspansi kecerdasan manusia">
-      </div>
-    </section>
-
-    <!-- SLIDE 03 · PEMBALIKAN EFEK FLYNN (INSTANT SVG TOOLTIPS + BEDAH RISET) -->
-    <section class="slide s3">
-      <div class="copy panel">
-        <div class="kicker">03 // Tren Dunia</div>
-        <h2>Pembalikan<br>Efek Flynn</h2>
-        <p class="lead">Namun setelah seabad grafik ini terus menanjak, sejumlah data kohort modern menunjukkan laju
-          kenaikan ini mulai melambat—bahkan berbalik menurun pada generasi muda.</p>
-      </div>
-      <div class="visual panel">
-        <div class="chart-card">
-          <div class="chart-topbar">
-            <div class="chart-heading">
-              <h3>Tren Skor Tes Kemampuan (1962–1991)</h3>
-              <p>Data kohort pemuda Norwegia (usia 18–19 tahun)</p>
-            </div>
-            <div class="chart-badge-group">
-              <button class="btn-trivia" id="btnTrivia" title="Buka Trivia &amp; Fakta Jurnal Ilmiah (Key: T / I)">
-                <span>📜 BEDAH RISET ILMIAH</span>
-              </button>
-              <span class="chart-pill cp-study">PNAS (2018)</span>
-              <span class="chart-pill cp-scale">730k+ Peserta</span>
-            </div>
-          </div>
-
-          <div class="chart-canvas-wrap">
-            <svg class="flynn-svg-canvas" viewBox="0 0 920 420" preserveAspectRatio="none"
-              aria-label="Grafik Efek Flynn dan Pembalikannya">
-              <defs>
-                <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#3d5a49" />
-                  <stop offset="42%" stop-color="#c9a050" />
-                  <stop offset="50%" stop-color="#a84332" />
-                  <stop offset="100%" stop-color="#a84332" />
-                </linearGradient>
-                <linearGradient id="areaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#c9a050" stop-opacity="0.25" />
-                  <stop offset="65%" stop-color="#3d5a49" stop-opacity="0.08" />
-                  <stop offset="100%" stop-color="#3d5a49" stop-opacity="0" />
-                </linearGradient>
-                <filter id="ttShadow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000" flood-opacity="0.45" />
-                </filter>
-              </defs>
-
-              <!-- Horizontal Grid Lines & Y-Labels -->
-              <line x1="60" y1="90" x2="880" y2="90" class="grid-line" />
-              <text x="30" y="94" font-size="10.5" font-weight="700" fill="#889289">103</text>
-
-              <line x1="60" y1="180" x2="880" y2="180" class="grid-line" />
-              <text x="30" y="184" font-size="10.5" font-weight="700" fill="#889289">101</text>
-
-              <line x1="60" y1="270" x2="880" y2="270" class="grid-line" />
-              <text x="30" y="274" font-size="10.5" font-weight="700" fill="#889289">99</text>
-
-              <line x1="60" y1="360" x2="880" y2="360" class="axis-baseline" />
-              <text x="30" y="364" font-size="10.5" font-weight="700" fill="#889289">97</text>
-
-              <!-- Area Fill Gradient -->
-              <path class="chart-area-fill"
-                d="M 130,360 L 130,248 C 240,190 350,115 440,115 C 540,115 660,225 740,253 C 770,265 800,245 830,240 L 830,360 Z" />
-
-              <!-- Smooth Spline Line -->
-              <path class="chart-curve-main" pathLength="1000"
-                d="M 130,248 C 240,190 350,115 440,115 C 540,115 660,225 740,253 C 770,265 800,245 830,240" />
-
-              <!-- Permanent Peak Milestone Marker on 1975 -->
-              <g transform="translate(440, 115)" pointer-events="none">
-                <g transform="translate(0, -32)">
-                  <rect x="-65" y="-24" width="130" height="26" rx="4" fill="#ffffff" stroke="#c9a050"
-                    stroke-width="1.5" filter="url(#ttShadow)" />
-                  <polygon points="-5,2 5,2 0,7" fill="#c9a050" />
-                  <text x="0" y="-7" text-anchor="middle" font-size="10.5" font-weight="800" fill="#121815"
-                    font-family="'DM Sans',sans-serif">🏆 102,3 PUNCAK</text>
-                </g>
-              </g>
-
-              <!-- Permanent Drop Milestone Marker on 1989 -->
-              <g transform="translate(740, 253)" pointer-events="none">
-                <g transform="translate(0, -32)">
-                  <rect x="-68" y="-24" width="136" height="26" rx="4" fill="#ffffff" stroke="#a84332"
-                    stroke-width="1.5" filter="url(#ttShadow)" />
-                  <polygon points="-5,2 5,2 0,7" fill="#a84332" />
-                  <text x="0" y="-7" text-anchor="middle" font-size="10.5" font-weight="800" fill="#a84332"
-                    font-family="'DM Sans',sans-serif">📉 99,4 PENURUNAN</text>
-                </g>
-              </g>
-
-              <!-- DATA NODES WITH INTEGRATED PURE SVG INSTANT HOVER TOOLTIPS -->
-
-              <!-- 1962 (99.5) -->
-              <g class="node-group" data-year="1962" transform="translate(130, 248)">
-                <!-- 60px Invisible Hover Hit Zone -->
-                <circle r="45" fill="#ffffff" opacity="0.001" pointer-events="all" />
-                <circle class="node-dot" r="8" />
-                <text y="26" text-anchor="middle" font-size="11" font-weight="700" fill="#17231d"
-                  pointer-events="none">1962</text>
-                <text y="41" text-anchor="middle" font-size="10.5" font-weight="800" fill="#3d5a49"
-                  pointer-events="none">99,5</text>
-                <!-- Hover Tooltip Callout -->
-                <g class="svg-tt" transform="translate(0, -34)" pointer-events="none">
-                  <rect x="-10" y="-52" width="270" height="48" rx="6" fill="#121815" stroke="#c9a050"
-                    stroke-width="1.5" filter="url(#ttShadow)" />
-                  <polygon points="0,-4 12,-4 6,2" fill="#c9a050" />
-                  <text x="125" y="-32" text-anchor="middle" font-size="10" font-weight="700" fill="#c9a050"
-                    font-family="'Cinzel',serif" letter-spacing="1.5">1962 · SKOR 99,5</text>
-                  <text x="125" y="-14" text-anchor="middle" font-size="10.5" font-weight="400" fill="#f7f4ee"
-                    font-family="'DM Sans',sans-serif">Ledakan sekolah formal &amp; tes logika pascaperang.</text>
-                </g>
-              </g>
-
-              <!-- 1975 (102.3 PEAK) with Centered Native SVG Pulsing Ring -->
-              <g class="node-group peak" data-year="1975" transform="translate(440, 115)">
-                <!-- 60px Invisible Hover Hit Zone -->
-                <circle r="45" fill="#ffffff" opacity="0.001" pointer-events="all" />
-                <circle r="8.5" fill="none" stroke="#c9a050" stroke-width="2" pointer-events="none">
-                  <animate attributeName="r" values="8.5;24" dur="2.4s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0.9;0" dur="2.4s" repeatCount="indefinite" />
-                  <animate attributeName="stroke-width" values="2.5;0.5" dur="2.4s" repeatCount="indefinite" />
-                </circle>
-                <circle class="node-dot" r="8.5" pointer-events="none" />
-                <text y="28" text-anchor="middle" font-size="11" font-weight="700" fill="#17231d"
-                  pointer-events="none">1975</text>
-                <text y="43" text-anchor="middle" font-size="10.5" font-weight="800" fill="#a84332"
-                  pointer-events="none">102,3</text>
-                <!-- Hover Tooltip Callout -->
-                <g class="svg-tt" transform="translate(0, -66)" pointer-events="none">
-                  <rect x="-140" y="-52" width="280" height="48" rx="6" fill="#121815" stroke="#c9a050"
-                    stroke-width="1.5" filter="url(#ttShadow)" />
-                  <polygon points="-6,-4 6,-4 0,2" fill="#c9a050" />
-                  <text x="0" y="-32" text-anchor="middle" font-size="10" font-weight="700" fill="#c9a050"
-                    font-family="'Cinzel',serif" letter-spacing="1.5">🏆 1975 · SKOR 102,3 (PUNCAK)</text>
-                  <text x="0" y="-14" text-anchor="middle" font-size="10.5" font-weight="400" fill="#f7f4ee"
-                    font-family="'DM Sans',sans-serif">Puncak latihan berpikir mandiri tanpa kalkulator/PC.</text>
-                </g>
-              </g>
-
-              <!-- 1989 (99.4 DIP) -->
-              <g class="node-group drop" data-year="1989" transform="translate(740, 253)">
-                <!-- 60px Invisible Hover Hit Zone -->
-                <circle r="45" fill="#ffffff" opacity="0.001" pointer-events="all" />
-                <circle class="node-dot" r="8" />
-                <text y="26" text-anchor="middle" font-size="11" font-weight="700" fill="#17231d"
-                  pointer-events="none">1989</text>
-                <text y="41" text-anchor="middle" font-size="10.5" font-weight="800" fill="#a84332"
-                  pointer-events="none">99,4</text>
-                <!-- Hover Tooltip Callout -->
-                <g class="svg-tt" transform="translate(0, -66)" pointer-events="none">
-                  <rect x="-140" y="-52" width="280" height="48" rx="6" fill="#121815" stroke="#a84332"
-                    stroke-width="1.5" filter="url(#ttShadow)" />
-                  <polygon points="-6,-4 6,-4 0,2" fill="#a84332" />
-                  <text x="0" y="-32" text-anchor="middle" font-size="10" font-weight="700" fill="#c9a050"
-                    font-family="'Cinzel',serif" letter-spacing="1.5">📉 1989 · SKOR 99,4 (AWAL TURUN)</text>
-                  <text x="0" y="-14" text-anchor="middle" font-size="10.5" font-weight="400" fill="#f7f4ee"
-                    font-family="'DM Sans',sans-serif">Masuknya komputer pribadi &amp; otomatisasi kerja.</text>
-                </g>
-              </g>
-
-              <!-- 1991 (99.7) -->
-              <g class="node-group" data-year="1991" transform="translate(830, 240)">
-                <!-- 60px Invisible Hover Hit Zone -->
-                <circle r="45" fill="#ffffff" opacity="0.001" pointer-events="all" />
-                <circle class="node-dot" r="8" />
-                <text y="26" text-anchor="middle" font-size="11" font-weight="700" fill="#17231d"
-                  pointer-events="none">1991</text>
-                <text y="41" text-anchor="middle" font-size="10.5" font-weight="800" fill="#3d5a49"
-                  pointer-events="none">99,7</text>
-                <!-- Hover Tooltip Callout -->
-                <g class="svg-tt" transform="translate(0, -34)" pointer-events="none">
-                  <rect x="-260" y="-52" width="270" height="48" rx="6" fill="#121815" stroke="#c9a050"
-                    stroke-width="1.5" filter="url(#ttShadow)" />
-                  <polygon points="-12,-4 0,-4 -6,2" fill="#c9a050" />
-                  <text x="-125" y="-32" text-anchor="middle" font-size="10" font-weight="700" fill="#c9a050"
-                    font-family="'Cinzel',serif" letter-spacing="1.5">🌐 1991 · SKOR 99,7 (ERA WEB)</text>
-                  <text x="-125" y="-14" text-anchor="middle" font-size="10.5" font-weight="400" fill="#f7f4ee"
-                    font-family="'DM Sans',sans-serif">Lahirnya era internet &amp; pelepasan memori ke search.</text>
-                </g>
-              </g>
-            </svg>
-          </div>
-
-          <div class="chart-bottom-insights">
-            <div class="insight-pill">
-              <span class="ip-emoji">📈</span>
-              <div><strong>1962–1975:</strong> Otak terlatih aktif oleh kurikulum &amp; lingkungan kerja.</div>
-            </div>
-            <div class="insight-pill">
-              <span class="ip-emoji">⚡</span>
-              <div><strong>1975–1989:</strong> Otomasi &amp; teknologi instan mulai mengurangi latihan otak.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 04 · INGATAN DITITIPKAN (BOX-FREE EDITORIAL) -->
-    <section class="slide s4">
-      <div class="copy panel">
-        <div class="kicker">04 // Cara Kita Mengingat</div>
-        <h2>Ingatan<br>dititipkan.</h2>
-        <p class="lead">Nomor telepon, jadwal harian, arah jalan, sampai informasi umum. Hal-hal yang dulu kita simpan
-          di kepala, kini sepenuhnya kita titipkan ke perangkat saku.</p>
-
-        <div class="offload-grid">
-          <div class="offload-item oi-1">
-            <span class="offload-cat">01 // KONTAK</span>
-            <strong>Nomor Telepon</strong>
-            <p>Dulu dihafal di luar kepala, kini otomatis tersimpan di daftar kontak.</p>
-          </div>
-          <div class="offload-item oi-2">
-            <span class="offload-cat">02 // JADWAL</span>
-            <strong>Agenda Harian</strong>
-            <p>Dulu dicatat &amp; diingat mandiri, kini menunggu alarm kalender berbunyi.</p>
-          </div>
-          <div class="offload-item oi-3">
-            <span class="offload-cat">03 // PETA</span>
-            <strong>Arah Navigasi</strong>
-            <p>Dulu membaca tanda jalan, kini sepenuhnya dipandu suara peta digital.</p>
-          </div>
-          <div class="offload-item oi-4">
-            <span class="offload-cat">04 // ILMU</span>
-            <strong>Pengetahuan Dasar</strong>
-            <p>Dulu dipelajari &amp; disimpan di memori, kini tinggal dipanggil mesin pencari.</p>
-          </div>
-        </div>
-      </div>
-      <div class="visual panel">
-        <img loading="eager" decoding="async" src="assets/slide4-memory-offload.jpg"
-          onerror="this.onerror=null;this.src='assets/memory-offload.jpg'"
-          alt="Jam pasir antik, jurnal harian, dan gawai saku modern">
-      </div>
-    </section>
-
-    <!-- SLIDE 05 · AI & KEMAMPUAN BERPIKIR (NATURAL RHYTHMIC CHAT) -->
-    <section class="slide s5">
-      <div class="copy panel">
-        <div class="kicker">05 // AI &amp; Kemampuan Berpikir</div>
-        <h2>Jawaban<br>bukan selalu<br>pemahaman.</h2>
-        <p class="lead">AI bisa memberi jawaban instan dalam hitungan detik. Tetapi langsung menerima jawaban berbeda
-          rasanya dengan benar-benar memahami dan menguasai ilmunya sendiri.</p>
-      </div>
-      <div class="visual panel">
-        <!-- Interactive Topic Chips (Poin 2) -->
-        <div class="prompt-chips">
-          <button class="p-chip active" data-topic="science">🧪 Sains: Titik Didih</button>
-          <button class="p-chip" data-topic="cognition">🧠 Kognisi: Tahu vs Paham</button>
-          <button class="p-chip" data-topic="philosophy">🏛️ Filsafat: Socrates</button>
-        </div>
-
-        <div class="chat-window">
-          <div class="chat-bar"><span class="dot"></span><b>AI ASSISTANT</b><span class="status">online</span></div>
-          <div class="chat-body" id="chatBody">
-            <!-- Messages dynamically populated by conversation engine -->
-            <div class="typing-bubble" id="typingBubble">AI sedang mengetik •••</div>
-          </div>
-          <div class="chat-input"><span>Pilih topik di atas untuk uji dialog</span> <span>↗</span></div>
-        </div>
-        <div class="chat-note"><span>TAHU JAWABAN</span><b>≠</b><span>BENAR-BENAR PAHAM</span></div>
-      </div>
-    </section>
-
-    <!-- SLIDE 06 · DAMPAK KEBIASAAN -->
-    <section class="slide s6">
-      <div class="visual panel">
-        <img loading="eager" decoding="async" src="assets/slide6-fractured-attention.jpg"
-          alt="Seseorang di ruangan gelap dengan cahaya smartphone dan kabut distraksi">
-        <div class="three-canvas-wrap" id="s6-three-wrap"></div>
-        <div class="attention-field">
-          <!-- Dynamic Leader Lines Connected to the Phone -->
-          <svg class="orbit-svg-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-            <line x1="54" y1="50.5" x2="22" y2="20" class="orbit-leader-line" />
-            <line x1="54" y1="50.5" x2="68" y2="20" class="orbit-leader-line" />
-            <line x1="54" y1="50.5" x2="22" y2="80" class="orbit-leader-line" />
-            <line x1="54" y1="50.5" x2="64" y2="82" class="orbit-leader-line" />
-          </svg>
-
-          <div class="focal-center"></div>
-          <div class="orbit-ring ring-1"></div>
-          <div class="orbit-ring ring-2"></div>
-          <div class="orbit-ring ring-3"></div>
-
-          <div class="orbit-node on-1">
-            <span class="node-tag">01 · KEBIASAAN</span>
-            <strong>Scroll Tanpa Henti</strong>
-          </div>
-          <div class="orbit-node on-2">
-            <span class="node-tag">02 · CANDU INSTAN</span>
-            <strong>Dorongan Cek Layar</strong>
-          </div>
-          <div class="orbit-node on-3">
-            <span class="node-tag">03 · KONSENTRASI</span>
-            <strong>Fokus Cepat Terpecah</strong>
-          </div>
-          <div class="orbit-node on-4">
-            <span class="node-tag">04 · KONDISI PIKIRAN</span>
-            <strong>Pikiran Mudah Lelah (“Brain Rot”)</strong>
-          </div>
-        </div>
-      </div>
-      <div class="copy panel">
-        <div class="kicker">06 // Dampak Kebiasaan</div>
-        <h2>Kabut di atas<br>perhatian.</h2>
-        <p class="lead">Balon mengingatkan bahwa kebiasaan terus-menerus menatap layar, menonton video kilat, dan
-          menerima distraksi tanpa henti membuat pikiran kita mudah lelah (<em>“brain rot”</em>)—fokus kita cepat buyar
-          bahkan sebelum sempat berpikir mendalam.</p>
-      </div>
-    </section>
-
-    <!-- SLIDE 07 · MEMBANGUN KETAHANAN (BOX-FREE EDITORIAL LIST) -->
-    <section class="slide s7">
-      <div class="copy panel">
-        <div class="kicker">07 // Langkah Pemulihan</div>
-        <h2>Membangun<br>ketahanan.</h2>
-        <p class="lead">Cara untuk mengatasinya adalah dengan melatih kembali kebiasaan berpikir kita secara sadar dan
-          bertahap:</p>
-
-        <div class="editorial-steps">
-          <div class="step-item si-1">
-            <div class="step-num">01</div>
-            <div class="step-content">
-              <strong>Beri jeda sejenak</strong>
-              <p>Coba ingat atau pecahkan masalah sendiri dulu selama 30 detik sebelum membuka HP.</p>
-            </div>
-          </div>
-          <div class="step-item si-2">
-            <div class="step-num">02</div>
-            <div class="step-content">
-              <strong>Membaca panjang</strong>
-              <p>Latih kembali daya fokus dengan membaca buku fisik, artikel panjang, atau tulisan mendalam.</p>
-            </div>
-          </div>
-          <div class="step-item si-3">
-            <div class="step-num">03</div>
-            <div class="step-content">
-              <strong>Jangan serahkan semua ke AI</strong>
-              <p>Gunakan AI sebagai alat bantu cek di akhir, bukan pengganti proses berpikir di awal.</p>
-            </div>
-          </div>
-          <div class="step-item si-4">
-            <div class="step-num">04</div>
-            <div class="step-content">
-              <strong>Perbanyak ruang nyata</strong>
-              <p>Sediakan waktu bebas gawai setiap hari dan perkuat interaksi langsung di dunia nyata.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="visual panel">
-        <img loading="eager" decoding="async" src="assets/slide7-mindful-reading.jpg"
-          onerror="this.onerror=null;this.src='assets/mindful-reading.jpg'"
-          alt="Seseorang membaca buku fisik di dekat jendela batu yang asri dengan tenang">
-      </div>
-    </section>
-
-    <!-- SLIDE 08 · REFLEKSI AKHIR -->
-    <section class="slide s8">
-      <div class="closing-v18">
-        <div class="closing-photo">
-          <img loading="eager" decoding="async" src="assets/slide8-wisdom-horizon.jpg"
-            alt="Cakrawala fajar emas di atas balkon klasik">
-        </div>
-        <div class="three-canvas-wrap" id="s8-three-wrap"></div>
-        <div class="closing-overlay"></div>
-        <div class="closing-copy">
-          <div class="closing-kicker">08 // KESIMPULAN AKHIR</div>
-          <div class="closing-rule"></div>
-          <h2>Gunakan<br><em>kemudahan.</em></h2>
-          <h3>Jangan serahkan<br>kemampuan.</h3>
-          <p>Teknologi hadir untuk membantu memudahkan hidup kita. Tetapi daya pikir, ketajaman otak, dan kemampuan
-            fokus adalah kemampuan berharga yang tetap perlu kita latih sendiri setiap hari.</p>
-        </div>
-        <div class="closing-quote">KEMUDAHAN ITU ALAT BANTU.<br>BUKAN PENGGANTI CARA BERPIKIR.</div>
-      </div>
-    </section>
+  <div class="stage" aria-hidden="true">
+    <canvas id="world-canvas"></canvas>
+    <div class="stage__vignette"></div>
+    <div class="stage__grain"></div>
+    <div class="stage__flare"></div>
   </div>
 
-  <!-- Scientific Trivia & Research Modal -->
-  <div class="trivia-modal" id="triviaModal">
-    <div class="tm-dialog">
-      <!-- Modal Header -->
-      <div class="tm-header">
-        <div class="tm-title">
-          <span class="tm-kicker">✦ DOKUMEN RISET ILMIAH RESMI</span>
-          <h3>Reversal of the Flynn Effect and Cognitive Laziness</h3>
-          <p>Richard Balon, MD · Wayne State University School of Medicine (Annals of Clinical Psychiatry, 2026)</p>
-        </div>
-        <div class="tm-nav-controls">
-          <div class="tm-tabs">
-            <button class="tm-tab active" data-view="pillars">🏛️ 4 PILAR RISET</button>
-            <button class="tm-tab" data-view="timeline">⏳ SEJARAH KEPANIKAN</button>
-            <button class="tm-tab" data-view="matrix">⚖️ MATRIKS SINTESIS</button>
-          </div>
-          <button class="btn-close-tm" id="btnCloseTrivia">✕ TUTUP [ESC]</button>
-        </div>
-      </div>
-
-      <!-- VIEW 1: 4 PILARS OF RIGOROUS SCIENCE -->
-      <div class="tm-view active" id="view-pillars">
-        <div class="tm-pillars-grid">
-          <!-- Pillar I -->
-          <div class="tm-pillar-card" data-roman="I">
-            <div class="tpc-head">
-              <span class="tpc-source-badge">CAMBRIDGE UNIV. PRESS · 2012</span>
-              <span class="tpc-stat">+3 IQ / Dekade</span>
-            </div>
-            <h4>Kenapa 1975 Menjadi Puncak Kecerdasan Dunia?</h4>
-            <p>Bukan karena penemuan ilmuwan jenius individu, melainkan <strong>perluasan kurikulum penalaran abstrak
-                pada masyarakat umum</strong>. Generasi pascaperang hingga 1975 dilatih mengenakan <em>“scientific
-                spectacles”</em> (kacamata ilmiah) untuk memecahkan logika tanpa kalkulator saku atau komputer.</p>
-            <div class="tpc-footer">Sumber: Flynn, J. R. <em>Are We Getting Smarter? Rising IQ in the 21st Century</em>.
-              Cambridge Univ. Press.</div>
-          </div>
-
-          <!-- Pillar II -->
-          <div class="tm-pillar-card" data-roman="II">
-            <div class="tpc-head">
-              <span class="tpc-source-badge">PNAS · ACADEMY OF SCIENCES · 2018</span>
-              <span class="tpc-stat">730k+ Kohort</span>
-            </div>
-            <h4>Bukti Riset 730.000 Pemuda: Faktor Lingkungan, Bukan Gen</h4>
-            <p>Studi terbesar dunia membuktikan pembalikan skor Efek Flynn <strong>terjadi bahkan di antara saudara
-                kandung (kakak vs adik) dalam keluarga yang sama</strong>. Penurunan ini murni dipicu oleh pergeseran
-              lingkungan belajar: hiburan visual kilat, berkurangnya bacaan panjang, dan delegasi hitungan ke mesin.</p>
-            <div class="tpc-footer">Sumber: Bratsberg, B., &amp; Rogeberg, O. <em>Flynn effect and its reversal are
-                environmentally caused</em>. PNAS, 115(26).</div>
-          </div>
-
-          <!-- Pillar III -->
-          <div class="tm-pillar-card" data-roman="III">
-            <div class="tpc-head">
-              <span class="tpc-source-badge">ANNALS OF CLINICAL PSYCHIATRY · 2026</span>
-              <span class="tpc-stat">Neuroplastisitas</span>
-            </div>
-            <h4>Teori "Cognitive Laziness" &amp; Prinsip 'Use It or Lose It'</h4>
-            <p>Dr. Richard Balon menegaskan bahwa sirkuit sinapsis otak bekerja seperti otot yang membutuhkan
-              <strong>kesulitan produktif (*productive struggle*)</strong>. Ketika teknologi dan AI menyajikan jawaban
-              instan, pelepasan beban kognitif berlebih (*cognitive offloading*) memicu kemalasan dan melemahkan
-              ketajaman analisis.</p>
-            <div class="tpc-footer">Sumber: Balon, R. <em>Reversal of the Flynn Effect and Cognitive Laziness</em>. Ann
-              Clin Psychiatry, 38(1), 3–5.</div>
-          </div>
-
-          <!-- Pillar IV -->
-          <div class="tm-pillar-card" data-roman="IV">
-            <div class="tpc-head">
-              <span class="tpc-source-badge">SCIENCE · HARVARD &amp; COLUMBIA · 2011</span>
-              <span class="tpc-stat">Digital Amnesia</span>
-            </div>
-            <h4>The Google Effect: Memori Bergeser ke 'Lokasi Pencarian'</h4>
-            <p>Riset ilmiah di jurnal <em>Science</em> membuktikan bahwa ketika orang tahu informasi dapat diakses kapan
-              saja melalui internet, otak secara otomatis <strong>berhenti menyimpan data mentah</strong> dan hanya
-              mengingat tautan atau direktori tempat mencarinya (*transactive memory*).</p>
-            <div class="tpc-footer">Sumber: Sparrow, B., Liu, J., &amp; Wegner, D. M. <em>Google Effects on Memory</em>.
-              Science, 333(6043), 776–778.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- VIEW 2: HISTORICAL TIMELINE OF TECHNOLOGICAL PANICS -->
-      <div class="tm-view" id="view-timeline">
-        <div class="tm-timeline">
-          <!-- 370 SM -->
-          <div class="tmt-item">
-            <div class="tmt-time">
-              <span class="tmt-year">370 SM</span>
-              <span class="tmt-tech">HURUF TERTULIS</span>
-            </div>
-            <div class="tmt-body">
-              <strong>Kritik Socrates &amp; Raja Thamus (Plato, <em>Phaedrus</em>)</strong>
-              <p>Socrates mengkhawatirkan penemuan tulisan akan <em>“menciptakan kelupaan dalam jiwa manusia karena
-                  mereka berhenti melatih ingatan batinnya dan bergantung pada tanda dari luar.”</em></p>
-              <span class="tmt-tag">HASIL SEJARAH: Tulisan menjadi fondasi peradaban manusia dan tidak mematikan nalar
-                lisan.</span>
-            </div>
-          </div>
-
-          <!-- 1450 -->
-          <div class="tmt-item">
-            <div class="tmt-time">
-              <span class="tmt-year">1450</span>
-              <span class="tmt-tech">MESIN CETAK</span>
-            </div>
-            <div class="tmt-body">
-              <strong>Kepanikan Gutenberg &amp; Banjir Informasi Murah</strong>
-              <p>Para cendekiawan dan rohaniwan Eropa cemas bahwa perbanyakan buku massal akan memicu <em>“kebingungan
-                  informasi” (*information overload*)</em> dan membuat orang membaca secara dangkal tanpa bimbingan
-                otoritas.</p>
-              <span class="tmt-tag">HASIL SEJARAH: Memicu Abad Pencerahan (Enlightenment) dan revolusi sains
-                modern.</span>
-            </div>
-          </div>
-
-          <!-- 1975 -->
-          <div class="tmt-item">
-            <div class="tmt-time">
-              <span class="tmt-year">1975</span>
-              <span class="tmt-tech">KALKULATOR SAKU</span>
-            </div>
-            <div class="tmt-body">
-              <strong>Perdebatan di Sekolah Matematika (NCTM)</strong>
-              <p>Kalkulator elektronik sempat dilarang di kelas karena dikhawatirkan <em>“membuat siswa tidak bisa lagi
-                  berhitung dasar di kepala”</em>.</p>
-              <span class="tmt-tag">HASIL SEJARAH: Mengotomasi hitungan rutin sehingga matematikawan bisa fokus pada
-                pemecahan teori tingkat tinggi.</span>
-            </div>
-          </div>
-
-          <!-- 2008-2011 -->
-          <div class="tmt-item">
-            <div class="tmt-time">
-              <span class="tmt-year">2008–2011</span>
-              <span class="tmt-tech">MESIN PENCARI &amp; HP</span>
-            </div>
-            <div class="tmt-body">
-              <strong>"Is Google Making Us Stupid?" (Nicholas Carr &amp; Betsy Sparrow)</strong>
-              <p>Kekhawatiran bahwa budaya skimming di web mengikis sirkuit konsentrasi mendalam (*deep linear
-                reading*), didukung temuan <em>The Google Effect</em> di jurnal <em>Science</em>.</p>
-              <span class="tmt-tag">HASIL SEJARAH: Manusia beralih ke penyimpanan memori eksternal (transactive
-                memory).</span>
-            </div>
-          </div>
-
-          <!-- 2026 -->
-          <div class="tmt-item current-era">
-            <div class="tmt-time">
-              <span class="tmt-year">2026</span>
-              <span class="tmt-tech">GENERATIVE AI</span>
-            </div>
-            <div class="tmt-body">
-              <strong>"Reversal of the Flynn Effect and Cognitive Laziness" (Richard Balon, MD)</strong>
-              <p><strong>Pembeda Utama Zaman Ini:</strong> Kalkulator &amp; mesin pencari hanya mengotomasi tugas
-                mekanis/pencarian. Namun AI generatif mulai mengambil alih <em>perumusan argumen dan sintesis berpikir
-                  kita</em>. Oleh karena itu, kita harus menjaga batas antara <em>alat bantu</em> vs <em>penyerahan
-                  nalar total</em>.</p>
-              <span class="tmt-tag">PESAN KUNCI: Gunakan kemudahan untuk akselerasi, jangan serahkan kapasitas berpikir
-                mandiri.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- VIEW 3: COGNITIVE MATRIX (EMPOWERMENT VS ATROPHY) -->
-      <div class="tm-view" id="view-matrix">
-        <div class="tm-matrix-wrap">
-          <!-- Col 1: Empowerment -->
-          <div class="tmm-col empower">
-            <div class="tmm-header">
-              <span class="tmm-icon">🟢</span>
-              <h4>Sinergi Kognitif (Pemberdayaan)</h4>
-            </div>
-            <p class="lead-text">Cara ideal menggunakan AI dan teknologi kemudahan sebagai alat pengungkit nalar
-              (*cognitive leverage*):</p>
-            <div class="tmm-list">
-              <div class="tmm-item">
-                <strong>Beri Waktu Berpikir Mandiri di Awal</strong>
-                <span>Pikirkan solusi atau argumen dasar sendiri selama 1–2 menit sebelum menanyakan ke mesin pencari
-                  atau AI.</span>
-              </div>
-              <div class="tmm-item">
-                <strong>Gunakan AI Sebagai Penguji Bias (*Devil's Advocate*)</strong>
-                <span>Minta AI menguji kelemahan logika dari argumen yang sudah Anda susun sendiri secara
-                  mandiri.</span>
-              </div>
-              <div class="tmm-item">
-                <strong>Kuasai Konsep, Bukan Sekadar Jawaban</strong>
-                <span>Pastikan Anda mampu menjelaskan kembali konsep yang didapatkan dengan kata-kata dan pemahaman Anda
-                  sendiri.</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Col 2: Atrophy -->
-          <div class="tmm-col atrophy">
-            <div class="tmm-header">
-              <span class="tmm-icon">🔴</span>
-              <h4>Kemalasan Kognitif (Atrofi Nalar)</h4>
-            </div>
-            <p class="lead-text">Pola kebiasaan yang memicu penurunan daya pikir mandiri menurut kajian Richard Balon,
-              MD:</p>
-            <div class="tmm-list">
-              <div class="tmm-item">
-                <strong>Langsung Meminta Jawaban Jadi di Awal</strong>
-                <span>Menghindari proses bergulat dengan masalah (*productive struggle*) yang seharusnya melatih
-                  sinapsis otak.</span>
-              </div>
-              <div class="tmm-item">
-                <strong>Menerima Output Tanpa Verifikasi Kritis</strong>
-                <span>Menelan mentah-mentah ringkasan instan tanpa memeriksa sumber dasar atau logika
-                  penalarannya.</span>
-              </div>
-              <div class="tmm-item">
-                <strong>Pelepasan Memori Berlebihan (*Over-offloading*)</strong>
-                <span>Menyerahkan seluruh catatan, jadwal, dan ingatan dasar ke gawai tanpa melatih ingatan internal
-                  sama sekali.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <header class="topline">
+    <div class="topline__identity">
+      <span class="topline__mark" aria-hidden="true"></span>
+      <span>Gilang Swandaru</span>
     </div>
-  </div>
+    <p class="topline__chapter" id="chapter-label">Prolog</p>
+    <button class="icon-button" id="fullscreen-button" type="button" aria-label="Masuk layar penuh" title="Layar penuh (F)">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg>
+    </button>
+  </header>
 
-  <!-- Three.js Visual Effects & Presentation Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <main class="deck" id="deck">
+    <section class="scene scene--illustrated scene--opening is-active" id="scene-1" data-chapter="Editorial utama" aria-labelledby="title-1">
+      <img class="scene-art" src="assets/character/scene-opening-ensemble.webp" alt="" width="1672" height="941" decoding="async">
+      <div class="scene-art-shade scene-art-shade--left" aria-hidden="true"></div>
+      <div class="scene__content scene__content--opening">
+        <p class="eyebrow reveal">Berdasarkan editorial Richard Balon · 2026</p>
+        <h1 id="title-1" class="display display--paper-title reveal" style="--delay: .1s">Apakah AI membuat kita<br><em>malas berpikir?</em></h1>
+        <p class="opening-question reveal" style="--delay: .2s">Presentasi ini membahas Efek Flynn, pembalikannya, dan dugaan bahwa kemudahan digital dapat membuat kita semakin jarang berlatih berpikir.</p>
+        <div class="paper-meta reveal" style="--delay: .3s"><span><strong>Artikel utama:</strong> <em>Reversal of the Flynn Effect and Cognitive Laziness</em></span><span>Gilang Swandaru · 2026</span></div>
+      </div>
+    </section>
+
+    <section class="scene scene--illustrated" id="scene-2" data-chapter="Efek Flynn" aria-labelledby="title-2" aria-hidden="true">
+      <img class="scene-art" src="assets/character/scene-flynn-generations.webp" alt="" width="1672" height="941" decoding="async">
+      <div class="scene-art-shade scene-art-shade--left" aria-hidden="true"></div>
+      <div class="scene__content scene__content--simple-left">
+        <p class="eyebrow reveal">01 — Dasar pembahasan</p>
+        <h2 id="title-2" class="display display--plain reveal" style="--delay: .08s">Apa itu <em>Efek Flynn?</em></h2>
+        <p class="plain-lead reveal" style="--delay: .16s">Efek Flynn adalah kenaikan rata-rata skor tes IQ dari satu generasi ke generasi berikutnya. Kenaikan ini ditemukan di banyak negara sepanjang abad ke-20.</p>
+        <div class="simple-points reveal" style="--delay: .24s">
+          <article><b>01</b><p><strong>Yang naik adalah skor rata-rata kelompok.</strong>Bukan berarti setiap orang pada generasi baru selalu lebih cerdas.</p></article>
+          <article><b>02</b><p><strong>Besarnya berbeda.</strong>Hasilnya bergantung pada negara, masa, usia peserta, dan jenis tes.</p></article>
+          <article><b>03</b><p><strong>Lingkungan turut berperan.</strong>Pendidikan, kesehatan, gizi, dan kebiasaan menghadapi tes sering diajukan sebagai penjelasan.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene scene--illustrated scene--trend" id="scene-3" data-chapter="Kenaikan dan penurunan" aria-labelledby="title-3" aria-hidden="true">
+      <img class="scene-art scene-art--data" src="assets/character/scene-data-ensemble.webp" alt="" width="1672" height="941" decoding="async">
+      <div class="scene-art-shade scene-art-shade--data" aria-hidden="true"></div>
+      <div class="scene__content scene__content--trend">
+        <p class="eyebrow reveal">02 — Contoh data pembalikan</p>
+        <div class="trend-heading reveal" style="--delay: .08s"><h2 id="title-3" class="display display--trend">Skor tes meningkat,<br><em>kemudian menurun.</em></h2><p>Studi terhadap <strong>736.808 pria Norwegia</strong> menunjukkan kenaikan sampai kelompok kelahiran 1975, lalu penurunan pada kelompok berikutnya.</p></div>
+        <figure class="trend-chart reveal" style="--delay: .17s">
+          <figcaption><span>Rata-rata skor tes (setara IQ)</span><small>Empat titik acuan · tahun pada sumbu bawah adalah tahun kelahiran · skala 99–103 diperbesar</small></figcaption>
+          <svg viewBox="0 0 1000 320" role="img" aria-labelledby="trend-title trend-desc">
+            <title id="trend-title">Kenaikan dan pembalikan skor tes pada kelompok kelahiran Norwegia</title>
+            <desc id="trend-desc">Skor naik dari 99,5 pada 1962 menjadi 102,3 pada 1975, kemudian turun menjadi 99,4 pada 1989 dan 99,7 pada 1991.</desc>
+            <g class="chart-grid"><line x1="70" y1="52" x2="940" y2="52"/><line x1="70" y1="117" x2="940" y2="117"/><line x1="70" y1="182" x2="940" y2="182"/><line x1="70" y1="247" x2="940" y2="247"/></g>
+            <g class="chart-axis-labels"><text x="56" y="57">103</text><text x="56" y="122">101,7</text><text x="56" y="187">100,3</text><text x="56" y="252">99</text></g>
+            <path class="trend-area" d="M100 222 L430 82 L830 228 L920 212 L920 247 L100 247 Z"/>
+            <path class="trend-line trend-line--rise" d="M100 222 L430 82"/>
+            <path class="trend-line trend-line--fall" d="M430 82 L830 228 L920 212"/>
+            <text class="trend-phase trend-phase--rise" x="242" y="124">EFEK FLYNN</text><text class="trend-phase trend-phase--fall" x="650" y="125">PEMBALIKAN</text>
+            <g class="chart-point"><circle cx="100" cy="222" r="8"/><text x="100" y="198">99,5</text><text class="chart-year" x="100" y="286">1962</text></g>
+            <g class="chart-point chart-point--peak"><circle cx="430" cy="82" r="10"/><text x="430" y="55">102,3</text><text class="chart-year" x="430" y="286">1975</text></g>
+            <g class="chart-point"><circle cx="830" cy="228" r="8"/><text x="830" y="204">99,4</text><text class="chart-year" x="830" y="286">1989</text></g>
+            <g class="chart-point"><circle cx="920" cy="212" r="8"/><text x="920" y="188">99,7</text><text class="chart-year" x="920" y="286">1991</text></g>
+          </svg>
+          <p><strong>Kesimpulan yang aman:</strong> skor tes berubah dan faktor lingkungan kemungkinan berperan. Grafik ini tidak membuktikan bahwa internet, telepon pintar, atau kecerdasan buatan menjadi penyebabnya.</p>
+        </figure>
+      </div>
+    </section>
+
+    <section class="scene scene--illustrated scene--history" id="scene-4" data-chapter="Sejarah kekhawatiran" aria-labelledby="title-4" aria-hidden="true">
+      <img class="scene-art scene-art--history" src="assets/character/scene-history-ensemble.webp" alt="" width="1672" height="941" decoding="async">
+      <div class="scene-art-shade scene-art-shade--history" aria-hidden="true"></div>
+      <div class="scene__content scene__content--history-full">
+        <p class="eyebrow reveal">03 — Pola yang berulang</p>
+        <h2 id="title-4" class="display display--history-full reveal" style="--delay: .08s">Kekhawatiran terhadap teknologi<br><em>sudah muncul sejak lama.</em></h2>
+        <div class="history-full reveal" style="--delay: .17s">
+          <article><time>Sekitar 370 SM</time><strong>Tulisan</strong><p>Socrates khawatir tulisan membuat orang kurang melatih ingatan.</p></article>
+          <article><time>Abad ke-15</time><strong>Mesin cetak</strong><p>Buku semakin banyak. Sejumlah sarjana mengeluhkan informasi yang berlebihan.</p></article>
+          <article><time>1980-an</time><strong>Kalkulator</strong><p>Sekolah khawatir siswa akan kehilangan kemampuan berhitung dasar.</p></article>
+          <article><time>2000-an</time><strong>Internet</strong><p>Mesin pencari mengubah cara orang menyimpan dan mengingat informasi.</p></article>
+          <article><time>2020-an</time><strong>AI generatif</strong><p>AI dapat menyusun jawaban, bukan sekadar menemukan informasi.</p></article>
+        </div>
+        <p class="history-conclusion reveal" style="--delay: .28s"><strong>Perbedaannya saat ini:</strong> AI dapat mengambil alih sebagian proses menyusun jawaban. Karena itu, cara kita menggunakannya menjadi penting.</p>
+      </div>
+    </section>
+
+    <section class="scene scene--illustrated scene--chat" id="scene-5" data-chapter="Menggunakan AI" aria-labelledby="title-5" aria-hidden="true">
+      <img class="scene-art scene-art--ai" src="assets/character/scene-chat-ensemble.webp" alt="" width="1672" height="941" decoding="async">
+      <div class="scene-art-shade" aria-hidden="true"></div>
+      <div class="scene__content scene__content--chat">
+        <div class="chat-copy">
+          <p class="eyebrow reveal">04 — Menggunakan AI</p>
+          <h2 id="title-5" class="display display--chat reveal" style="--delay: .08s">Jawaban AI tetap<br><em>harus diperiksa.</em></h2>
+          <p class="lead reveal" style="--delay: .18s">AI dapat membantu menjelaskan topik yang sulit. Namun, kita tetap perlu memeriksa sumber, alasan, dan kesimpulannya.</p>
+          <p class="chat-equation reveal" style="--delay: .28s"><span>Menyalin jawaban</span><b>≠</b><span>memahami isi</span></p>
+        </div>
+        <div class="ai-chat reveal" style="--delay: .2s">
+          <div class="chat-topics" role="group" aria-label="Pilih topik percakapan">
+            <button class="chat-topic is-selected" type="button" data-topic="flynn" aria-pressed="true">Efek Flynn</button>
+            <button class="chat-topic" type="button" data-topic="brainrot" aria-pressed="false">Istilah brainrot</button>
+            <button class="chat-topic" type="button" data-topic="socrates" aria-pressed="false">Socrates</button>
+          </div>
+          <div class="chat-window">
+            <div class="chat-bar"><span class="chat-status-dot"></span><strong>Asisten AI</strong><span>aktif</span></div>
+            <div class="chat-body" id="chat-body" aria-live="polite"></div>
+            <div class="chat-footer"><span>Pilih topik untuk mengulang dialog</span><b>↗</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene scene--illustrated scene--brainrot" id="scene-6" data-chapter="Istilah brainrot" aria-labelledby="title-6" aria-hidden="true">
+      <img class="scene-art scene-art--brainrot" src="assets/character/scene-brainrot-ensemble.webp" alt="" width="1672" height="941" decoding="async">
+      <div class="scene-art-shade scene-art-shade--brainrot" aria-hidden="true"></div>
+      <div class="scene__content scene__content--brainrot">
+        <p class="eyebrow reveal">05 — Kebiasaan mengonsumsi konten</p>
+        <h2 id="title-6" class="display display--brainrot reveal" style="--delay: .08s">Apa yang dimaksud<br>dengan <em>brainrot?</em></h2>
+        <p class="brainrot-definition reveal" style="--delay: .18s"><strong><em>Brainrot</em></strong> adalah istilah populer untuk dugaan penurunan kondisi mental atau intelektual akibat terlalu banyak mengonsumsi konten daring yang remeh atau tidak menantang.</p>
+        <div class="brainrot-signals reveal" style="--delay: .27s">
+          <span><b>01</b>terus-menerus menggulir layar</span><span><b>02</b>sulit membaca teks panjang</span><span><b>03</b>perhatian cepat berpindah</span><span><b>04</b>lelah tanpa memperoleh pemahaman</span>
+        </div>
+        <p class="brainrot-caveat reveal" style="--delay: .36s">Istilah ini bukan diagnosis medis. Balon menggunakannya untuk membahas kemungkinan dampak kebiasaan digital dan kurangnya latihan berpikir.</p>
+      </div>
+    </section>
+
+    <section class="scene scene--illustrated" id="scene-7" data-chapter="Kemalasan kognitif" aria-labelledby="title-7" aria-hidden="true">
+      <img class="scene-art" src="assets/character/scene-laziness-ensemble.webp" alt="" width="1672" height="941" decoding="async">
+      <div class="scene-art-shade scene-art-shade--left" aria-hidden="true"></div>
+      <div class="scene__content scene__content--simple-left scene__content--laziness">
+        <p class="eyebrow reveal">06 — Pokok bahasan editorial</p>
+        <h2 id="title-7" class="display display--plain reveal" style="--delay: .08s">Apa yang dimaksud dengan<br><em>kemalasan kognitif?</em></h2>
+        <p class="plain-lead reveal" style="--delay: .16s">Balon menjelaskan kemalasan kognitif sebagai kebiasaan jarang menggunakan dan enggan menggunakan kemampuan berpikir sendiri.</p>
+        <div class="simple-points simple-points--compact reveal" style="--delay: .24s">
+          <article><b>01</b><p><strong>Tidak mencoba mengingat.</strong>Jawaban langsung dicari melalui perangkat.</p></article>
+          <article><b>02</b><p><strong>Tidak memeriksa jawaban.</strong>Hasil dari AI diterima tanpa menilai sumber dan alasannya.</p></article>
+          <article><b>03</b><p><strong>Menghindari bacaan yang sulit.</strong>Teks panjang ditinggalkan sebelum dipahami.</p></article>
+        </div>
+        <p class="plain-caveat reveal" style="--delay: .34s"><strong>Batas kesimpulan:</strong> Balon menduga kebiasaan tersebut dapat melemahkan latihan kognitif. Namun, belum ada bukti bahwa AI menjadi penyebab langsung pembalikan Efek Flynn.</p>
+      </div>
+    </section>
+
+    <section class="scene scene--illustrated scene--recovery" id="scene-8" data-chapter="Cara menggunakan AI" aria-labelledby="title-8" aria-hidden="true">
+      <img class="scene-art scene-art--recovery" src="assets/character/scene-practice-ensemble.webp" alt="" width="1672" height="941" decoding="async">
+      <div class="scene-art-shade scene-art-shade--recovery" aria-hidden="true"></div>
+      <div class="scene__content scene__content--recovery">
+        <p class="eyebrow reveal">07 — Langkah yang dapat dilakukan</p>
+        <h2 id="title-8" class="display display--recovery reveal" style="--delay: .08s">Gunakan AI tanpa<br><em>berhenti berpikir.</em></h2>
+        <div class="recovery-steps reveal" style="--delay: .2s">
+          <span><b>01</b><strong>Pikirkan lebih dahulu</strong>Coba jawab dengan kemampuan sendiri sebelum membuka AI.</span>
+          <span><b>02</b><strong>Minta petunjuk</strong>Gunakan AI untuk memberi arah, bukan langsung menyelesaikan seluruh tugas.</span>
+          <span><b>03</b><strong>Periksa hasilnya</strong>Bandingkan jawaban dengan sumber yang dapat dipercaya.</span>
+          <span><b>04</b><strong>Jelaskan kembali</strong>Sampaikan hasil dengan kata-kata sendiri untuk memastikan pemahaman.</span>
+        </div>
+        <p class="recovery-note reveal" style="--delay: .34s">Langkah ini bertujuan mempertahankan latihan mengingat, menilai, dan menyusun alasan.</p>
+      </div>
+    </section>
+
+    <section class="scene scene--illustrated" id="scene-9" data-chapter="Kesimpulan" aria-labelledby="title-9" aria-hidden="true">
+      <img class="scene-art" src="assets/character/scene-closing-ensemble.webp" alt="" width="1672" height="941" decoding="async">
+      <div class="scene-art-shade scene-art-shade--closing" aria-hidden="true"></div>
+      <div class="scene__content scene__content--final">
+        <p class="eyebrow reveal">Kesimpulan</p>
+        <h2 id="title-9" class="display display--final reveal" style="--delay: .08s">AI sebaiknya membantu kita berpikir,<br><em>bukan menggantikan prosesnya.</em></h2>
+        <p class="closing-thesis reveal" style="--delay: .22s">Gunakan teknologi untuk mempercepat pekerjaan. Tetap gunakan ingatan, penilaian, dan penalaran kita sendiri.</p>
+        <div class="closing-principles reveal" style="--delay: .31s">
+          <span><b>01</b>Pikirkan.</span><span><b>02</b>Periksa.</span><span><b>03</b>Jelaskan.</span>
+        </div>
+        <p class="signature reveal" style="--delay: .43s">Gilang Swandaru · 2026</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="scroll-track" id="scroll-track" aria-hidden="true"></div>
+
+  <footer class="controls" aria-label="Navigasi presentasi">
+    <button class="control-button" id="prev-button" type="button" aria-label="Adegan sebelumnya">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <div class="progress" aria-hidden="true"><span id="progress-fill"></span></div>
+    <p class="scene-counter"><span id="scene-current">01</span><i>/</i><span id="scene-total">09</span></p>
+    <button class="control-button" id="next-button" type="button" aria-label="Adegan berikutnya">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+    <button class="sources-button" id="sources-button" type="button">Sumber</button>
+  </footer>
+
+  <p class="navigation-hint" id="navigation-hint"><span>↓</span> Gulir untuk melanjutkan</p>
+
+  <dialog class="sources" id="sources-dialog" aria-labelledby="sources-title">
+    <div class="sources__head">
+      <div>
+        <p class="eyebrow">Catatan ilmiah</p>
+        <h2 id="sources-title">Sumber &amp; batas kesimpulan</h2>
+      </div>
+      <button class="icon-button" id="sources-close" type="button" aria-label="Tutup sumber">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="sources__intro">
+      <p>Artikel Balon merupakan editorial yang merangkum bukti, kekhawatiran, dan hipotesis. Presentasi ini memisahkan data skor tes, penafsiran tentang faktor lingkungan, dan dugaan bahwa teknologi atau AI menjadi penyebab langsung. Dugaan tersebut belum terbukti.</p>
+    </div>
+    <ol class="sources__list">
+      <li>
+        <span>01</span>
+        <div><strong>Balon, R. (2026)</strong><p>Reversal of the Flynn Effect and Cognitive Laziness. <em>Annals of Clinical Psychiatry</em>, 37(2), 59–61. Sumber utama presentasi; bentuknya editorial, bukan studi kausal.</p><a href="https://journals.sagepub.com/doi/10.1177/10401237261438653" target="_blank" rel="noreferrer">Buka editorial ↗</a></div>
+      </li>
+      <li>
+        <span>02</span>
+        <div><strong>Flynn, J. R. (1984)</strong><p>The mean IQ of Americans: Massive gains 1932 to 1978. <em>Psychological Bulletin</em>, 95(1), 29–51. Asal angka kenaikan 13 poin yang dipakai sebagai konteks historis.</p><a href="https://doi.org/10.1037/0033-2909.95.1.29" target="_blank" rel="noreferrer">Buka DOI ↗</a></div>
+      </li>
+      <li>
+        <span>03</span>
+        <div><strong>Pietschnig, J. &amp; Voracek, M. (2015)</strong><p>One Century of Global IQ Gains. Metaanalisis ini mencakup 271 sampel independen, hampir empat juta peserta, 31 negara, dan data 1909–2013.</p><a href="https://pubmed.ncbi.nlm.nih.gov/25987509/" target="_blank" rel="noreferrer">Buka PubMed ↗</a></div>
+      </li>
+      <li>
+        <span>04</span>
+        <div><strong>Dutton, E., van der Linden, D. &amp; Lynn, R. (2016)</strong><p>The negative Flynn Effect: A systematic literature review. Tinjauan ini menemukan sembilan studi yang memenuhi kriteria dari tujuh negara.</p><a href="https://pure.eur.nl/en/publications/the-negative-flynn-effect-a-systematic-literature-review/" target="_blank" rel="noreferrer">Buka rekaman penelitian ↗</a></div>
+      </li>
+      <li>
+        <span>05</span>
+        <div><strong>Bratsberg, B. &amp; Rogeberg, O. (2018)</strong><p>Flynn effect and its reversal are both environmentally caused. <em>PNAS</em>, 115(26), 6674–6678. Kumpulan data mencakup 736.808 pria Norwegia; analisis dalam keluarga mendukung peran lingkungan.</p><a href="https://www.pnas.org/doi/10.1073/pnas.1718793115" target="_blank" rel="noreferrer">Buka penelitian ↗</a></div>
+      </li>
+      <li>
+        <span>06</span>
+        <div><strong>Trahan, L. H., dkk. (2014)</strong><p>The Flynn effect: A meta-analysis. <em>Psychological Bulletin</em>, 140(5), 1332–1360. Rujukan tambahan tentang variasi besar Efek Flynn.</p><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4152423/" target="_blank" rel="noreferrer">Baca artikel ↗</a></div>
+      </li>
+      <li>
+        <span>07</span>
+        <div><strong>Plato, <em>Phaedrus</em> 274c–275b</strong><p>Socrates mengisahkan kritik terhadap tulisan sebagai alat eksternal bagi ingatan. Ini argumen filosofis, bukan eksperimen.</p><a href="https://scaife.perseus.org/reader/urn:cts:greekLit:tlg0059.tlg012.perseus-eng2:227-279/" target="_blank" rel="noreferrer">Baca teks primer ↗</a></div>
+      </li>
+      <li>
+        <span>08</span>
+        <div><strong>Blair, A. M. (2010) + Cambridge University Press</strong><p>Sumber sejarah tentang keluhan banjir informasi pada Eropa modern awal dan budaya manuskrip yang telah berkembang sebelum percetakan.</p><a href="https://yalebooks.yale.edu/book/9780300165395/too-much-to-know/" target="_blank" rel="noreferrer">Buka buku ↗</a> <a href="https://www.cambridge.org/core/books/medieval-manuscript-book/introduction-manuscripts-and-cultural-history/1D68D0075EDF59DE5EF0A68770C3F453" target="_blank" rel="noreferrer">Budaya manuskrip ↗</a></div>
+      </li>
+      <li>
+        <span>09</span>
+        <div><strong>NCTM + Christian Science Monitor (1986)</strong><p>Arsip profesi dan laporan sezaman memberi konteks perdebatan kalkulator dalam pendidikan matematika pada 1980-an.</p><a href="https://www.nctm.org/100timeline/" target="_blank" rel="noreferrer">Linimasa NCTM ↗</a> <a href="https://www.csmonitor.com/1986/0509/dcalc-f.html" target="_blank" rel="noreferrer">Laporan 1986 ↗</a></div>
+      </li>
+      <li>
+        <span>10</span>
+        <div><strong>Sparrow, B., Liu, J. &amp; Wegner, D. M. (2011)</strong><p>Google Effects on Memory: Cognitive Consequences of Having Information at Our Fingertips. Eksperimen tentang strategi mengingat informasi yang diperkirakan tersedia kembali.</p><a href="https://www.science.org/doi/10.1126/science.1207745" target="_blank" rel="noreferrer">Buka penelitian ↗</a></div>
+      </li>
+      <li>
+        <span>11</span>
+        <div><strong>Oxford University Press (2024)</strong><p>“Brain rot” dipilih sebagai Oxford Word of the Year 2024. Definisinya dipakai sebagai istilah budaya populer, bukan diagnosis medis tunggal.</p><a href="https://corp.oup.com/news/brain-rot-named-oxford-word-of-the-year-2024/" target="_blank" rel="noreferrer">Buka sumber ↗</a></div>
+      </li>
+      <li>
+        <span>12</span>
+        <div><strong>Tinjauan ilmiah tentang <em>brain rot</em> (2025)</strong><p>Tinjauan membahas konsumsi konten digital berkualitas rendah, perhatian, dan kesehatan mental. Penulis juga menekankan perlunya penelitian jangka panjang dan definisi yang lebih kuat.</p><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11939997/" target="_blank" rel="noreferrer">Baca tinjauan ↗</a></div>
+      </li>
+    </ol>
+  </dialog>
+
+  <noscript>
+    <div class="noscript">Aktifkan JavaScript untuk menjalankan presentasi interaktif ini.</div>
+  </noscript>
+
+  <script src="vendor/three.r128.min.js"></script>
   <script src="js/three-fx.js"></script>
   <script src="js/app.js"></script>
 </body>
-
 </html>
