@@ -18,10 +18,12 @@
     <div class="stage__flare"></div>
   </div>
 
-  <figure class="character" aria-hidden="true">
-    <div class="character__echo character__echo--one"></div>
-    <div class="character__echo character__echo--two"></div>
-    <img src="assets/character/the-thinker.webp" alt="" width="768" height="1152" decoding="async">
+  <figure class="character-stage" aria-hidden="true">
+    <img class="character-pose character-pose--master" src="assets/character/the-thinker.webp" alt="" width="768" height="1152" decoding="async">
+    <img class="character-pose character-pose--reader" src="assets/character/the-thinker-reader.webp" alt="" width="768" height="1152" decoding="async">
+    <img class="character-pose character-pose--analyst" src="assets/character/the-thinker-analyst.webp" alt="" width="768" height="1152" decoding="async">
+    <img class="character-pose character-pose--fragments" src="assets/character/the-thinker-fragments.webp" alt="" width="768" height="1152" decoding="async">
+    <img class="character-pose character-pose--resolved" src="assets/character/the-thinker-resolved.webp" alt="" width="768" height="1152" decoding="async">
   </figure>
 
   <header class="topline">
@@ -52,61 +54,112 @@
       <div class="scene__number" aria-hidden="true">I</div>
     </section>
 
-    <section class="scene" id="scene-2" data-chapter="Kenaikan" aria-labelledby="title-2" aria-hidden="true">
-      <div class="scene__content scene__content--left">
-        <p class="eyebrow reveal">01 — Flynn Effect</p>
-        <h2 id="title-2" class="display reveal" style="--delay: .08s">
-          Selama puluhan tahun,<br>
-          kurvanya <em>menanjak.</em>
+    <section class="scene" id="scene-2" data-chapter="Mengenal Flynn" aria-labelledby="title-2" aria-hidden="true">
+      <div class="scene__content scene__content--flynn">
+        <p class="eyebrow reveal">01 — Sejarah kognitif</p>
+        <h2 id="title-2" class="display display--compact reveal" style="--delay: .08s">
+          Mengenal <em>Efek Flynn.</em>
         </h2>
-        <p class="lead reveal" style="--delay: .18s">
-          Sepanjang sebagian besar abad ke-20, skor tes kecerdasan meningkat di banyak negara. Pola ini kemudian dikenal sebagai <strong>Flynn Effect.</strong>
-        </p>
-        <p class="fact-note reveal" style="--delay: .26s">
-          Ini adalah pola populasi—bukan bukti bahwa setiap generasi pasti lebih “cerdas” dalam segala hal.
+        <div class="flynn-layout">
+          <div class="flynn-definition reveal" style="--delay: .17s">
+            <p class="lead">
+              <strong>Efek Flynn</strong> adalah kenaikan rata-rata skor tes IQ dari satu kohort kelahiran ke kohort berikutnya, yang ditemukan di banyak negara sepanjang abad ke-20.
+            </p>
+            <div class="flynn-rate">
+              <strong>≈ 3 poin</strong>
+              <span>per 10 tahun—ringkasan populer; besarnya berbeda menurut negara, periode, dan jenis tes.</span>
+            </div>
+          </div>
+          <div class="flynn-factors reveal" style="--delay: .25s">
+            <p class="section-kicker">Mengapa bisa naik?</p>
+            <ol>
+              <li><b>01</b><span><strong>Pendidikan meluas</strong>Lebih banyak latihan membaca, berhitung, dan berpikir abstrak.</span></li>
+              <li><b>02</b><span><strong>Kesehatan membaik</strong>Nutrisi dan kesehatan masa awal hidup dapat mendukung perkembangan kognitif.</span></li>
+              <li><b>03</b><span><strong>Lingkungan makin kompleks</strong>Pekerjaan, teknologi, dan kebiasaan sehari-hari lebih sering menuntut pemecahan masalah.</span></li>
+            </ol>
+            <p class="factor-caveat">Ini adalah penjelasan yang sering diajukan—bukan satu sebab universal yang sudah dipastikan.</p>
+          </div>
+        </div>
+        <p class="fact-note reveal" style="--delay: .34s">
+          Yang dibandingkan adalah <em>rata-rata kelompok</em>, bukan nilai kecerdasan mutlak setiap orang.
         </p>
       </div>
-      <div class="rise-word" aria-hidden="true">NAIK</div>
     </section>
 
-    <section class="scene" id="scene-3" data-chapter="Pembalikan" aria-labelledby="title-3" aria-hidden="true">
-      <div class="scene__content scene__content--center">
-        <p class="eyebrow reveal">02 — Reversal</p>
-        <h2 id="title-3" class="display display--center reveal" style="--delay: .08s">
-          Lalu, di sejumlah negara,<br>
-          arah itu <em>berubah.</em>
+    <section class="scene scene--chart" id="scene-3" data-chapter="Pembalikan Flynn" aria-labelledby="title-3" aria-hidden="true">
+      <div class="scene__content scene__content--chart">
+        <p class="eyebrow reveal">02 — Studi kohort Norwegia</p>
+        <h2 id="title-3" class="display display--chart reveal" style="--delay: .08s">
+          Kenaikan itu mencapai puncak—<br>lalu <em>berbalik arah.</em>
         </h2>
-        <div class="study-stat reveal" style="--delay: .2s" aria-label="Data studi Norwegia">
-          <div><strong>736.808</strong><span>laki-laki Norwegia</span></div>
-          <div><strong>1962–1991</strong><span>tahun kelahiran</span></div>
-          <div><strong>setelah 1975</strong><span>kohort mulai menurun</span></div>
+        <div class="chart-layout reveal" style="--delay: .18s">
+          <aside class="chart-guide" aria-label="Cara membaca grafik">
+            <p class="section-kicker">Cara membacanya</p>
+            <ol>
+              <li><b>1</b><span>Sumbu bawah menunjukkan <strong>tahun kelahiran</strong>, bukan tahun tes.</span></li>
+              <li><b>2</b><span>Angka adalah <strong>rata-rata skor IQ-ekuivalen</strong> tiap kohort.</span></li>
+              <li><b>3</b><span>Naik sampai kohort 1975, kemudian turun; 1991 sedikit pulih.</span></li>
+            </ol>
+            <div class="chart-sample"><strong>736.808</strong><span>laki-laki Norwegia dengan skor valid</span></div>
+          </aside>
+          <figure class="cohort-chart">
+            <figcaption>
+              <span>Rata-rata skor IQ-ekuivalen</span>
+              <small>Sumbu Y 99–103 diperbesar · empat titik acuan · Bratsberg &amp; Rogeberg (2018)</small>
+            </figcaption>
+            <svg viewBox="0 0 820 400" role="img" aria-labelledby="chart-title chart-desc">
+              <title id="chart-title">Perubahan skor rata-rata kohort kelahiran Norwegia</title>
+              <desc id="chart-desc">Skor naik dari 99,5 pada kohort 1962 ke 102,3 pada kohort 1975, turun ke 99,4 pada 1989, lalu menjadi 99,7 pada 1991.</desc>
+              <g class="chart-grid">
+                <line x1="76" y1="64" x2="770" y2="64"/><line x1="76" y1="122" x2="770" y2="122"/>
+                <line x1="76" y1="180" x2="770" y2="180"/><line x1="76" y1="238" x2="770" y2="238"/>
+                <line x1="76" y1="296" x2="770" y2="296"/>
+              </g>
+              <g class="chart-axis-labels">
+                <text x="55" y="69">103</text><text x="55" y="127">102</text><text x="55" y="185">101</text>
+                <text x="55" y="243">100</text><text x="55" y="301">99</text>
+              </g>
+              <line class="chart-peak-line" x1="365" y1="54" x2="365" y2="320"/>
+              <path class="chart-area" d="M85 267 L365 105 L675 273 L750 255 L750 320 L85 320 Z"/>
+              <path class="chart-line" d="M85 267 L365 105 L675 273 L750 255"/>
+              <g class="chart-point chart-point--start">
+                <circle cx="85" cy="267" r="8"/><text x="85" y="245">99,5</text><text class="chart-year" x="85" y="344">1962</text>
+              </g>
+              <g class="chart-point chart-point--peak">
+                <circle cx="365" cy="105" r="10"/><text x="365" y="80">102,3 · puncak</text><text class="chart-year" x="365" y="344">1975</text>
+              </g>
+              <g class="chart-point chart-point--fall">
+                <circle cx="675" cy="273" r="8"/><text x="675" y="251">99,4</text><text class="chart-year" x="675" y="344">1989</text>
+              </g>
+              <g class="chart-point chart-point--end">
+                <circle cx="750" cy="255" r="8"/><text x="750" y="233">99,7</text><text class="chart-year" x="750" y="344">1991</text>
+              </g>
+              <text class="chart-x-label" x="420" y="380">Kohort kelahiran</text>
+            </svg>
+            <p class="chart-takeaway"><strong>Maknanya:</strong> perbandingan antar-saudara menunjukkan pola serupa, sehingga perubahan lingkungan lebih masuk akal daripada perubahan genetik. Studi ini belum menentukan faktor lingkungan mana yang paling besar.</p>
+          </figure>
         </div>
-        <p class="study-conclusion reveal" style="--delay: .3s">
-          Pola naik dan turun juga terlihat <strong>di dalam keluarga yang sama</strong>. Itu lebih mendukung perubahan lingkungan daripada perubahan genetik.
-        </p>
       </div>
-      <div class="data-ghost" aria-hidden="true">1975</div>
     </section>
 
-    <section class="scene" id="scene-4" data-chapter="Penyebab" aria-labelledby="title-4" aria-hidden="true">
-      <div class="scene__content scene__content--left scene__content--narrow">
-        <p class="eyebrow reveal">03 — Pertanyaan yang belum selesai</p>
-        <h2 id="title-4" class="display reveal" style="--delay: .08s">
-          Kita melihat gejalanya.<br>
-          Belum menemukan <em>satu penyebab.</em>
+    <section class="scene" id="scene-4" data-chapter="Jejak sejarah" aria-labelledby="title-4" aria-hidden="true">
+      <div class="scene__content scene__content--history">
+        <p class="eyebrow reveal">03 — Kekhawatiran yang berulang</p>
+        <h2 id="title-4" class="display display--history reveal" style="--delay: .08s">
+          Alat baru selalu mengubah<br><em>apa yang kita latih.</em>
         </h2>
-        <p class="lead reveal" style="--delay: .18s">
-          Pendidikan, kesehatan, lingkungan keluarga, kebiasaan membaca, media, dan teknologi semuanya mungkin berperan—tetapi belum ada satu faktor yang menjelaskan seluruh pembalikan.
+        <p class="history-intro reveal" style="--delay: .16s">
+          Ini bukan bukti bahwa semua ketakutan pasti salah. Pola sejarahnya menunjukkan bahwa manusia berulang kali menegosiasikan kemampuan mana yang disimpan di kepala—dan mana yang dititipkan pada alat.
         </p>
-        <div class="hypothesis-orbit reveal" style="--delay: .28s" aria-label="Contoh faktor yang masih diteliti">
-          <span>Pendidikan</span>
-          <span>Kesehatan</span>
-          <span>Keluarga</span>
-          <span>Media</span>
-          <span>Teknologi</span>
-        </div>
+        <ol class="history-track reveal" style="--delay: .24s">
+          <li><time>±370 SM</time><strong>Tulisan</strong><p>Dalam <em>Phaedrus</em>, Socrates mengisahkan kritik bahwa tulisan dapat melemahkan latihan ingatan dan memberi “kesan tahu”.</p><span>Kritik filosofis · Plato</span></li>
+          <li><time>1450-an–1600-an</time><strong>Mesin cetak</strong><p>Buku dan pembaca sudah bertambah sebelum Gutenberg; percetakan memperbesar skalanya, disertai keluhan tentang “terlalu banyak buku”.</p><span>Sejarah informasi · Ann Blair</span></li>
+          <li><time>1980-an</time><strong>Kalkulator</strong><p>Sekolah memperdebatkan apakah kalkulator melemahkan hitung dasar atau justru memberi ruang bagi pemecahan masalah tingkat tinggi.</p><span>Debat pendidikan · NCTM</span></li>
+          <li><time>2008–2011</time><strong>Web &amp; pencarian</strong><p>Kekhawatiran tentang konsentrasi diikuti bukti eksperimen bahwa akses daring dapat mengubah strategi memori: dari “apa” menjadi “di mana”.</p><span>Esai publik + eksperimen</span></li>
+          <li><time>2026</time><strong>AI generatif</strong><p>Pertanyaannya kembali: apakah kemudahan mengurangi latihan berpikir? Untuk saat ini, itu pertanyaan penting—belum bukti kausal.</p><span>Editorial · Balon</span></li>
+        </ol>
+        <p class="history-caveat reveal" style="--delay: .34s"><strong>Catatan penting:</strong> sebelum mesin cetak, akses baca-tulis memang timpang dan buku mahal—tetapi tidak benar bahwa hampir tidak ada pembaca di luar biara. Pertumbuhan manuskrip dan pembaca sudah berlangsung pada akhir Abad Pertengahan.</p>
       </div>
-      <p class="caution-stamp reveal" style="--delay: .4s">Korelasi ≠ sebab</p>
     </section>
 
     <section class="scene" id="scene-5" data-chapter="Offloading" aria-labelledby="title-5" aria-hidden="true">
@@ -270,14 +323,34 @@
       </li>
       <li>
         <span>03</span>
-        <div><strong>Risko, E. F. &amp; Gilbert, S. J. (2016)</strong><p>Cognitive offloading. <em>Trends in Cognitive Sciences</em>, 20(9), 676–688.</p><a href="https://doi.org/10.1016/j.tics.2016.07.002" target="_blank" rel="noreferrer">Buka DOI ↗</a></div>
+        <div><strong>Plato, <em>Phaedrus</em> 274c–275b</strong><p>Socrates mengisahkan kritik terhadap tulisan sebagai alat eksternal bagi ingatan. Ini argumen filosofis, bukan eksperimen.</p><a href="https://scaife.perseus.org/reader/urn:cts:greekLit:tlg0059.tlg012.perseus-eng2:227-279/" target="_blank" rel="noreferrer">Baca teks primer ↗</a></div>
       </li>
       <li>
         <span>04</span>
-        <div><strong>Sparrow, B., Liu, J. &amp; Wegner, D. M. (2011)</strong><p>Google Effects on Memory: Cognitive Consequences of Having Information at Our Fingertips. <em>Science</em>, 333(6043), 776–778.</p><a href="https://www.science.org/doi/10.1126/science.1207745" target="_blank" rel="noreferrer">Buka penelitian ↗</a></div>
+        <div><strong>Blair, A. M. (2010)</strong><p><em>Too Much to Know</em> mendokumentasikan keluhan tentang banjir informasi dan teknik mengelolanya pada Eropa modern awal.</p><a href="https://yalebooks.yale.edu/book/9780300165395/too-much-to-know/" target="_blank" rel="noreferrer">Buka buku ↗</a></div>
       </li>
       <li>
         <span>05</span>
+        <div><strong>Cambridge University Press + University of Arizona Libraries</strong><p>Rujukan tentang budaya manuskrip akhir Abad Pertengahan dan peran percetakan dalam memperluas produksi serta distribusi teks.</p><a href="https://www.cambridge.org/core/books/medieval-manuscript-book/introduction-manuscripts-and-cultural-history/1D68D0075EDF59DE5EF0A68770C3F453" target="_blank" rel="noreferrer">Budaya manuskrip ↗</a> <a href="https://exhibits.lib.arizona.edu/exhibits/show/reformation/role-of-printing" target="_blank" rel="noreferrer">Peran percetakan ↗</a></div>
+      </li>
+      <li>
+        <span>06</span>
+        <div><strong>NCTM + Christian Science Monitor (1986)</strong><p>Arsip profesi dan laporan sezaman memberi konteks perdebatan kalkulator dalam pendidikan matematika pada 1980-an.</p><a href="https://www.nctm.org/100timeline/" target="_blank" rel="noreferrer">Linimasa NCTM ↗</a> <a href="https://www.csmonitor.com/1986/0509/dcalc-f.html" target="_blank" rel="noreferrer">Laporan 1986 ↗</a></div>
+      </li>
+      <li>
+        <span>07</span>
+        <div><strong>Risko, E. F. &amp; Gilbert, S. J. (2016)</strong><p>Cognitive offloading. <em>Trends in Cognitive Sciences</em>, 20(9), 676–688.</p><a href="https://doi.org/10.1016/j.tics.2016.07.002" target="_blank" rel="noreferrer">Buka DOI ↗</a></div>
+      </li>
+      <li>
+        <span>08</span>
+        <div><strong>Sparrow, B., Liu, J. &amp; Wegner, D. M. (2011)</strong><p>Google Effects on Memory: Cognitive Consequences of Having Information at Our Fingertips. <em>Science</em>, 333(6043), 776–778.</p><a href="https://www.science.org/doi/10.1126/science.1207745" target="_blank" rel="noreferrer">Buka penelitian ↗</a></div>
+      </li>
+      <li>
+        <span>09</span>
+        <div><strong>Carr, N. (2008)</strong><p>“Is Google Making Us Stupid?” adalah esai publik yang merekam kekhawatiran era web; bukan penelitian kausal.</p><a href="https://www.theatlantic.com/magazine/archive/2008/07/is-google-making-us-stupid/306868/" target="_blank" rel="noreferrer">Buka esai ↗</a></div>
+      </li>
+      <li>
+        <span>10</span>
         <div><strong>Balon, R. (2026)</strong><p>Reversal of the Flynn Effect and Cognitive Laziness. <em>Annals of Clinical Psychiatry</em>, 37(2), 59–61. Artikel ini adalah editorial, sehingga dipakai sebagai pertanyaan reflektif—bukan bukti kausal.</p><a href="https://journals.sagepub.com/doi/10.1177/10401237261438653" target="_blank" rel="noreferrer">Buka editorial ↗</a></div>
       </li>
     </ol>

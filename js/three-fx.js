@@ -41,9 +41,9 @@
 
       this.sceneStates = [
         { orb: 1, curve: 0, fragments: .08, rings: .34, grid: .04, warmth: .92, cameraZ: 9.4, rootX: 2.15, rootY: -.05, curveMix: 0 },
-        { orb: .32, curve: 1, fragments: .12, rings: .12, grid: .22, warmth: .72, cameraZ: 10.5, rootX: 2.2, rootY: -.55, curveMix: 0 },
-        { orb: .2, curve: 1, fragments: .18, rings: .09, grid: .28, warmth: .3, cameraZ: 10.8, rootX: 0, rootY: -.3, curveMix: 1 },
-        { orb: .46, curve: .2, fragments: .88, rings: .2, grid: .06, warmth: .26, cameraZ: 10.2, rootX: 2.7, rootY: 0, curveMix: .72 },
+        { orb: .32, curve: .38, fragments: .12, rings: .12, grid: .11, warmth: .72, cameraZ: 10.5, rootX: 2.2, rootY: -.55, curveMix: 0 },
+        { orb: .15, curve: .04, fragments: .1, rings: .06, grid: .08, warmth: .38, cameraZ: 10.8, rootX: 2.8, rootY: -.3, curveMix: 1 },
+        { orb: .4, curve: 0, fragments: .62, rings: .32, grid: .04, warmth: .4, cameraZ: 10.2, rootX: 2.7, rootY: 0, curveMix: .72 },
         { orb: .7, curve: .08, fragments: 1, rings: .64, grid: .05, warmth: .55, cameraZ: 9.7, rootX: -2.35, rootY: -.1, curveMix: .6 },
         { orb: .38, curve: .16, fragments: .72, rings: .9, grid: .03, warmth: .38, cameraZ: 10.1, rootX: 2.55, rootY: .1, curveMix: .35 },
         { orb: 1.05, curve: .02, fragments: .58, rings: .72, grid: .02, warmth: .78, cameraZ: 9.1, rootX: 0, rootY: -.2, curveMix: .45 },

@@ -34,7 +34,7 @@ Lalu buka `http://localhost:8080`.
 - `css/style.css`: tata artistik, transisi, responsivitas, dan fallback
 - `js/app.js`: navigasi, fullscreen, dialog sumber, dan interaksi prompt AI
 - `js/three-fx.js`: satu dunia Three.js persisten yang bermorfosis antarscene
-- `assets/character/the-thinker.webp`: karakter original utama
+- `assets/character/the-thinker*.webp`: lima pose karakter original—prolog, membaca, menganalisis, fragmen informasi, dan epilog
 - `vendor/three.r128.min.js`: Three.js yang sudah disimpan lokal
 
 Font dan Three.js disertakan secara lokal beserta lisensinya. Semua efek memiliki fallback ketika WebGL tidak tersedia dan menghormati `prefers-reduced-motion`.
@@ -46,5 +46,7 @@ Narasi membedakan:
 - hasil empiris tentang Flynn Effect, pembalikannya, dan cognitive offloading;
 - interpretasi yang masih diteliti;
 - hipotesis bahwa AI atau smartphone menjadi penyebab langsung penurunan IQ.
+
+Grafik kohort Norwegia menampilkan empat titik acuan yang dilaporkan dalam studi Bratsberg & Rogeberg (2018), dilengkapi penjelasan sumbu dan batas interpretasi. Linimasa sejarah membedakan teks primer, sejarah informasi, perdebatan pendidikan, eksperimen, dan editorial agar jenis buktinya tidak tercampur.
 
 Daftar sumber utama tersedia melalui tombol **Sumber** di dalam presentasi.
