@@ -386,6 +386,22 @@
       }
     }
 
+    setProgress(progress) {
+      const bounded = Math.max(0, Math.min(progress, this.sceneStates.length - 1));
+      const fromIndex = Math.floor(bounded);
+      const toIndex = Math.min(fromIndex + 1, this.sceneStates.length - 1);
+      const rawMix = bounded - fromIndex;
+      const mix = rawMix * rawMix * (3 - 2 * rawMix);
+      const from = this.sceneStates[fromIndex];
+      const to = this.sceneStates[toIndex];
+
+      this.currentScene = Math.round(bounded);
+      Object.keys(this.target).forEach((key) => {
+        this.target[key] = THREE.MathUtils.lerp(from[key], to[key], mix);
+      });
+      this.curveTargetMix = THREE.MathUtils.lerp(from.curveMix, to.curveMix, mix);
+    }
+
     setChoice(mode) {
       this.choiceMode = mode;
       if (mode === "coach") {

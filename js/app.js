@@ -17,17 +17,20 @@
   const navigationHint = document.getElementById("navigation-hint");
   const chatTopics = Array.from(document.querySelectorAll(".chat-topic"));
   const chatBody = document.getElementById("chat-body");
+  const scrollTrack = document.getElementById("scroll-track");
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const TRANSITION_MS = reducedMotion ? 20 : 900;
+  const SCENE_SCROLL_RATIO = reducedMotion ? 1 : 1.35;
   let currentScene = 0;
-  let transitionToken = 0;
-  let wheelLocked = false;
-  let touchStartX = 0;
-  let touchStartY = 0;
+  let sceneStep = Math.max(1, window.innerHeight * SCENE_SCROLL_RATIO);
+  let targetProgress = 0;
+  let visualProgress = 0;
+  let scrollFrame = 0;
   let hintHidden = false;
   let selectedChatTopic = "flynn";
   let chatTimers = [];
+
+  body.classList.add("scroll-driven");
 
   const pad = (value) => String(value).padStart(2, "0");
   const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
@@ -41,10 +44,10 @@
     }, reducedMotion ? 0 : 160);
   }
 
-  function updateInterface() {
+  function updateInterface(progress = currentScene) {
     currentLabel.textContent = pad(currentScene + 1);
     totalLabel.textContent = pad(total);
-    progressFill.style.width = `${((currentScene + 1) / total) * 100}%`;
+    progressFill.style.width = `${((progress + 1) / total) * 100}%`;
     previousButton.disabled = currentScene === 0;
     nextButton.disabled = currentScene === total - 1;
     setChapter(scenes[currentScene].dataset.chapter || "");
@@ -56,48 +59,87 @@
     navigationHint?.classList.add("is-hidden");
   }
 
-  function goToScene(targetIndex, options = {}) {
-    const nextIndex = clamp(targetIndex, 0, total - 1);
-    if (nextIndex === currentScene && !options.force) return;
-
-    const oldScene = scenes[currentScene];
-    const newScene = scenes[nextIndex];
-    const token = ++transitionToken;
-
-    if (oldScene !== newScene) {
-      oldScene.classList.remove("is-active");
-      oldScene.classList.add("is-exiting");
-      oldScene.setAttribute("aria-hidden", "true");
-    }
-
-    newScene.classList.remove("is-exiting");
-    newScene.classList.add("is-active");
-    newScene.setAttribute("aria-hidden", "false");
-
-    currentScene = nextIndex;
+  function setCurrentScene(nextIndex, updateHash = true) {
+    if (nextIndex === currentScene && scenes[nextIndex].classList.contains("is-active")) return;
+    currentScene = clamp(nextIndex, 0, total - 1);
+    scenes.forEach((scene, index) => {
+      const active = index === currentScene;
+      scene.classList.toggle("is-active", active);
+      scene.classList.remove("is-exiting");
+      scene.setAttribute("aria-hidden", String(!active));
+    });
     body.dataset.scene = String(currentScene);
-    updateInterface();
+    updateInterface(visualProgress);
     hideNavigationHint();
-
-    if (window.cinematicWorld?.setScene) {
-      window.cinematicWorld.setScene(currentScene);
-    }
-
-    if (options.updateHash !== false) {
+    if (updateHash) {
       history.replaceState(null, "", `#scene-${currentScene + 1}`);
     }
-
     window.dispatchEvent(new CustomEvent("presentation:scenechange", {
       detail: { index: currentScene, total }
     }));
+  }
 
-    window.setTimeout(() => {
-      if (token === transitionToken) {
-        scenes.forEach((scene, index) => {
-          if (index !== currentScene) scene.classList.remove("is-exiting");
-        });
-      }
-    }, TRANSITION_MS);
+  function applyScrollProgress(progress) {
+    const bounded = clamp(progress, 0, total - 1);
+    scenes.forEach((scene, index) => {
+      const distance = index - bounded;
+      const absoluteDistance = Math.abs(distance);
+      const sceneOpacity = clamp(1 - absoluteDistance, 0, 1);
+      const contentOpacity = clamp((.7 - absoluteDistance) / .38, 0, 1);
+      const direction = index % 2 === 0 ? 1 : -1;
+      scene.style.setProperty("--scene-opacity", sceneOpacity.toFixed(4));
+      scene.style.setProperty("--scene-shift", `${(distance * 7.5).toFixed(3)}vh`);
+      scene.style.setProperty("--scene-scale", (1 + absoluteDistance * .024).toFixed(4));
+      scene.style.setProperty("--content-opacity", contentOpacity.toFixed(4));
+      scene.style.setProperty("--content-shift", `${(distance * 8.5).toFixed(3)}vh`);
+      scene.style.setProperty("--art-opacity", clamp(sceneOpacity * .9, 0, .86).toFixed(4));
+      scene.style.setProperty("--art-shift", `${(distance * direction * 3.2).toFixed(3)}vw`);
+      scene.style.setProperty("--art-scale", (1.015 + absoluteDistance * .045).toFixed(4));
+      scene.style.zIndex = String(40 - Math.round(absoluteDistance * 10));
+    });
+
+    const nearestScene = clamp(Math.round(bounded), 0, total - 1);
+    setCurrentScene(nearestScene);
+    updateInterface(bounded);
+    window.cinematicWorld?.setProgress?.(bounded);
+  }
+
+  function renderScrollProgress() {
+    scrollFrame = 0;
+    if (reducedMotion) visualProgress = targetProgress;
+    else visualProgress += (targetProgress - visualProgress) * .14;
+    if (Math.abs(targetProgress - visualProgress) < .0005) visualProgress = targetProgress;
+    applyScrollProgress(visualProgress);
+    if (visualProgress !== targetProgress) {
+      scrollFrame = window.requestAnimationFrame(renderScrollProgress);
+    }
+  }
+
+  function requestScrollRender() {
+    targetProgress = clamp(window.scrollY / sceneStep, 0, total - 1);
+    if (!scrollFrame) scrollFrame = window.requestAnimationFrame(renderScrollProgress);
+  }
+
+  function updateScrollGeometry() {
+    sceneStep = Math.max(1, window.innerHeight * SCENE_SCROLL_RATIO);
+    if (scrollTrack) {
+      scrollTrack.style.height = `${sceneStep * (total - 1) + window.innerHeight}px`;
+    }
+    requestScrollRender();
+  }
+
+  function goToScene(targetIndex, options = {}) {
+    const nextIndex = clamp(targetIndex, 0, total - 1);
+    if (options.updateHash !== false) {
+      history.replaceState(null, "", `#scene-${nextIndex + 1}`);
+    }
+    hideNavigationHint();
+    window.scrollTo({
+      top: nextIndex * sceneStep,
+      behavior: reducedMotion || options.immediate ? "auto" : "smooth"
+    });
+    targetProgress = nextIndex;
+    if (!scrollFrame) scrollFrame = window.requestAnimationFrame(renderScrollProgress);
   }
 
   function nextScene() {
@@ -163,31 +205,6 @@
       default:
         break;
     }
-  }
-
-  function onWheel(event) {
-    if (sourcesDialog?.open || wheelLocked || Math.abs(event.deltaY) < 24) return;
-    wheelLocked = true;
-    event.deltaY > 0 ? nextScene() : previousScene();
-    window.setTimeout(() => {
-      wheelLocked = false;
-    }, reducedMotion ? 80 : 780);
-  }
-
-  function onTouchStart(event) {
-    const touch = event.changedTouches[0];
-    touchStartX = touch.clientX;
-    touchStartY = touch.clientY;
-  }
-
-  function onTouchEnd(event) {
-    const touch = event.changedTouches[0];
-    const deltaX = touch.clientX - touchStartX;
-    const deltaY = touch.clientY - touchStartY;
-    const horizontal = Math.abs(deltaX) > Math.abs(deltaY);
-    const distance = horizontal ? deltaX : deltaY;
-    if (Math.abs(distance) < 52) return;
-    distance < 0 ? nextScene() : previousScene();
   }
 
   async function toggleFullscreen() {
@@ -308,9 +325,8 @@
   chatTopics.forEach((button) => button.addEventListener("click", () => selectChatTopic(button)));
 
   window.addEventListener("keydown", onKeydown);
-  window.addEventListener("wheel", onWheel, { passive: true });
-  window.addEventListener("touchstart", onTouchStart, { passive: true });
-  window.addEventListener("touchend", onTouchEnd, { passive: true });
+  window.addEventListener("scroll", requestScrollRender, { passive: true });
+  window.addEventListener("resize", updateScrollGeometry, { passive: true });
   document.addEventListener("fullscreenchange", updateFullscreenLabel);
   window.addEventListener("hashchange", () => {
     goToScene(initialSceneFromHash(), { updateHash: false });
@@ -322,14 +338,20 @@
 
   const initialIndex = initialSceneFromHash();
   currentScene = initialIndex;
+  targetProgress = initialIndex;
+  visualProgress = initialIndex;
   scenes.forEach((scene, index) => {
     const active = index === initialIndex;
     scene.classList.toggle("is-active", active);
     scene.setAttribute("aria-hidden", String(!active));
   });
   body.dataset.scene = String(initialIndex);
+  updateScrollGeometry();
+  window.scrollTo({ top: initialIndex * sceneStep, behavior: "auto" });
+  targetProgress = initialIndex;
+  visualProgress = initialIndex;
+  applyScrollProgress(initialIndex);
   window.cinematicWorld?.setScene?.(initialIndex, true);
-  updateInterface();
   updateFullscreenLabel();
   if (initialIndex === 4) playChat();
 

@@ -31,13 +31,13 @@ Lalu buka `http://localhost:8080`.
 ## Arsitektur
 
 - `index.html`: struktur sembilan adegan dan sumber ilmiah
-- `css/style.css`: tata artistik, transisi, responsivitas, dan fallback
-- `js/app.js`: navigasi, layar penuh, dialog sumber, dan percakapan AI
-- `js/three-fx.js`: satu dunia Three.js persisten yang bermorfosis antarscene
-- `assets/character/*.webp`: ilustrasi karakter dan lingkungan berbeda untuk setiap bagian presentasi
+- `css/style.css`: tata artistik, transisi berbasis guliran, responsivitas, dan tampilan pengganti
+- `js/app.js`: guliran sinematik, navigasi, layar penuh, dialog sumber, dan percakapan AI
+- `js/three-fx.js`: dunia Three.js persisten yang berubah secara bertahap antaradegan
+- `assets/character/*-ensemble.webp`: sembilan ilustrasi dengan kelompok tokoh dan lingkungan yang berbeda
 - `vendor/three.r128.min.js`: Three.js yang sudah disimpan lokal
 
-Font dan Three.js disertakan secara lokal beserta lisensinya. Semua efek memiliki fallback ketika WebGL tidak tersedia dan menghormati `prefers-reduced-motion`.
+Font dan Three.js disertakan secara lokal beserta lisensinya. Semua efek memiliki tampilan pengganti ketika WebGL tidak tersedia dan menghormati `prefers-reduced-motion`.
 
 ## Prinsip ilmiah
 

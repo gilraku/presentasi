@@ -2755,3 +2755,112 @@ body.webgl-unavailable .stage canvas {
   .history-full article { min-height: 185px; }
   .history-conclusion { display: none; }
 }
+
+/* Versi 5: panggung tetap dengan transisi yang mengikuti posisi gulir. */
+html {
+  height: auto;
+  min-height: 100%;
+  scroll-behavior: auto;
+}
+
+body.scroll-driven {
+  height: auto;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: none;
+  scrollbar-color: rgba(240, 201, 121, .56) rgba(7, 7, 6, .92);
+  scrollbar-width: thin;
+}
+
+body.scroll-driven::-webkit-scrollbar { width: 7px; }
+body.scroll-driven::-webkit-scrollbar-track { background: rgba(7, 7, 6, .92); }
+body.scroll-driven::-webkit-scrollbar-thumb { background: rgba(240, 201, 121, .56); border-radius: 99px; }
+
+.scroll-track {
+  position: relative;
+  z-index: -1;
+  display: block;
+  width: 1px;
+  min-height: 100vh;
+  pointer-events: none;
+}
+
+body.scroll-driven .deck {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+body.scroll-driven .scene {
+  visibility: visible !important;
+  opacity: var(--scene-opacity, 0);
+  transform: translate3d(0, var(--scene-shift, 0), 0) scale(var(--scene-scale, 1.025));
+  pointer-events: none;
+  transition: none !important;
+  will-change: opacity, transform;
+}
+
+body.scroll-driven .scene.is-active {
+  pointer-events: auto;
+}
+
+body.scroll-driven .scene__content {
+  opacity: var(--content-opacity, 0);
+  transform: translate3d(0, var(--content-shift, 0), 0);
+  transition: none;
+  will-change: opacity, transform;
+}
+
+body.scroll-driven .scene .scene-art,
+body.scroll-driven .scene:nth-child(even) .scene-art,
+body.scroll-driven .scene.is-active .scene-art,
+body.scroll-driven .scene.is-exiting .scene-art {
+  opacity: var(--art-opacity, 0) !important;
+  transform: translate3d(var(--art-shift, 0), 0, 0) scale(var(--art-scale, 1.04));
+  transition: none !important;
+  filter: saturate(.76) contrast(1.08) brightness(.73);
+  will-change: opacity, transform;
+}
+
+body.scroll-driven .scene-art-shade {
+  opacity: .92;
+  transition: none;
+}
+
+body.scroll-driven .reveal,
+body.scroll-driven .scene.is-active .reveal {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  animation: none !important;
+}
+
+body.scroll-driven .trend-line {
+  stroke-dashoffset: 0;
+  transition: none;
+}
+
+body.scroll-driven .display--paper-title {
+  max-width: 1040px;
+  font-size: clamp(58px, 6.6vw, 126px);
+  line-height: .94;
+}
+
+body.scroll-driven .opening-question {
+  max-width: 730px;
+}
+
+@media (max-width: 980px) {
+  body.scroll-driven .display--paper-title {
+    font-size: clamp(45px, 8.6vw, 82px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.scroll-driven .scene,
+  body.scroll-driven .scene__content,
+  body.scroll-driven .scene .scene-art {
+    transition: none !important;
+  }
+}
