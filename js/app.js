@@ -15,11 +15,6 @@
   const sourcesDialog = document.getElementById("sources-dialog");
   const sourcesClose = document.getElementById("sources-close");
   const navigationHint = document.getElementById("navigation-hint");
-  const evidenceTabs = Array.from(document.querySelectorAll(".evidence-tab"));
-  const evidencePanels = Array.from(document.querySelectorAll(".evidence-panel"));
-  const timelineNodes = Array.from(document.querySelectorAll(".timeline-node"));
-  const timelineEras = Array.from(document.querySelectorAll(".timeline-era"));
-  const timelineCurrent = document.getElementById("timeline-current");
   const chatTopics = Array.from(document.querySelectorAll(".chat-topic"));
   const chatBody = document.getElementById("chat-body");
 
@@ -243,48 +238,24 @@
     if (!clickedInside) closeSources();
   }
 
-  function selectTabbedContent(selectedButton, buttons, panels, dataKey) {
-    const selectedId = selectedButton.dataset[dataKey];
-    buttons.forEach((button) => {
-      const selected = button === selectedButton;
-      button.classList.toggle("is-selected", selected);
-      button.setAttribute("aria-selected", String(selected));
-    });
-    panels.forEach((panel) => {
-      const selected = panel.id.endsWith(selectedId);
-      panel.classList.toggle("is-active", selected);
-      panel.hidden = !selected;
-    });
-  }
-
-  function selectEvidence(selectedButton) {
-    selectTabbedContent(selectedButton, evidenceTabs, evidencePanels, "evidence");
-  }
-
-  function selectTimelineEra(selectedButton) {
-    selectTabbedContent(selectedButton, timelineNodes, timelineEras, "era");
-    const index = timelineNodes.indexOf(selectedButton);
-    if (timelineCurrent && index >= 0) timelineCurrent.textContent = pad(index + 1);
-  }
-
   const chatDialogues = {
     flynn: [
-      { role: "user", text: "Jadi, IQ seluruh dunia sekarang sedang turun?" },
-      { role: "ai", text: "Tidak sesederhana itu. Ada pembalikan di sejumlah populasi, tetapi hasil lintas negara dan lintas tes tidak seragam." },
-      { role: "user", text: "Lalu apa arti data Norwegia?" },
-      { role: "ai emphasis", html: "Dataset nasionalnya besar. Analisis dalam keluarga mendukung peran <strong>lingkungan</strong>—bukan membuktikan bahwa AI atau smartphone adalah penyebabnya." }
+      { role: "user", text: "Apakah skor IQ seluruh dunia sedang turun?" },
+      { role: "ai", text: "Belum dapat disimpulkan demikian. Penurunan ditemukan di sejumlah negara, tetapi hasilnya tidak sama di setiap tempat dan jenis tes." },
+      { role: "user", text: "Apa yang ditunjukkan oleh studi Norwegia?" },
+      { role: "ai emphasis", html: "Rata-rata skor meningkat sampai kelompok kelahiran 1975, kemudian menurun. Penelitian tersebut mendukung peran <strong>faktor lingkungan</strong>, tetapi tidak menetapkan satu penyebab tertentu." }
     ],
     brainrot: [
-      { role: "user", text: "Apakah brainrot itu diagnosis medis?" },
-      { role: "ai", text: "Bukan satu diagnosis klinis resmi. Istilah ini populer untuk menggambarkan dugaan penurunan kondisi mental akibat konten daring yang remeh atau berlebihan." },
+      { role: "user", text: "Apakah brainrot merupakan diagnosis medis?" },
+      { role: "ai", text: "Bukan. Istilah ini digunakan secara populer untuk menggambarkan dugaan penurunan kondisi mental akibat terlalu banyak mengonsumsi konten daring yang remeh." },
       { role: "user", text: "Mengapa Balon membahasnya?" },
-      { role: "ai emphasis", html: "Sebagai peringatan tentang kebiasaan digital dan kurangnya latihan kognitif. Hubungan kausal dengan pembalikan Efek Flynn <strong>belum terbukti</strong>." }
+      { role: "ai emphasis", html: "Balon membahasnya sebagai kemungkinan dampak kebiasaan digital dan kurangnya latihan berpikir. Hubungannya dengan pembalikan Efek Flynn <strong>belum terbukti</strong>." }
     ],
     socrates: [
-      { role: "user", text: "Apakah orang dahulu juga takut teknologi membuat kita bodoh?" },
-      { role: "ai", text: "Dalam Phaedrus, Socrates mengisahkan kritik bahwa tulisan dapat melemahkan latihan ingatan dan memberi kesan tahu tanpa pemahaman." },
-      { role: "user", text: "Berarti kekhawatiran soal AI pasti berlebihan?" },
-      { role: "ai emphasis", html: "Tidak. Sejarah hanya membantu kita bertanya lebih tajam: <strong>kemampuan apa yang kita titipkan, dan apa yang masih kita latih?</strong>" }
+      { role: "user", text: "Apakah kekhawatiran terhadap teknologi sudah ada sejak dahulu?" },
+      { role: "ai", text: "Ya. Dalam Phaedrus, Socrates mengkhawatirkan bahwa tulisan dapat membuat orang kurang melatih ingatan." },
+      { role: "user", text: "Apakah itu berarti kekhawatiran terhadap AI pasti keliru?" },
+      { role: "ai emphasis", html: "Tidak. Sejarah tidak menentukan bahwa teknologi selalu baik atau buruk. Kita tetap perlu menilai <strong>kemampuan apa yang berkurang karena jarang digunakan</strong>." }
     ]
   };
 
@@ -334,8 +305,6 @@
   sourcesButton.addEventListener("click", openSources);
   sourcesClose.addEventListener("click", closeSources);
   sourcesDialog.addEventListener("click", onDialogClick);
-  evidenceTabs.forEach((button) => button.addEventListener("click", () => selectEvidence(button)));
-  timelineNodes.forEach((button) => button.addEventListener("click", () => selectTimelineEra(button)));
   chatTopics.forEach((button) => button.addEventListener("click", () => selectChatTopic(button)));
 
   window.addEventListener("keydown", onKeydown);
