@@ -2860,7 +2860,138 @@ body.scroll-driven .opening-question {
 @media (prefers-reduced-motion: reduce) {
   body.scroll-driven .scene,
   body.scroll-driven .scene__content,
-  body.scroll-driven .scene .scene-art {
+  body.scroll-driven .scene .scene-art,
+  body.scroll-driven .scene-atmosphere,
+  body.scroll-driven .scene-atmosphere::before,
+  body.scroll-driven .scene-atmosphere::after {
     transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Versi 6: setiap adegan tetap bergerak halus setelah transisi selesai. */
+body.scroll-driven .scene {
+  --ambient-x: 73%;
+  --ambient-y: 42%;
+  --ambient-color: rgba(240, 177, 91, .34);
+  --ambient-color-soft: rgba(159, 61, 35, .2);
+  --camera-from-x: -.7%;
+  --camera-from-y: -.35%;
+  --camera-to-x: .9%;
+  --camera-to-y: .45%;
+  --camera-duration: 13s;
+}
+
+body.scroll-driven .scene:nth-child(2n) {
+  --ambient-x: 29%;
+  --ambient-y: 56%;
+  --ambient-color: rgba(219, 154, 72, .3);
+  --ambient-color-soft: rgba(93, 113, 116, .2);
+  --camera-from-x: .75%;
+  --camera-to-x: -.85%;
+  --camera-duration: 15s;
+}
+
+body.scroll-driven .scene:nth-child(3n) {
+  --ambient-x: 53%;
+  --ambient-y: 68%;
+  --ambient-color: rgba(192, 75, 43, .3);
+  --ambient-color-soft: rgba(230, 179, 91, .2);
+  --camera-from-y: .45%;
+  --camera-to-y: -.55%;
+  --camera-duration: 12s;
+}
+
+body.scroll-driven .scene-atmosphere {
+  position: absolute;
+  z-index: 2;
+  inset: -16%;
+  overflow: hidden;
+  opacity: var(--atmosphere-opacity, 0);
+  transform: translate3d(var(--atmosphere-shift, 0), 0, 0) scale(var(--atmosphere-scale, 1.04));
+  transform-origin: var(--ambient-x) var(--ambient-y);
+  background:
+    radial-gradient(circle at var(--ambient-x) var(--ambient-y), var(--ambient-color), transparent 27%),
+    radial-gradient(circle at 50% 64%, var(--ambient-color-soft), transparent 38%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+body.scroll-driven .scene-atmosphere::before,
+body.scroll-driven .scene-atmosphere::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+body.scroll-driven .scene-atmosphere::before {
+  opacity: .55;
+  background-image:
+    radial-gradient(circle, rgba(255, 225, 159, .85) 0 1px, transparent 1.8px),
+    radial-gradient(circle, rgba(222, 152, 76, .62) 0 1.2px, transparent 2px),
+    radial-gradient(circle, rgba(255, 236, 190, .48) 0 .8px, transparent 1.6px);
+  background-position: 12% 24%, 68% 72%, 86% 18%;
+  background-size: 143px 143px, 211px 211px, 97px 97px;
+  filter: blur(.15px);
+}
+
+body.scroll-driven .scene-atmosphere::after {
+  left: -42%;
+  width: 68%;
+  opacity: .48;
+  transform: skewX(-17deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 220, 153, .13) 47%, rgba(255, 240, 205, .25) 52%, transparent 61%);
+  filter: blur(10px);
+}
+
+body.scroll-driven .scene.is-active .scene-art {
+  animation: scene-camera-drift var(--camera-duration) ease-in-out infinite alternate;
+}
+
+body.scroll-driven .scene.is-active .scene-atmosphere {
+  animation: atmosphere-breathe 7.5s ease-in-out infinite alternate;
+}
+
+body.scroll-driven .scene.is-active .scene-atmosphere::before {
+  animation: atmosphere-particles 18s linear infinite;
+}
+
+body.scroll-driven .scene.is-active .scene-atmosphere::after {
+  animation: atmosphere-light-pass 9s ease-in-out infinite;
+}
+
+@keyframes scene-camera-drift {
+  from {
+    translate: var(--camera-from-x) var(--camera-from-y);
+    scale: 1.006;
+  }
+  to {
+    translate: var(--camera-to-x) var(--camera-to-y);
+    scale: 1.034;
+  }
+}
+
+@keyframes atmosphere-breathe {
+  from { filter: saturate(.9) brightness(.88); }
+  to { filter: saturate(1.16) brightness(1.12); }
+}
+
+@keyframes atmosphere-particles {
+  from { background-position: 12% 24%, 68% 72%, 86% 18%; }
+  to { background-position: 17% 11%, 61% 55%, 92% 35%; }
+}
+
+@keyframes atmosphere-light-pass {
+  0%, 18% { translate: -18% 0; opacity: 0; }
+  35% { opacity: .42; }
+  66% { opacity: .72; }
+  82%, 100% { translate: 225% 0; opacity: 0; }
+}
+
+@media (max-width: 900px) {
+  body.scroll-driven .scene-atmosphere {
+    opacity: calc(var(--atmosphere-opacity, 0) * .7);
   }
 }
