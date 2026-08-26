@@ -86,19 +86,16 @@
       const distance = index - bounded;
       const absoluteDistance = Math.abs(distance);
       const sceneOpacity = clamp(1 - absoluteDistance, 0, 1);
-      const contentOpacity = clamp((.72 - absoluteDistance) / .34, 0, 1);
+      const contentOpacity = clamp((.7 - absoluteDistance) / .38, 0, 1);
       const direction = index % 2 === 0 ? 1 : -1;
       scene.style.setProperty("--scene-opacity", sceneOpacity.toFixed(4));
-      scene.style.setProperty("--scene-shift", `${(distance * 10.5).toFixed(3)}vh`);
-      scene.style.setProperty("--scene-scale", (1 + absoluteDistance * .04).toFixed(4));
+      scene.style.setProperty("--scene-shift", `${(distance * 7.5).toFixed(3)}vh`);
+      scene.style.setProperty("--scene-scale", (1 + absoluteDistance * .024).toFixed(4));
       scene.style.setProperty("--content-opacity", contentOpacity.toFixed(4));
-      scene.style.setProperty("--content-shift", `${(distance * 12.5).toFixed(3)}vh`);
-      scene.style.setProperty("--art-opacity", clamp(sceneOpacity * .96, 0, .9).toFixed(4));
-      scene.style.setProperty("--art-shift", `${(distance * direction * 6.5).toFixed(3)}vw`);
-      scene.style.setProperty("--art-scale", (1.02 + absoluteDistance * .08).toFixed(4));
-      scene.style.setProperty("--atmosphere-opacity", clamp(sceneOpacity * .68, 0, .62).toFixed(4));
-      scene.style.setProperty("--atmosphere-shift", `${(distance * direction * 8).toFixed(3)}vw`);
-      scene.style.setProperty("--atmosphere-scale", (1.04 + absoluteDistance * .1).toFixed(4));
+      scene.style.setProperty("--content-shift", `${(distance * 8.5).toFixed(3)}vh`);
+      scene.style.setProperty("--art-opacity", clamp(sceneOpacity * .9, 0, .86).toFixed(4));
+      scene.style.setProperty("--art-shift", `${(distance * direction * 3.2).toFixed(3)}vw`);
+      scene.style.setProperty("--art-scale", (1.015 + absoluteDistance * .045).toFixed(4));
       // Susunan lapisan harus tetap. Mengubah z-index di tengah persilangan
       // opasitas dapat menimbulkan kedipan ketika dua adegan sama-sama terlihat.
       scene.style.zIndex = String(index + 1);
