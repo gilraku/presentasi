@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#070706">
-  <meta name="description" content="Presentasi web sinematik tentang editorial Richard Balon mengenai pembalikan Efek Flynn, istilah brainrot, dan kemalasan kognitif.">
-  <title>Reversal of the Flynn Effect and Cognitive Laziness — Gilang Swandaru</title>
-  <link rel="stylesheet" href="css/style.css?v=7">
+  <meta name="description" content="Sharing session tentang AI, ketakutan terhadap teknologi, bukti penelitian, dan peluang membangun cara kerja baru.">
+  <title>Apakah AI membuat kita semakin bodoh? — Gilang Swandaru</title>
+  <link rel="stylesheet" href="css/style.css?v=8">
 </head>
 <body data-scene="0">
   <a class="skip-link" href="#scene-1">Lewati ke isi presentasi</a>
@@ -23,171 +23,135 @@
       <span class="topline__mark" aria-hidden="true"></span>
       <span>Gilang Swandaru</span>
     </div>
-    <p class="topline__chapter" id="chapter-label">Prolog</p>
+    <p class="topline__chapter" id="chapter-label">Sharing session</p>
     <button class="icon-button" id="fullscreen-button" type="button" aria-label="Masuk layar penuh" title="Layar penuh (F)">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg>
     </button>
   </header>
 
   <main class="deck" id="deck">
-    <section class="scene scene--illustrated scene--opening is-active" id="scene-1" data-chapter="Editorial utama" aria-labelledby="title-1">
-      <img class="scene-art" src="assets/character/scene-opening-ensemble.webp" alt="" width="1672" height="941" decoding="async">
-      <div class="scene-art-shade scene-art-shade--left" aria-hidden="true"></div>
-      <div class="scene__content scene__content--opening">
-        <p class="eyebrow reveal">Berdasarkan editorial Richard Balon · 2026</p>
-        <h1 id="title-1" class="display display--paper-title reveal" style="--delay: .1s">Apakah AI membuat kita<br><em>malas berpikir?</em></h1>
-        <p class="opening-question reveal" style="--delay: .2s">Presentasi ini membahas Efek Flynn, pembalikannya, dan dugaan bahwa kemudahan digital dapat membuat kita semakin jarang berlatih berpikir.</p>
-        <div class="paper-meta reveal" style="--delay: .3s"><span><strong>Artikel utama:</strong> <em>Reversal of the Flynn Effect and Cognitive Laziness</em></span><span>Gilang Swandaru · 2026</span></div>
-      </div>
+    <section class="scene scene--opening is-active" id="scene-1" data-chapter="Pertanyaan pembuka" aria-labelledby="title-1">
+      <img class="scene-art" src="assets/character/scene-opening-ensemble.webp" alt="" width="1672" height="941" decoding="async"><div class="scene-art-shade" aria-hidden="true"></div>
+      <div class="scene__content" tabindex="0" aria-label="Isi slide 1">
+<p class="eyebrow">Sharing session · Gilang Swandaru</p>
+<h1 id="title-1">Apakah AI membuat kita<br> <em>semakin bodoh?</em></h1>
+<p class="lead">Tentang rasa takut, kemampuan baru,<br> dan cara kita beradaptasi.</p>
+<p class="conversation">Pernah merasa memakai AI itu seperti “curang”?</p>
+</div>
     </section>
-
-    <section class="scene scene--illustrated" id="scene-2" data-chapter="Efek Flynn" aria-labelledby="title-2" aria-hidden="true">
-      <img class="scene-art" src="assets/character/scene-flynn-generations.webp" alt="" width="1672" height="941" decoding="async">
-      <div class="scene-art-shade scene-art-shade--left" aria-hidden="true"></div>
-      <div class="scene__content scene__content--simple-left">
-        <p class="eyebrow reveal">01 — Dasar pembahasan</p>
-        <h2 id="title-2" class="display display--plain reveal" style="--delay: .08s">Apa itu <em>Efek Flynn?</em></h2>
-        <p class="plain-lead reveal" style="--delay: .16s">Efek Flynn adalah kenaikan rata-rata skor tes IQ dari satu generasi ke generasi berikutnya. Kenaikan ini ditemukan di banyak negara sepanjang abad ke-20.</p>
-        <div class="simple-points reveal" style="--delay: .24s">
-          <article><b>01</b><p><strong>Yang naik adalah skor rata-rata kelompok.</strong>Bukan berarti setiap orang pada generasi baru selalu lebih cerdas.</p></article>
-          <article><b>02</b><p><strong>Kenaikannya tidak selalu sama.</strong>Besar kenaikan berbeda menurut negara, periode, usia peserta, dan jenis tes.</p></article>
-          <article><b>03</b><p><strong>Lingkungan turut berperan.</strong>Pendidikan, kesehatan, gizi, dan kebiasaan menghadapi tes sering diajukan sebagai penjelasan.</p></article>
-        </div>
-      </div>
+    <section class="scene scene--history" id="scene-2" data-chapter="Ketakutan yang berulang" aria-labelledby="title-2">
+      <img class="scene-art" src="assets/character/scene-history-ensemble.webp" alt="" width="1672" height="941" decoding="async"><div class="scene-art-shade" aria-hidden="true"></div>
+      <div class="scene__content" tabindex="0" aria-label="Isi slide 2">
+<p class="eyebrow">01 · Melihat ke belakang</p>
+<h2 id="title-2">Alat baru.<br> <em>Pertanyaan yang familiar.</em></h2>
+<div class="timeline">
+<article><p class="era">Yunani kuno</p><h3>Tulisan</h3><p>Dalam <i>Phaedrus</i>, tulisan dipersoalkan karena dapat mengurangi latihan ingatan.</p></article>
+<article><p class="era">1980-an</p><h3>Kalkulator</h3><p>Perdebatan: bagaimana memakai alat sambil tetap mengajarkan kemampuan berhitung?</p></article>
+<article><p class="era">Era internet</p><h3>Mesin pencari</h3><p>Informasi tersedia kembali. Apa yang kita ingat, dan apa yang kita cari?</p></article>
+<article><p class="era">Hari ini</p><h3>AI generatif</h3><p>Alat dapat menyusun jawaban dan kode. Apa yang masih perlu kita kuasai?</p></article>
+</div>
+<p class="takeaway">Sejarah mengajak kita memeriksa kekhawatiran, bukan otomatis menolaknya.</p>
+<p class="slide-source">Plato, <i>Phaedrus</i> · NCTM · Sparrow dkk., 2011 · Detail melalui tombol Sumber</p></div>
     </section>
-
-    <section class="scene scene--illustrated scene--trend" id="scene-3" data-chapter="Kenaikan dan penurunan" aria-labelledby="title-3" aria-hidden="true">
-      <img class="scene-art scene-art--data" src="assets/character/scene-data-ensemble.webp" alt="" width="1672" height="941" decoding="async">
-      <div class="scene-art-shade scene-art-shade--data" aria-hidden="true"></div>
-      <div class="scene__content scene__content--trend">
-        <p class="eyebrow reveal">02 — Contoh data pembalikan</p>
-        <div class="trend-heading reveal" style="--delay: .08s"><h2 id="title-3" class="display display--trend">Skor tes meningkat,<br><em>kemudian menurun.</em></h2><p>Studi terhadap <strong>736.808 pria Norwegia</strong> menunjukkan kenaikan sampai kelompok kelahiran 1975, lalu penurunan pada kelompok berikutnya.</p></div>
-        <figure class="trend-chart reveal" style="--delay: .17s">
-          <figcaption><span>Rata-rata skor tes (setara IQ)</span><small>Empat titik acuan · tahun pada sumbu bawah adalah tahun kelahiran · skala 99–103 diperbesar</small></figcaption>
-          <svg viewBox="0 0 1000 320" role="img" aria-labelledby="trend-title trend-desc">
-            <title id="trend-title">Kenaikan dan pembalikan skor tes pada kelompok kelahiran Norwegia</title>
-            <desc id="trend-desc">Skor naik dari 99,5 pada 1962 menjadi 102,3 pada 1975, kemudian turun menjadi 99,4 pada 1989 dan 99,7 pada 1991.</desc>
-            <g class="chart-grid"><line x1="70" y1="52" x2="940" y2="52"/><line x1="70" y1="117" x2="940" y2="117"/><line x1="70" y1="182" x2="940" y2="182"/><line x1="70" y1="247" x2="940" y2="247"/></g>
-            <g class="chart-axis-labels"><text x="56" y="57">103</text><text x="56" y="122">101,7</text><text x="56" y="187">100,3</text><text x="56" y="252">99</text></g>
-            <path class="trend-area" d="M100 222 L430 82 L830 228 L920 212 L920 247 L100 247 Z"/>
-            <path class="trend-line trend-line--rise" d="M100 222 L430 82"/>
-            <path class="trend-line trend-line--fall" d="M430 82 L830 228 L920 212"/>
-            <text class="trend-phase trend-phase--rise" x="242" y="124">EFEK FLYNN</text><text class="trend-phase trend-phase--fall" x="650" y="125">PEMBALIKAN</text>
-            <g class="chart-point"><circle cx="100" cy="222" r="8"/><text x="100" y="198">99,5</text><text class="chart-year" x="100" y="286">1962</text></g>
-            <g class="chart-point chart-point--peak"><circle cx="430" cy="82" r="10"/><text x="430" y="55">102,3</text><text class="chart-year" x="430" y="286">1975</text></g>
-            <g class="chart-point"><circle cx="830" cy="228" r="8"/><text x="830" y="204">99,4</text><text class="chart-year" x="830" y="286">1989</text></g>
-            <g class="chart-point"><circle cx="920" cy="212" r="8"/><text x="920" y="188">99,7</text><text class="chart-year" x="920" y="286">1991</text></g>
-          </svg>
-          <p><strong>Kesimpulan yang aman:</strong> skor tes berubah dan faktor lingkungan kemungkinan berperan. Grafik ini tidak membuktikan bahwa internet, telepon pintar, atau kecerdasan buatan menjadi penyebabnya.</p>
-        </figure>
-      </div>
+    <section class="scene scene--left" id="scene-3" data-chapter="Memahami kekhawatiran" aria-labelledby="title-3">
+      <img class="scene-art" src="assets/character/scene-laziness-ensemble.webp" alt="" width="1672" height="941" decoding="async"><div class="scene-art-shade" aria-hidden="true"></div>
+      <div class="scene__content" tabindex="0" aria-label="Isi slide 3">
+<p class="eyebrow">02 · Mari kita bicarakan</p>
+<h2 id="title-3">Apa yang sebenarnya<br> <em>kita takutkan?</em></h2>
+<div class="question-list">
+<p><span>01</span>“Kalau dibantu terus, apakah kemampuan saya hilang?”</p>
+<p><span>02</span>“Kalau AI bisa mengerjakannya, apa peran saya?”</p>
+<p><span>03</span>“Bagaimana saya tahu hasilnya benar?”</p>
+</div>
+<p class="takeaway">Pertanyaan mana yang paling dekat dengan pengalamanmu?</p>
+</div>
     </section>
-
-    <section class="scene scene--illustrated scene--history" id="scene-4" data-chapter="Sejarah kekhawatiran" aria-labelledby="title-4" aria-hidden="true">
-      <img class="scene-art scene-art--history" src="assets/character/scene-history-ensemble.webp" alt="" width="1672" height="941" decoding="async">
-      <div class="scene-art-shade scene-art-shade--history" aria-hidden="true"></div>
-      <div class="scene__content scene__content--history-full">
-        <p class="eyebrow reveal">03 — Pola yang berulang</p>
-        <h2 id="title-4" class="display display--history-full reveal" style="--delay: .08s">Kekhawatiran terhadap teknologi<br><em>sudah muncul sejak lama.</em></h2>
-        <div class="history-full reveal" style="--delay: .17s">
-          <article><time>Sekitar 370 SM</time><strong>Tulisan</strong><p>Socrates khawatir tulisan membuat orang kurang melatih ingatan.</p></article>
-          <article><time>Abad ke-15</time><strong>Mesin cetak</strong><p>Buku semakin banyak. Sejumlah sarjana mengeluhkan informasi yang berlebihan.</p></article>
-          <article><time>1980-an</time><strong>Kalkulator</strong><p>Sekolah khawatir siswa akan kehilangan kemampuan berhitung dasar.</p></article>
-          <article><time>2000-an</time><strong>Internet</strong><p>Mesin pencari mengubah cara orang menyimpan dan mengingat informasi.</p></article>
-          <article><time>2020-an</time><strong>AI generatif</strong><p>AI dapat menyusun jawaban, bukan sekadar menemukan informasi.</p></article>
-        </div>
-        <p class="history-conclusion reveal" style="--delay: .28s"><strong>Perbedaannya saat ini:</strong> AI dapat mengambil alih sebagian proses menyusun jawaban. Karena itu, cara kita menggunakannya menjadi penting.</p>
-      </div>
-    </section>
-
-    <section class="scene scene--illustrated scene--chat" id="scene-5" data-chapter="Menggunakan AI" aria-labelledby="title-5" aria-hidden="true">
-      <img class="scene-art scene-art--ai" src="assets/character/scene-chat-ensemble.webp" alt="" width="1672" height="941" decoding="async">
+    <section class="scene scene--evidence" id="scene-4" data-chapter="Apa kata penelitian" aria-labelledby="title-4">
       <div class="scene-art-shade" aria-hidden="true"></div>
-      <div class="scene__content scene__content--chat">
-        <div class="chat-copy">
-          <p class="eyebrow reveal">04 — Menggunakan AI</p>
-          <h2 id="title-5" class="display display--chat reveal" style="--delay: .08s">Jawaban AI tetap<br><em>harus diperiksa.</em></h2>
-          <p class="lead reveal" style="--delay: .18s">AI dapat membantu menjelaskan topik yang sulit. Namun, kita tetap perlu memeriksa sumber, alasan, dan kesimpulannya.</p>
-          <p class="chat-equation reveal" style="--delay: .28s"><span>Menyalin jawaban</span><b>≠</b><span>memahami isi</span></p>
-        </div>
-        <div class="ai-chat reveal" style="--delay: .2s">
-          <div class="chat-topics" role="group" aria-label="Pilih topik percakapan">
-            <button class="chat-topic is-selected" type="button" data-topic="flynn" aria-pressed="true">Efek Flynn</button>
-            <button class="chat-topic" type="button" data-topic="brainrot" aria-pressed="false">Istilah brainrot</button>
-            <button class="chat-topic" type="button" data-topic="socrates" aria-pressed="false">Socrates</button>
-          </div>
-          <div class="chat-window">
-            <div class="chat-bar"><span class="chat-status-dot"></span><strong>Asisten AI</strong><span>aktif</span></div>
-            <div class="chat-body" id="chat-body" aria-live="polite"></div>
-            <div class="chat-footer"><span>Pilih topik untuk mengulang dialog</span><b>↗</b></div>
-          </div>
-        </div>
-      </div>
+      <div class="scene__content" tabindex="0" aria-label="Isi slide 4">
+<p class="eyebrow">03 · Temuan dan batasnya</p>
+<h2 id="title-4">Buktinya perlu dibaca<br> <em>sesuai konteks.</em></h2>
+<div class="evidence-grid">
+<article><p class="evidence-label">IQ antargenerasi</p><h3>Perubahan skor</h3><p>Efek Flynn: rata-rata skor tes naik antargenerasi. Studi Norwegia menemukan pembalikan pada kohort berikutnya.</p><p class="boundary">Studi 2018 ini tidak menguji penggunaan AI generatif.</p><p class="byline">Bratsberg &amp; Rogeberg, 2018</p></article>
+<article><p class="evidence-label">Survei pekerja</p><h3>319 pekerja</h3><p>Keyakinan lebih tinggi pada AI untuk suatu tugas berkaitan dengan lebih sedikit berpikir kritis yang dilaporkan.</p><p class="boundary">Survei persepsi; bukan bukti penurunan IQ atau sebab-akibat.</p><p class="byline">Lee dkk., 2025</p></article>
+<article><p class="evidence-label">Eksperimen belajar</p><h3>Desain berpengaruh</h3><p>Chatbot umum membantu latihan, tetapi hasil tanpa bantuan kemudian lebih buruk. Tutor dengan batasan belajar banyak mengurangi efek ini.</p><p class="boundary">Konteks: pembelajaran matematika siswa SMA.</p><p class="byline">Bastani dkk., 2025</p></article>
+</div>
+<p class="takeaway">Temuan ini belum membenarkan klaim umum “AI membuat manusia semakin bodoh”.</p>
+<p class="slide-source">Balon, 2026: editorial pemantik diskusi, bukan studi kausal · Detail melalui tombol Sumber</p></div>
     </section>
-
-    <section class="scene scene--illustrated scene--brainrot" id="scene-6" data-chapter="Istilah brainrot" aria-labelledby="title-6" aria-hidden="true">
-      <img class="scene-art scene-art--brainrot" src="assets/character/scene-brainrot-ensemble.webp" alt="" width="1672" height="941" decoding="async">
-      <div class="scene-art-shade scene-art-shade--brainrot" aria-hidden="true"></div>
-      <div class="scene__content scene__content--brainrot">
-        <p class="eyebrow reveal">05 — Kebiasaan mengonsumsi konten</p>
-        <h2 id="title-6" class="display display--brainrot reveal" style="--delay: .08s">Apa yang dimaksud<br>dengan <em>brainrot?</em></h2>
-        <p class="brainrot-definition reveal" style="--delay: .18s"><strong><em>Brainrot</em></strong> adalah istilah populer untuk dugaan penurunan kondisi mental atau intelektual akibat terlalu banyak mengonsumsi konten daring yang remeh atau tidak menantang.</p>
-        <div class="brainrot-signals reveal" style="--delay: .27s">
-          <span><b>01</b>terus-menerus menggulir layar</span><span><b>02</b>sulit membaca teks panjang</span><span><b>03</b>perhatian cepat berpindah</span><span><b>04</b>lelah tanpa memperoleh pemahaman</span>
-        </div>
-        <p class="brainrot-caveat reveal" style="--delay: .36s">Istilah ini bukan diagnosis medis. Balon menggunakannya untuk membahas kemungkinan dampak kebiasaan digital dan kurangnya latihan berpikir.</p>
-      </div>
+    <section class="scene scene--purpose" id="scene-5" data-chapter="Belajar dan bekerja" aria-labelledby="title-5">
+      <img class="scene-art" src="assets/character/scene-chat-ensemble.webp" alt="" width="1672" height="941" decoding="async"><div class="scene-art-shade" aria-hidden="true"></div>
+      <div class="scene__content" tabindex="0" aria-label="Isi slide 5">
+<p class="eyebrow">04 · Alat yang sama, tujuan berbeda</p>
+<h2 id="title-5">Kapan perlu berlatih?<br> <em>Kapan boleh mendelegasikan?</em></h2>
+<div class="purpose-tabs" role="tablist" aria-label="Tujuan penggunaan AI">
+<button type="button" id="tab-learn" role="tab" aria-selected="true" aria-controls="panel-learn" data-purpose="learn">Saya ingin belajar</button>
+<button type="button" id="tab-work" role="tab" aria-selected="false" aria-controls="panel-work" tabindex="-1" data-purpose="work">Saya ingin menyelesaikan pekerjaan</button>
+</div>
+<div class="purpose-panel" id="panel-learn" role="tabpanel" aria-labelledby="tab-learn" tabindex="0">
+<p class="example-label">Contoh · Belajar rumus spreadsheet</p>
+<p class="prompt">“Beri petunjuk dan satu contoh. Setelah itu, uji pemahaman saya dengan soal baru.”</p>
+<p class="purpose-outcome"><strong>Ukuran keberhasilan:</strong> saya bisa menjelaskan dan mencoba sendiri.</p>
+</div>
+<div class="purpose-panel" id="panel-work" role="tabpanel" aria-labelledby="tab-work" tabindex="0" hidden>
+<p class="example-label">Contoh · Menyiapkan rekap rutin</p>
+<p class="prompt">“Bantu susun rumus sesuai aturan ini. Tunjukkan asumsi dan contoh untuk memeriksa hasilnya.”</p>
+<p class="purpose-outcome"><strong>Ukuran keberhasilan:</strong> hasil akurat, lebih cepat, dan bisa ditelusuri.</p>
+</div>
+<p class="takeaway">Mendelegasikan sebagian beban berpikir ke alat tidak otomatis berarti malas.</p>
+<p class="slide-source">Risko &amp; Gilbert, 2016: <i>cognitive offloading</i> · Contoh prompt bersifat ilustratif · Detail melalui tombol Sumber</p></div>
     </section>
-
-    <section class="scene scene--illustrated" id="scene-7" data-chapter="Kemalasan kognitif" aria-labelledby="title-7" aria-hidden="true">
-      <img class="scene-art" src="assets/character/scene-laziness-ensemble.webp" alt="" width="1672" height="941" decoding="async">
-      <div class="scene-art-shade scene-art-shade--left" aria-hidden="true"></div>
-      <div class="scene__content scene__content--simple-left scene__content--laziness">
-        <p class="eyebrow reveal">06 — Pokok bahasan editorial</p>
-        <h2 id="title-7" class="display display--plain reveal" style="--delay: .08s">Apa yang dimaksud dengan<br><em>kemalasan kognitif?</em></h2>
-        <p class="plain-lead reveal" style="--delay: .16s">Balon menjelaskan kemalasan kognitif sebagai kebiasaan jarang menggunakan dan enggan menggunakan kemampuan berpikir sendiri.</p>
-        <div class="simple-points simple-points--compact reveal" style="--delay: .24s">
-          <article><b>01</b><p><strong>Tidak mencoba mengingat.</strong>Jawaban langsung dicari melalui perangkat.</p></article>
-          <article><b>02</b><p><strong>Tidak memeriksa jawaban.</strong>Hasil dari AI diterima tanpa menilai sumber dan alasannya.</p></article>
-          <article><b>03</b><p><strong>Menghindari bacaan yang sulit.</strong>Teks panjang ditinggalkan sebelum dipahami.</p></article>
-        </div>
-        <p class="plain-caveat reveal" style="--delay: .34s"><strong>Batas kesimpulan:</strong> Balon menduga kebiasaan tersebut dapat melemahkan latihan kognitif. Namun, belum ada bukti bahwa AI menjadi penyebab langsung pembalikan Efek Flynn.</p>
-      </div>
+    <section class="scene scene--left" id="scene-6" data-chapter="Peluang membangun alat" aria-labelledby="title-6">
+      <img class="scene-art" src="assets/character/scene-practice-ensemble.webp" alt="" width="1672" height="941" decoding="async"><div class="scene-art-shade" aria-hidden="true"></div>
+      <div class="scene__content" tabindex="0" aria-label="Isi slide 6">
+<p class="eyebrow">05 · Dari pengguna menjadi pembuat</p>
+<h2 id="title-6">“Saya butuh alat ini.”<br> <em>Sekarang bisa mulai mencoba.</em></h2>
+<p class="lead">AI membuka jalan untuk membuat prototipe dari kebutuhan yang kita pahami sehari-hari.</p>
+<div class="opportunity-list">
+<p><span>Rekap berulang</span><strong>Otomatisasi pengolahan data</strong></p>
+<p><span>Status sulit dilacak</span><strong>Dashboard laporan tim</strong></p>
+<p><span>Input tersebar</span><strong>Formulir dan alur kerja bersama</strong></p>
+</div>
+<p class="takeaway">Pengetahuan tentang pekerjaan tetap penting: masalah apa yang perlu diselesaikan?</p>
+<p class="slide-source">IWH: <i>Every Employee Can Build Apps Now…</i> · Contoh penggunaan ilustratif · Detail melalui tombol Sumber</p></div>
     </section>
-
-    <section class="scene scene--illustrated scene--recovery" id="scene-8" data-chapter="Cara menggunakan AI" aria-labelledby="title-8" aria-hidden="true">
-      <img class="scene-art scene-art--recovery" src="assets/character/scene-practice-ensemble.webp" alt="" width="1672" height="941" decoding="async">
-      <div class="scene-art-shade scene-art-shade--recovery" aria-hidden="true"></div>
-      <div class="scene__content scene__content--recovery">
-        <p class="eyebrow reveal">07 — Langkah yang dapat dilakukan</p>
-        <h2 id="title-8" class="display display--recovery reveal" style="--delay: .08s">Gunakan AI tanpa<br><em>berhenti berpikir.</em></h2>
-        <div class="recovery-steps reveal" style="--delay: .2s">
-          <span><b>01</b><strong>Pikirkan lebih dahulu</strong>Coba jawab dengan kemampuan sendiri sebelum membuka AI.</span>
-          <span><b>02</b><strong>Minta petunjuk</strong>Gunakan AI untuk memberi arah, bukan langsung menyelesaikan seluruh tugas.</span>
-          <span><b>03</b><strong>Periksa hasilnya</strong>Bandingkan jawaban dengan sumber yang dapat dipercaya.</span>
-          <span><b>04</b><strong>Jelaskan kembali</strong>Sampaikan hasil dengan kata-kata sendiri untuk memastikan pemahaman.</span>
-        </div>
-        <p class="recovery-note reveal" style="--delay: .34s">Langkah ini bertujuan mempertahankan latihan mengingat, menilai, dan menyusun alasan.</p>
-      </div>
+    <section class="scene scene--organization" id="scene-7" data-chapter="Organisasi ikut beradaptasi" aria-labelledby="title-7">
+      <div class="scene-art-shade" aria-hidden="true"></div>
+      <div class="scene__content" tabindex="0" aria-label="Isi slide 7">
+<p class="eyebrow">06 · Pelajaran dari artikel IWH</p>
+<h2 id="title-7">Alatnya makin mudah dibuat.<br> <em>Cara kerja perlu disepakati.</em></h2>
+<div class="definition-case">
+<p class="example-label">Contoh hipotetis · Dua dashboard laporan</p>
+<div class="definition-pair"><p><span>Tim A menyebut “selesai”</span><strong>Saat draf dibuat.</strong></p><p><span>Tim B menyebut “selesai”</span><strong>Saat laporan dikirim.</strong></p></div>
+<p class="case-result">Rumusnya bisa benar, tetapi angka kedua tim belum bisa dibandingkan.</p>
+</div>
+<div class="governance-line"><p><strong>Sepakati definisi.</strong> Apa arti datanya?</p><p><strong>Periksa logika.</strong> Apakah sesuai proses?</p><p><strong>Tentukan pemilik.</strong> Siapa merawatnya?</p></div>
+<p class="takeaway">Beri ruang bereksperimen, lalu siapkan dukungan saat alat mulai dipakai bersama.</p>
+<p class="slide-source">IWH · Perspektif praktisi tentang organisasi, bukan penelitian IQ · Detail melalui tombol Sumber</p></div>
     </section>
-
-    <section class="scene scene--illustrated" id="scene-9" data-chapter="Kesimpulan" aria-labelledby="title-9" aria-hidden="true">
-      <img class="scene-art" src="assets/character/scene-closing-ensemble.webp" alt="" width="1672" height="941" decoding="async">
-      <div class="scene-art-shade scene-art-shade--closing" aria-hidden="true"></div>
-      <div class="scene__content scene__content--final">
-        <p class="eyebrow reveal">Kesimpulan</p>
-        <h2 id="title-9" class="display display--final reveal" style="--delay: .08s">AI sebaiknya membantu kita berpikir,<br><em>bukan menggantikan prosesnya.</em></h2>
-        <p class="closing-thesis reveal" style="--delay: .22s">Gunakan teknologi untuk mempercepat pekerjaan. Tetap gunakan ingatan, penilaian, dan penalaran kita sendiri.</p>
-        <div class="closing-principles reveal" style="--delay: .31s">
-          <span><b>01</b>Pikirkan.</span><span><b>02</b>Periksa.</span><span><b>03</b>Jelaskan.</span>
-        </div>
-        <p class="signature reveal" style="--delay: .43s">Gilang Swandaru · 2026</p>
-      </div>
+    <section class="scene scene--left" id="scene-8" data-chapter="Mulai dari masalah nyata" aria-labelledby="title-8">
+      <img class="scene-art" src="assets/character/scene-flynn-generations.webp" alt="" width="1672" height="941" decoding="async"><div class="scene-art-shade" aria-hidden="true"></div>
+      <div class="scene__content" tabindex="0" aria-label="Isi slide 8">
+<p class="eyebrow">07 · Mencoba dalam keseharian</p>
+<h2 id="title-8">Pilih satu masalah.<br> <em>Mulai dari sana.</em></h2>
+<ol class="action-list">
+<li><strong>Tentukan hasil yang diinginkan.</strong><span>Apa yang ingin dipelajari atau dipercepat?</span></li>
+<li><strong>Coba dalam lingkup kecil.</strong><span>Gunakan contoh data yang boleh dipakai.</span></li>
+<li><strong>Periksa sebelum mengandalkan.</strong><span>Uji hasil dan asumsi dengan contoh yang diketahui.</span></li>
+<li><strong>Bagikan prosesnya.</strong><span>Catat aturan dan libatkan tim atau IT saat digunakan bersama.</span></li>
+</ol>
+</div>
+    </section>
+    <section class="scene scene--closing" id="scene-9" data-chapter="Diskusi penutup" aria-labelledby="title-9">
+      <img class="scene-art" src="assets/character/scene-closing-ensemble.webp" alt="" width="1672" height="941" decoding="async"><div class="scene-art-shade" aria-hidden="true"></div>
+      <div class="scene__content" tabindex="0" aria-label="Isi slide 9">
+<p class="eyebrow">Giliran kita beradaptasi</p>
+<h2 id="title-9">Apa yang ingin kamu buat<br> <em>dengan bantuan AI?</em></h2>
+<p class="lead">Kita boleh mendelegasikan pekerjaan.<br> Kita tetap menentukan tujuan, menilai hasil,<br> dan bertanggung jawab atas penggunaannya.</p>
+<p class="conversation">Satu pekerjaan yang ingin kamu coba minggu ini?</p>
+</div>
     </section>
   </main>
-
-  <div class="scroll-track" id="scroll-track" aria-hidden="true"></div>
-
   <footer class="controls" aria-label="Navigasi presentasi">
     <button class="control-button" id="prev-button" type="button" aria-label="Adegan sebelumnya">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
@@ -200,79 +164,22 @@
     <button class="sources-button" id="sources-button" type="button">Sumber</button>
   </footer>
 
-  <p class="navigation-hint" id="navigation-hint"><span>↓</span> Gulir untuk melanjutkan</p>
+  <p class="navigation-hint" id="navigation-hint"><span>↓</span> Panah kanan atau gulir untuk melanjutkan</p>
 
   <dialog class="sources" id="sources-dialog" aria-labelledby="sources-title">
-    <div class="sources__head">
-      <div>
-        <p class="eyebrow">Catatan ilmiah</p>
-        <h2 id="sources-title">Sumber &amp; batas kesimpulan</h2>
-      </div>
-      <button class="icon-button" id="sources-close" type="button" aria-label="Tutup sumber">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
-      </button>
-    </div>
-    <div class="sources__intro">
-      <p>Artikel Balon merupakan editorial yang merangkum bukti, kekhawatiran, dan hipotesis. Presentasi ini memisahkan data skor tes, penafsiran tentang faktor lingkungan, dan dugaan bahwa teknologi atau AI menjadi penyebab langsung. Dugaan tersebut belum terbukti.</p>
-    </div>
-    <ol class="sources__list">
-      <li>
-        <span>01</span>
-        <div><strong>Balon, R. (2026)</strong><p>Reversal of the Flynn Effect and Cognitive Laziness. <em>Annals of Clinical Psychiatry</em>, 37(2), 59–61. Sumber utama presentasi; bentuknya editorial, bukan studi kausal.</p><a href="https://journals.sagepub.com/doi/10.1177/10401237261438653" target="_blank" rel="noreferrer">Buka editorial ↗</a></div>
-      </li>
-      <li>
-        <span>02</span>
-        <div><strong>Flynn, J. R. (1984)</strong><p>The mean IQ of Americans: Massive gains 1932 to 1978. <em>Psychological Bulletin</em>, 95(1), 29–51. Asal angka kenaikan 13 poin yang dipakai sebagai konteks historis.</p><a href="https://doi.org/10.1037/0033-2909.95.1.29" target="_blank" rel="noreferrer">Buka DOI ↗</a></div>
-      </li>
-      <li>
-        <span>03</span>
-        <div><strong>Pietschnig, J. &amp; Voracek, M. (2015)</strong><p>One Century of Global IQ Gains. Metaanalisis ini mencakup 271 sampel independen, hampir empat juta peserta, 31 negara, dan data 1909–2013.</p><a href="https://pubmed.ncbi.nlm.nih.gov/25987509/" target="_blank" rel="noreferrer">Buka PubMed ↗</a></div>
-      </li>
-      <li>
-        <span>04</span>
-        <div><strong>Dutton, E., van der Linden, D. &amp; Lynn, R. (2016)</strong><p>The negative Flynn Effect: A systematic literature review. Tinjauan ini menemukan sembilan studi yang memenuhi kriteria dari tujuh negara.</p><a href="https://pure.eur.nl/en/publications/the-negative-flynn-effect-a-systematic-literature-review/" target="_blank" rel="noreferrer">Buka rekaman penelitian ↗</a></div>
-      </li>
-      <li>
-        <span>05</span>
-        <div><strong>Bratsberg, B. &amp; Rogeberg, O. (2018)</strong><p>Flynn effect and its reversal are both environmentally caused. <em>PNAS</em>, 115(26), 6674–6678. Kumpulan data mencakup 736.808 pria Norwegia; analisis dalam keluarga mendukung peran lingkungan.</p><a href="https://www.pnas.org/doi/10.1073/pnas.1718793115" target="_blank" rel="noreferrer">Buka penelitian ↗</a></div>
-      </li>
-      <li>
-        <span>06</span>
-        <div><strong>Trahan, L. H., dkk. (2014)</strong><p>The Flynn effect: A meta-analysis. <em>Psychological Bulletin</em>, 140(5), 1332–1360. Rujukan tambahan tentang variasi besar Efek Flynn.</p><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4152423/" target="_blank" rel="noreferrer">Baca artikel ↗</a></div>
-      </li>
-      <li>
-        <span>07</span>
-        <div><strong>Plato, <em>Phaedrus</em> 274c–275b</strong><p>Socrates mengisahkan kritik terhadap tulisan sebagai alat eksternal bagi ingatan. Ini argumen filosofis, bukan eksperimen.</p><a href="https://scaife.perseus.org/reader/urn:cts:greekLit:tlg0059.tlg012.perseus-eng2:227-279/" target="_blank" rel="noreferrer">Baca teks primer ↗</a></div>
-      </li>
-      <li>
-        <span>08</span>
-        <div><strong>Blair, A. M. (2010) + Cambridge University Press</strong><p>Sumber sejarah tentang keluhan banjir informasi pada Eropa modern awal dan budaya manuskrip yang telah berkembang sebelum percetakan.</p><a href="https://yalebooks.yale.edu/book/9780300165395/too-much-to-know/" target="_blank" rel="noreferrer">Buka buku ↗</a> <a href="https://www.cambridge.org/core/books/medieval-manuscript-book/introduction-manuscripts-and-cultural-history/1D68D0075EDF59DE5EF0A68770C3F453" target="_blank" rel="noreferrer">Budaya manuskrip ↗</a></div>
-      </li>
-      <li>
-        <span>09</span>
-        <div><strong>NCTM + Christian Science Monitor (1986)</strong><p>Arsip profesi dan laporan sezaman memberi konteks perdebatan kalkulator dalam pendidikan matematika pada 1980-an.</p><a href="https://www.nctm.org/100timeline/" target="_blank" rel="noreferrer">Linimasa NCTM ↗</a> <a href="https://www.csmonitor.com/1986/0509/dcalc-f.html" target="_blank" rel="noreferrer">Laporan 1986 ↗</a></div>
-      </li>
-      <li>
-        <span>10</span>
-        <div><strong>Sparrow, B., Liu, J. &amp; Wegner, D. M. (2011)</strong><p>Google Effects on Memory: Cognitive Consequences of Having Information at Our Fingertips. Eksperimen tentang strategi mengingat informasi yang diperkirakan tersedia kembali.</p><a href="https://www.science.org/doi/10.1126/science.1207745" target="_blank" rel="noreferrer">Buka penelitian ↗</a></div>
-      </li>
-      <li>
-        <span>11</span>
-        <div><strong>Oxford University Press (2024)</strong><p>“Brain rot” dipilih sebagai Oxford Word of the Year 2024. Definisinya dipakai sebagai istilah budaya populer, bukan diagnosis medis tunggal.</p><a href="https://corp.oup.com/news/brain-rot-named-oxford-word-of-the-year-2024/" target="_blank" rel="noreferrer">Buka sumber ↗</a></div>
-      </li>
-      <li>
-        <span>12</span>
-        <div><strong>Tinjauan ilmiah tentang <em>brain rot</em> (2025)</strong><p>Tinjauan membahas konsumsi konten digital berkualitas rendah, perhatian, dan kesehatan mental. Penulis juga menekankan perlunya penelitian jangka panjang dan definisi yang lebih kuat.</p><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11939997/" target="_blank" rel="noreferrer">Baca tinjauan ↗</a></div>
-      </li>
-    </ol>
-  </dialog>
-
-  <noscript>
-    <div class="noscript">Aktifkan JavaScript untuk menjalankan presentasi interaktif ini.</div>
-  </noscript>
-
-  <script src="vendor/three.r128.min.js"></script>
-  <script src="js/three-fx.js?v=7"></script>
-  <script src="js/app.js?v=7"></script>
-</body>
-</html>
+<div class="sources__head"><h2 id="sources-title">Sumber &amp; konteks</h2><button class="icon-button" id="sources-close" type="button" aria-label="Tutup sumber">×</button></div>
+<p>Penelitian, editorial, teks sejarah, dan perspektif praktisi memiliki fungsi yang berbeda. Contoh dashboard dan prompt dalam sesi ini adalah ilustrasi, bukan hasil eksperimen.</p>
+<ol class="sources__list"><li><div><h3>Balon, R. (2026)</h3><p>Editorial: Reversal of the Flynn Effect and Cognitive Laziness. Pemantik diskusi; mengajukan hipotesis, bukan membuktikan AI menyebabkan penurunan IQ.</p><a href="https://journals.sagepub.com/doi/10.1177/10401237261438653" target="_blank" rel="noopener noreferrer">Buka sumber ↗</a></div></li>
+<li><div><h3>Bratsberg, B. &amp; Rogeberg, O. (2018)</h3><p>Flynn effect and its reversal are both environmentally caused. PNAS. Data pria Norwegia, kohort kelahiran 1962–1991; bukan studi penggunaan AI generatif.</p><a href="https://pubmed.ncbi.nlm.nih.gov/29891660/" target="_blank" rel="noopener noreferrer">Buka sumber ↗</a></div></li>
+<li><div><h3>Lee, H.-P., dkk. (2025)</h3><p>The Impact of Generative AI on Critical Thinking. CHI 2025. Survei 319 pekerja dan 936 contoh tugas. Asosiasi berdasarkan laporan diri, bukan pengukuran penurunan IQ.</p><a href="https://www.microsoft.com/en-us/research/publication/the-impact-of-generative-ai-on-critical-thinking-self-reported-reductions-in-cognitive-effort-and-confidence-effects-from-a-survey-of-knowledge-workers/" target="_blank" rel="noopener noreferrer">Buka sumber ↗</a></div></li>
+<li><div><h3>Bastani, H., dkk. (2025)</h3><p>Generative AI without guardrails can harm learning: Evidence from high school mathematics. PNAS. Eksperimen membandingkan chatbot umum dan tutor yang dirancang menjaga proses belajar.</p><a href="https://pubmed.ncbi.nlm.nih.gov/40560616/" target="_blank" rel="noopener noreferrer">Buka sumber ↗</a></div></li>
+<li><div><h3>Koreksi artikel Bastani dkk. (2025)</h3><p>Catatan koreksi penerbit terkait artikel tersebut, ditautkan agar pembaca dapat memeriksa rekaman publikasi lengkap.</p><a href="https://pubmed.ncbi.nlm.nih.gov/40833419/" target="_blank" rel="noopener noreferrer">Buka sumber ↗</a></div></li>
+<li><div><h3>Risko, E. F. &amp; Gilbert, S. J. (2016)</h3><p>Cognitive Offloading. Trends in Cognitive Sciences. Tinjauan tentang pemindahan beban kognitif ke alat, mekanisme, manfaat, dan konsekuensinya.</p><a href="https://pubmed.ncbi.nlm.nih.gov/27542527/" target="_blank" rel="noopener noreferrer">Buka sumber ↗</a></div></li>
+<li><div><h3>IWH — Internet Why’s and How’s</h3><p>Every Employee Can Build Apps Now. Your Organisation Isn’t Ready for What Happens Next. Perspektif praktisi: peluang alat buatan karyawan, perbedaan definisi proses, dan tata kelola. Bukan studi empiris tentang kecerdasan.</p><a href="https://iwh.gr/en/blog/every-employee-can-build-apps-now-your-organisation-isnt-ready/" target="_blank" rel="noopener noreferrer">Buka sumber ↗</a></div></li>
+<li><div><h3>Plato — Phaedrus, 274c–275b</h3><p>Dialog filosofis yang menampilkan Socrates membahas tulisan dan ingatan. Tanggal hidup Socrates tidak disamakan dengan waktu penyusunan dialog.</p><a href="https://scaife.perseus.org/reader/urn:cts:greekLit:tlg0059.tlg012.perseus-eng2:227-279/" target="_blank" rel="noopener noreferrer">Buka sumber ↗</a></div></li>
+<li><div><h3>NCTM — A Century of Mathematics Education</h3><p>Arsip organisasi pendidikan matematika untuk konteks perkembangan dan perdebatan penggunaan kalkulator.</p><a href="https://www.nctm.org/100timeline/" target="_blank" rel="noopener noreferrer">Buka sumber ↗</a></div></li>
+<li><div><h3>Sparrow, B., Liu, J. &amp; Wegner, D. M. (2011)</h3><p>Google Effects on Memory. Science. Eksperimen tentang strategi mengingat informasi yang diperkirakan dapat diakses kembali; tidak membuktikan penurunan kecerdasan umum.</p><a href="https://www.science.org/doi/10.1126/science.1207745" target="_blank" rel="noopener noreferrer">Buka sumber ↗</a></div></li></ol>
+</dialog>
+<noscript><p class="noscript">JavaScript tidak aktif. Semua slide ditampilkan sebagai bacaan.</p></noscript>
+<script src="vendor/three.r128.min.js"></script><script src="js/three-fx.js?v=8"></script><script src="js/app.js?v=8"></script>
+</body></html>

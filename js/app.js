@@ -1,390 +1,166 @@
 (() => {
   "use strict";
-
   const scenes = Array.from(document.querySelectorAll(".scene"));
   const total = scenes.length;
-  const body = document.body;
-  const chapterLabel = document.getElementById("chapter-label");
-  const currentLabel = document.getElementById("scene-current");
-  const totalLabel = document.getElementById("scene-total");
-  const progressFill = document.getElementById("progress-fill");
+  if (!total) return;
   const previousButton = document.getElementById("prev-button");
   const nextButton = document.getElementById("next-button");
   const fullscreenButton = document.getElementById("fullscreen-button");
   const sourcesButton = document.getElementById("sources-button");
   const sourcesDialog = document.getElementById("sources-dialog");
   const sourcesClose = document.getElementById("sources-close");
+  const chapterLabel = document.getElementById("chapter-label");
+  const currentLabel = document.getElementById("scene-current");
+  const totalLabel = document.getElementById("scene-total");
+  const progressFill = document.getElementById("progress-fill");
   const navigationHint = document.getElementById("navigation-hint");
-  const chatTopics = Array.from(document.querySelectorAll(".chat-topic"));
-  const chatBody = document.getElementById("chat-body");
-  const scrollTrack = document.getElementById("scroll-track");
-
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const SCENE_SCROLL_RATIO = reducedMotion ? 1 : 1.35;
+  const purposeTabs = Array.from(document.querySelectorAll("[data-purpose]"));
   let currentScene = 0;
-  let sceneStep = Math.max(1, window.innerHeight * SCENE_SCROLL_RATIO);
-  let targetProgress = 0;
-  let visualProgress = 0;
-  let scrollFrame = 0;
-  let lastScrollFrameTime = performance.now();
-  let hintHidden = false;
-  let selectedChatTopic = "flynn";
-  let chatTimers = [];
-
-  body.classList.add("scroll-driven");
-
-  const pad = (value) => String(value).padStart(2, "0");
-  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
-
-  function setChapter(text) {
-    if (!chapterLabel || chapterLabel.textContent === text) return;
-    chapterLabel.classList.add("is-changing");
-    window.setTimeout(() => {
-      chapterLabel.textContent = text;
-      chapterLabel.classList.remove("is-changing");
-    }, reducedMotion ? 0 : 160);
+  let wheelSum = 0;
+  let lastWheel = 0;
+  let wheelLockedUntil = 0;
+  let touchStart = null;
+  const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
+  const pad = n => String(n).padStart(2, "0");
+  function initialSceneFromHash() {
+    const match = location.hash.match(/^#scene-(\d+)$/);
+    return match ? clamp(Number(match[1]) - 1, 0, total - 1) : 0;
   }
-
-  function updateInterface(progress = currentScene) {
-    currentLabel.textContent = pad(currentScene + 1);
-    totalLabel.textContent = pad(total);
-    progressFill.style.width = `${((progress + 1) / total) * 100}%`;
-    previousButton.disabled = currentScene === 0;
-    nextButton.disabled = currentScene === total - 1;
-    setChapter(scenes[currentScene].dataset.chapter || "");
-  }
-
-  function hideNavigationHint() {
-    if (hintHidden) return;
-    hintHidden = true;
-    navigationHint?.classList.add("is-hidden");
-  }
-
-  function setCurrentScene(nextIndex, updateHash = true) {
-    if (nextIndex === currentScene && scenes[nextIndex].classList.contains("is-active")) return;
-    currentScene = clamp(nextIndex, 0, total - 1);
-    scenes.forEach((scene, index) => {
-      const active = index === currentScene;
+  function goToScene(index, options = {}) {
+    const next = clamp(index, 0, total - 1);
+    const previousScene = scenes[currentScene];
+    const focusWasInSlide = previousScene.contains(document.activeElement);
+    currentScene = next;
+    scenes.forEach((scene, i) => {
+      const active = i === next;
       scene.classList.toggle("is-active", active);
-      scene.classList.remove("is-exiting");
       scene.setAttribute("aria-hidden", String(!active));
+      scene.inert = !active;
     });
-    body.dataset.scene = String(currentScene);
-    updateInterface(visualProgress);
-    hideNavigationHint();
-    if (updateHash) {
-      history.replaceState(null, "", `#scene-${currentScene + 1}`);
+    document.body.dataset.scene = String(next);
+    chapterLabel.textContent = scenes[next].dataset.chapter;
+    currentLabel.textContent = pad(next + 1);
+    totalLabel.textContent = pad(total);
+    progressFill.style.width = `${((next + 1) / total) * 100}%`;
+    previousButton.disabled = next === 0;
+    nextButton.disabled = next === total - 1;
+    if (options.updateHash !== false) history.replaceState(null, "", `#scene-${next + 1}`);
+    if (!options.initial) navigationHint?.classList.add("is-hidden");
+    if (previousScene !== scenes[next]) {
+      const content = scenes[next].querySelector(".scene__content");
+      content.scrollTop = 0;
+      if (focusWasInSlide) content.focus({ preventScroll: true });
     }
-    window.dispatchEvent(new CustomEvent("presentation:scenechange", {
-      detail: { index: currentScene, total }
-    }));
+    window.cinematicWorld?.setScene?.(next, Boolean(options.initial));
+    window.dispatchEvent(new CustomEvent("presentation:scenechange", { detail: { index: next, total } }));
   }
-
-  function applyScrollProgress(progress) {
-    const bounded = clamp(progress, 0, total - 1);
-    scenes.forEach((scene, index) => {
-      const distance = index - bounded;
-      const absoluteDistance = Math.abs(distance);
-      const sceneOpacity = clamp(1 - absoluteDistance, 0, 1);
-      const contentOpacity = clamp((.7 - absoluteDistance) / .38, 0, 1);
-      const direction = index % 2 === 0 ? 1 : -1;
-      scene.style.setProperty("--scene-opacity", sceneOpacity.toFixed(4));
-      scene.style.setProperty("--scene-shift", `${(distance * 7.5).toFixed(3)}vh`);
-      scene.style.setProperty("--scene-scale", (1 + absoluteDistance * .024).toFixed(4));
-      scene.style.setProperty("--content-opacity", contentOpacity.toFixed(4));
-      scene.style.setProperty("--content-shift", `${(distance * 8.5).toFixed(3)}vh`);
-      scene.style.setProperty("--art-opacity", clamp(sceneOpacity * .9, 0, .86).toFixed(4));
-      scene.style.setProperty("--art-shift", `${(distance * direction * 3.2).toFixed(3)}vw`);
-      scene.style.setProperty("--art-scale", (1.015 + absoluteDistance * .045).toFixed(4));
-      // Susunan lapisan harus tetap. Mengubah z-index di tengah persilangan
-      // opasitas dapat menimbulkan kedipan ketika dua adegan sama-sama terlihat.
-      scene.style.zIndex = String(index + 1);
+  function selectPurpose(tab, moveFocus = false) {
+    purposeTabs.forEach(button => {
+      const selected = button === tab;
+      button.setAttribute("aria-selected", String(selected));
+      button.tabIndex = selected ? 0 : -1;
+      document.getElementById(button.getAttribute("aria-controls")).hidden = !selected;
     });
-
-    // Beri sedikit histeresis agar status adegan aktif tidak bolak-balik ketika
-    // touchpad atau roda tetikus berhenti tepat di sekitar titik tengah.
-    let nearestScene = currentScene;
-    if (Math.abs(bounded - currentScene) > 1) {
-      nearestScene = clamp(Math.round(bounded), 0, total - 1);
-    } else if (bounded >= currentScene + .58) {
-      nearestScene = clamp(currentScene + 1, 0, total - 1);
-    } else if (bounded <= currentScene - .58) {
-      nearestScene = clamp(currentScene - 1, 0, total - 1);
-    }
-    setCurrentScene(nearestScene);
-    updateInterface(bounded);
-    window.cinematicWorld?.setProgress?.(bounded);
+    if (moveFocus) tab.focus();
   }
-
-  function renderScrollProgress(time = performance.now()) {
-    scrollFrame = 0;
-    const delta = Math.min(Math.max((time - lastScrollFrameTime) / 1000, .016), .5);
-    lastScrollFrameTime = time;
-    if (reducedMotion) visualProgress = targetProgress;
-    else visualProgress += (targetProgress - visualProgress) * (1 - Math.exp(-10 * delta));
-    if (Math.abs(targetProgress - visualProgress) < .0005) visualProgress = targetProgress;
-    applyScrollProgress(visualProgress);
-    if (visualProgress !== targetProgress) {
-      scrollFrame = window.requestAnimationFrame(renderScrollProgress);
-    }
-  }
-
-  function requestScrollRender() {
-    targetProgress = clamp(window.scrollY / sceneStep, 0, total - 1);
-    if (!scrollFrame) scrollFrame = window.requestAnimationFrame(renderScrollProgress);
-  }
-
-  function updateScrollGeometry() {
-    sceneStep = Math.max(1, window.innerHeight * SCENE_SCROLL_RATIO);
-    if (scrollTrack) {
-      scrollTrack.style.height = `${sceneStep * (total - 1) + window.innerHeight}px`;
-    }
-    requestScrollRender();
-  }
-
-  function goToScene(targetIndex, options = {}) {
-    const nextIndex = clamp(targetIndex, 0, total - 1);
-    const immediate = reducedMotion || options.immediate;
-    if (options.updateHash !== false) {
-      history.replaceState(null, "", `#scene-${nextIndex + 1}`);
-    }
-    hideNavigationHint();
-    window.scrollTo({
-      top: nextIndex * sceneStep,
-      behavior: immediate ? "auto" : "smooth"
-    });
-
-    // Pada perpindahan halus, event scroll menjadi satu-satunya pengendali
-    // kemajuan visual. Mengubah target di sini sekaligus akan melawan posisi
-    // gulir peramban dan menghasilkan gerakan maju-mundur singkat.
-    if (immediate) {
-      targetProgress = nextIndex;
-      visualProgress = nextIndex;
-      if (!scrollFrame) scrollFrame = window.requestAnimationFrame(renderScrollProgress);
-    }
-  }
-
-  function nextScene() {
-    goToScene(currentScene + 1);
-  }
-
-  function previousScene() {
-    goToScene(currentScene - 1);
-  }
-
-  function isInteractiveTarget(target) {
-    return target instanceof Element && Boolean(target.closest("button, a, input, textarea, select, dialog"));
-  }
-
-  function onKeydown(event) {
-    const dialogOpen = sourcesDialog?.open;
-    if (dialogOpen) {
-      if (event.key === "Escape") closeSources();
-      return;
-    }
-
-    if (isInteractiveTarget(event.target) && !["Escape", "f", "F"].includes(event.key)) return;
-
-    const sceneNumber = Number.parseInt(event.key, 10);
-    if (Number.isInteger(sceneNumber) && sceneNumber >= 1 && sceneNumber <= total) {
+  purposeTabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => selectPurpose(tab));
+    tab.addEventListener("keydown", event => {
+      let next;
+      if (event.key === "ArrowRight") next = (index + 1) % purposeTabs.length;
+      else if (event.key === "ArrowLeft") next = (index + purposeTabs.length - 1) % purposeTabs.length;
+      else if (event.key === "Home") next = 0;
+      else if (event.key === "End") next = purposeTabs.length - 1;
+      else return;
       event.preventDefault();
-      goToScene(sceneNumber - 1);
-      return;
-    }
-
-    switch (event.key) {
-      case "ArrowRight":
-      case "ArrowDown":
-      case "PageDown":
-      case " ":
-        event.preventDefault();
-        nextScene();
-        break;
-      case "ArrowLeft":
-      case "ArrowUp":
-      case "PageUp":
-        event.preventDefault();
-        previousScene();
-        break;
-      case "Home":
-        event.preventDefault();
-        goToScene(0);
-        break;
-      case "End":
-        event.preventDefault();
-        goToScene(total - 1);
-        break;
-      case "f":
-      case "F":
-        event.preventDefault();
-        toggleFullscreen();
-        break;
-      case "s":
-      case "S":
-        event.preventDefault();
-        openSources();
-        break;
-      default:
-        break;
-    }
+      event.stopPropagation();
+      selectPurpose(purposeTabs[next], true);
+    });
+  });
+  function canScrollWithinSlide(target, direction) {
+    const content = target instanceof Element ? target.closest(".scene__content") : null;
+    if (!content || content.scrollHeight <= content.clientHeight + 2) return false;
+    return direction > 0 ? content.scrollTop + content.clientHeight < content.scrollHeight - 2 : content.scrollTop > 2;
   }
-
+  function updateFullscreenLabel() {
+    const isFull = Boolean(document.fullscreenElement);
+    fullscreenButton.setAttribute("aria-label", isFull ? "Keluar dari layar penuh" : "Masuk layar penuh");
+    fullscreenButton.title = isFull ? "Keluar layar penuh (F)" : "Layar penuh (F)";
+  }
   async function toggleFullscreen() {
     try {
-      if (!document.fullscreenElement) {
-        await document.documentElement.requestFullscreen();
-      } else {
-        await document.exitFullscreen();
-      }
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else await document.documentElement.requestFullscreen();
     } catch (error) {
+      fullscreenButton.title = "Mode layar penuh tidak tersedia di browser ini";
       console.warn("Mode layar penuh tidak tersedia:", error);
     }
   }
-
-  function updateFullscreenLabel() {
-    const isFullscreen = Boolean(document.fullscreenElement);
-    fullscreenButton.setAttribute("aria-label", isFullscreen ? "Keluar dari layar penuh" : "Masuk layar penuh");
-    fullscreenButton.title = isFullscreen ? "Keluar layar penuh (F)" : "Layar penuh (F)";
-  }
-
-  function openSources() {
-    if (!sourcesDialog) return;
-    if (typeof sourcesDialog.showModal === "function") {
-      if (!sourcesDialog.open) sourcesDialog.showModal();
-    } else {
-      sourcesDialog.setAttribute("open", "");
-    }
-  }
-
-  function closeSources() {
-    if (!sourcesDialog) return;
-    if (typeof sourcesDialog.close === "function" && sourcesDialog.open) {
-      sourcesDialog.close();
-    } else {
-      sourcesDialog.removeAttribute("open");
-    }
-  }
-
-  function onDialogClick(event) {
-    if (event.target !== sourcesDialog) return;
-    const bounds = sourcesDialog.getBoundingClientRect();
-    const clickedInside = (
-      event.clientX >= bounds.left &&
-      event.clientX <= bounds.right &&
-      event.clientY >= bounds.top &&
-      event.clientY <= bounds.bottom
-    );
-    if (!clickedInside) closeSources();
-  }
-
-  const chatDialogues = {
-    flynn: [
-      { role: "user", text: "Apakah skor IQ seluruh dunia sedang turun?" },
-      { role: "ai", text: "Belum dapat disimpulkan demikian. Penurunan ditemukan di sejumlah negara, tetapi hasilnya tidak sama di setiap tempat dan jenis tes." },
-      { role: "user", text: "Apa yang ditunjukkan oleh studi Norwegia?" },
-      { role: "ai emphasis", html: "Rata-rata skor meningkat sampai kelompok kelahiran 1975, kemudian menurun. Penelitian tersebut mendukung peran <strong>faktor lingkungan</strong>, tetapi tidak menetapkan satu penyebab tertentu." }
-    ],
-    brainrot: [
-      { role: "user", text: "Apakah brainrot merupakan diagnosis medis?" },
-      { role: "ai", text: "Bukan. Istilah ini digunakan secara populer untuk menggambarkan dugaan penurunan kondisi mental akibat terlalu banyak mengonsumsi konten daring yang remeh." },
-      { role: "user", text: "Mengapa Balon membahasnya?" },
-      { role: "ai emphasis", html: "Balon membahasnya sebagai kemungkinan dampak kebiasaan digital dan kurangnya latihan berpikir. Hubungannya dengan pembalikan Efek Flynn <strong>belum terbukti</strong>." }
-    ],
-    socrates: [
-      { role: "user", text: "Apakah kekhawatiran terhadap teknologi sudah ada sejak dahulu?" },
-      { role: "ai", text: "Ya. Dalam Phaedrus, Socrates mengkhawatirkan bahwa tulisan dapat membuat orang kurang melatih ingatan." },
-      { role: "user", text: "Apakah itu berarti kekhawatiran terhadap AI pasti keliru?" },
-      { role: "ai emphasis", html: "Tidak. Sejarah tidak menentukan bahwa teknologi selalu baik atau buruk. Kita tetap perlu menilai <strong>kemampuan apa yang berkurang karena jarang digunakan</strong>." }
-    ]
-  };
-
-  function clearChatTimers() {
-    chatTimers.forEach((timer) => window.clearTimeout(timer));
-    chatTimers = [];
-  }
-
-  function playChat(topic = selectedChatTopic) {
-    if (!chatBody || !chatDialogues[topic]) return;
-    selectedChatTopic = topic;
-    clearChatTimers();
-    chatBody.replaceChildren();
-
-    chatDialogues[topic].forEach((message, index) => {
-      const addMessage = () => {
-        const bubble = document.createElement("div");
-        bubble.className = `chat-msg ${message.role}`;
-        if (message.html) bubble.innerHTML = message.html;
-        else bubble.textContent = message.text;
-        chatBody.appendChild(bubble);
-        chatBody.scrollTop = chatBody.scrollHeight;
-      };
-      if (reducedMotion) addMessage();
-      else chatTimers.push(window.setTimeout(addMessage, 150 + index * 560));
-    });
-  }
-
-  function selectChatTopic(selectedButton) {
-    chatTopics.forEach((button) => {
-      const selected = button === selectedButton;
-      button.classList.toggle("is-selected", selected);
-      button.setAttribute("aria-pressed", String(selected));
-    });
-    playChat(selectedButton.dataset.topic);
-  }
-
-  function initialSceneFromHash() {
-    const match = window.location.hash.match(/^#scene-(\d+)$/);
-    if (!match) return 0;
-    return clamp(Number(match[1]) - 1, 0, total - 1);
-  }
-
-  previousButton.addEventListener("click", previousScene);
-  nextButton.addEventListener("click", nextScene);
+  previousButton.addEventListener("click", () => goToScene(currentScene - 1));
+  nextButton.addEventListener("click", () => goToScene(currentScene + 1));
   fullscreenButton.addEventListener("click", toggleFullscreen);
-  sourcesButton.addEventListener("click", openSources);
-  sourcesClose.addEventListener("click", closeSources);
-  sourcesDialog.addEventListener("click", onDialogClick);
-  chatTopics.forEach((button) => button.addEventListener("click", () => selectChatTopic(button)));
-
-  window.addEventListener("keydown", onKeydown);
-  window.addEventListener("scroll", requestScrollRender, { passive: true });
-  window.addEventListener("resize", updateScrollGeometry, { passive: true });
+  sourcesButton.addEventListener("click", () => { if (!sourcesDialog.open) sourcesDialog.showModal(); });
+  sourcesClose.addEventListener("click", () => sourcesDialog.close());
+  sourcesDialog.addEventListener("close", () => sourcesButton.focus());
+  sourcesDialog.addEventListener("click", event => {
+    if (event.target !== sourcesDialog) return;
+    const r = sourcesDialog.getBoundingClientRect();
+    if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) sourcesDialog.close();
+  });
+  window.addEventListener("keydown", event => {
+    if (sourcesDialog.open || event.ctrlKey || event.metaKey || event.altKey) return;
+    if (event.target instanceof Element && event.target.closest("input,textarea,select,[contenteditable=true]")) return;
+    if (event.key === " " && event.target instanceof Element && event.target.closest("button,a")) return;
+    if ((event.key === "ArrowDown" || event.key === "ArrowUp") && canScrollWithinSlide(event.target, event.key === "ArrowDown" ? 1 : -1)) return;
+    if (/^[1-9]$/.test(event.key)) { event.preventDefault(); goToScene(Number(event.key) - 1); return; }
+    switch (event.key) {
+      case "ArrowRight": case "ArrowDown": case "PageDown": case " ": event.preventDefault(); goToScene(currentScene + 1); break;
+      case "ArrowLeft": case "ArrowUp": case "PageUp": event.preventDefault(); goToScene(currentScene - 1); break;
+      case "Home": event.preventDefault(); goToScene(0); break;
+      case "End": event.preventDefault(); goToScene(total - 1); break;
+      case "f": case "F": event.preventDefault(); toggleFullscreen(); break;
+      case "s": case "S": event.preventDefault(); sourcesDialog.showModal(); break;
+    }
+  });
+  window.addEventListener("wheel", event => {
+    if (sourcesDialog.open || event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+    if (canScrollWithinSlide(event.target, event.deltaY)) { wheelSum = 0; return; }
+    event.preventDefault();
+    const now = performance.now();
+    if (now < wheelLockedUntil) { lastWheel = now; return; }
+    if (now - lastWheel > 160 || Math.sign(wheelSum) !== Math.sign(event.deltaY)) wheelSum = 0;
+    lastWheel = now;
+    const factor = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1;
+    wheelSum += event.deltaY * factor;
+    if (Math.abs(wheelSum) >= 70) {
+      goToScene(currentScene + Math.sign(wheelSum));
+      wheelSum = 0;
+      wheelLockedUntil = now + 850;
+    }
+  }, { passive: false });
+  window.addEventListener("touchstart", event => {
+    if (sourcesDialog.open || event.touches.length !== 1) { touchStart = null; return; }
+    const t = event.touches[0];
+    const content = event.target instanceof Element ? event.target.closest(".scene__content") : null;
+    touchStart = { x: t.clientX, y: t.clientY, target: event.target, scrollTop: content?.scrollTop || 0, content };
+  }, { passive: true });
+  window.addEventListener("touchend", event => {
+    if (!touchStart || sourcesDialog.open || !event.changedTouches.length) return;
+    const start = touchStart;
+    touchStart = null;
+    if (start.target instanceof Element && start.target.closest("button,a")) return;
+    const t = event.changedTouches[0];
+    const dx = start.x - t.clientX, dy = start.y - t.clientY;
+    if (Math.max(Math.abs(dx), Math.abs(dy)) < 65) return;
+    if (Math.abs(dy) >= Math.abs(dx) && (canScrollWithinSlide(start.target, dy) || Math.abs((start.content?.scrollTop || 0) - start.scrollTop) > 2)) return;
+    goToScene(currentScene + Math.sign(Math.abs(dx) > Math.abs(dy) ? dx : dy));
+  }, { passive: true });
+  window.addEventListener("touchcancel", () => { touchStart = null; }, { passive: true });
+  window.addEventListener("hashchange", () => goToScene(initialSceneFromHash(), { updateHash: false }));
   document.addEventListener("fullscreenchange", updateFullscreenLabel);
-  window.addEventListener("hashchange", () => {
-    goToScene(initialSceneFromHash(), { updateHash: false });
-  });
-  window.addEventListener("presentation:scenechange", (event) => {
-    if (event.detail.index === 4) playChat();
-    else clearChatTimers();
-  });
-
-  const initialIndex = initialSceneFromHash();
-  currentScene = initialIndex;
-  targetProgress = initialIndex;
-  visualProgress = initialIndex;
-  scenes.forEach((scene, index) => {
-    const active = index === initialIndex;
-    scene.classList.toggle("is-active", active);
-    scene.setAttribute("aria-hidden", String(!active));
-  });
-  body.dataset.scene = String(initialIndex);
-  updateScrollGeometry();
-  window.scrollTo({ top: initialIndex * sceneStep, behavior: "auto" });
-  targetProgress = initialIndex;
-  visualProgress = initialIndex;
-  applyScrollProgress(initialIndex);
-  window.cinematicWorld?.setScene?.(initialIndex, true);
+  document.body.classList.add("deck-enabled");
+  goToScene(initialSceneFromHash(), { initial: true, updateHash: false });
   updateFullscreenLabel();
-  if (initialIndex === 4) playChat();
-
   window.setTimeout(() => navigationHint?.classList.add("is-hidden"), 8000);
-  document.documentElement.classList.add("is-ready");
-
-  window.__presentation = {
-    goTo: goToScene,
-    next: nextScene,
-    previous: previousScene,
-    get current() { return currentScene; },
-    total
-  };
+  window.__presentation = { goTo: goToScene, next: () => goToScene(currentScene + 1), previous: () => goToScene(currentScene - 1), get current() { return currentScene; }, total };
 })();
