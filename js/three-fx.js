@@ -41,12 +41,18 @@
 
       this.sceneStates = [
         { orb: 1, curve: 0, fragments: .08, rings: .34, grid: .04, warmth: .92, cameraZ: 9.4, rootX: 2.15, rootY: -.05, curveMix: 0 },
+        { orb: .62, curve: .04, fragments: .28, rings: .5, grid: .04, warmth: .76, cameraZ: 10, rootX: 2.35, rootY: -.1, curveMix: .1 },
         { orb: .32, curve: .38, fragments: .12, rings: .12, grid: .11, warmth: .72, cameraZ: 10.5, rootX: 2.2, rootY: -.55, curveMix: 0 },
         { orb: .15, curve: .04, fragments: .1, rings: .06, grid: .08, warmth: .38, cameraZ: 10.8, rootX: 2.8, rootY: -.3, curveMix: 1 },
+        { orb: .28, curve: .72, fragments: .1, rings: .2, grid: .1, warmth: .42, cameraZ: 10.5, rootX: 2.45, rootY: -.2, curveMix: 1 },
         { orb: .4, curve: 0, fragments: .62, rings: .32, grid: .04, warmth: .4, cameraZ: 10.2, rootX: 2.7, rootY: 0, curveMix: .72 },
+        { orb: .36, curve: .02, fragments: .3, rings: .52, grid: .05, warmth: .56, cameraZ: 10, rootX: 2.35, rootY: -.05, curveMix: .5 },
+        { orb: .78, curve: .02, fragments: .28, rings: .76, grid: .02, warmth: .74, cameraZ: 9.6, rootX: 2.2, rootY: -.15, curveMix: .3 },
         { orb: .5, curve: .04, fragments: .28, rings: .48, grid: .03, warmth: .58, cameraZ: 9.9, rootX: -2.1, rootY: -.1, curveMix: .6 },
+        { orb: .42, curve: .03, fragments: 1, rings: .84, grid: .03, warmth: .88, cameraZ: 9.8, rootX: 2.45, rootY: .1, curveMix: .2 },
         { orb: .32, curve: .08, fragments: 1, rings: .72, grid: .03, warmth: .34, cameraZ: 10.1, rootX: 2.45, rootY: .1, curveMix: .35 },
-        { orb: .78, curve: .02, fragments: .64, rings: .74, grid: .02, warmth: .68, cameraZ: 9.4, rootX: 0, rootY: -.2, curveMix: .45 },
+        { orb: .58, curve: .02, fragments: .52, rings: .72, grid: .04, warmth: .52, cameraZ: 9.7, rootX: 1.6, rootY: -.1, curveMix: .4 },
+        { orb: .7, curve: .02, fragments: .42, rings: .82, grid: .03, warmth: .66, cameraZ: 9.6, rootX: .5, rootY: -.15, curveMix: .35 },
         { orb: .9, curve: .08, fragments: .12, rings: 1, grid: .05, warmth: .88, cameraZ: 10.4, rootX: 1.8, rootY: -.15, curveMix: .2 },
         { orb: 1.22, curve: 0, fragments: .07, rings: .78, grid: .02, warmth: 1, cameraZ: 9.2, rootX: 2.15, rootY: -.05, curveMix: 0 }
       ];
