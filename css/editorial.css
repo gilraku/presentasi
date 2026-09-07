@@ -1,116 +1,1201 @@
-/* Editorial rhythm: large opening/closing, quieter teaching and practical examples. */
-:root { --safe-x:clamp(24px,5vw,96px);--muted:#d5d8d6; }
-body { font-size:24px; }
-.scene { padding:96px var(--safe-x) 92px; }
-.scene__content { max-width:1260px; }
-.deck-enabled .scene__content { max-height:calc(100dvh - 188px);padding:4px 12px 6px 0; }
-h2 { font-family:"DM Sans",system-ui,sans-serif;font-weight:500;font-size:clamp(36px,3.4vw,60px);line-height:1.15;letter-spacing:-.035em;max-width:1080px;margin-bottom:28px;text-wrap:initial; }
-h1 { font-size:clamp(46px,5.1vw,82px);line-height:1.14;max-width:1080px; }
-.scene--closing h2 { font-family:"Cinzel",Georgia,serif;font-weight:400;font-size:clamp(40px,4vw,68px);max-width:1140px; }
-.eyebrow { font-size:15px;margin-bottom:18px;letter-spacing:.075em; }
-h3 { font-size:28px;line-height:1.25; }
-.lead { font-size:clamp(23px,1.9vw,30px);line-height:1.45;max-width:870px; }
-.takeaway { font-size:clamp(21px,1.65vw,27px);line-height:1.4;padding:8px 0 8px 18px;margin-top:24px;max-width:1120px; }
-.conversation { font-size:clamp(22px,1.75vw,28px);margin-top:28px;max-width:920px; }
-.slide-source { font-size:14px;line-height:1.4;margin-top:16px;max-width:1150px; }
-.scene--left .scene__content { max-width:820px; }
-.scene-art { opacity:.75; }
-.scene--left .scene-art-shade,.scene--astra .scene-art-shade { background:linear-gradient(90deg,rgba(9,12,14,.98),rgba(9,12,14,.94) 47%,rgba(9,12,14,.42) 78%,rgba(9,12,14,.2)); }
-.scene--history .scene-art { opacity:.4; }
-.scene--history .scene-art-shade { background:linear-gradient(180deg,rgba(9,12,14,.8),rgba(9,12,14,.96)); }
-.history-three { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin-top:26px; }
-.history-three article { border-top:2px solid var(--gold);padding-top:14px; }
-.history-three .era { color:var(--gold);font-size:17px;margin-bottom:12px; }
-.history-three h3 { font-size:26px;margin-bottom:12px; }
-.history-three article>p:last-child { color:var(--muted);font-size:21px;line-height:1.4; }
-.question-list p { font-size:26px;padding:17px 0; }
-.then-now p { grid-template-columns:135px 1fr;gap:20px;padding:18px 0; }
-.then-now strong { font-size:27px;line-height:1.35; }
-.plain-proof { max-width:1020px; }
-.proof-main { font-size:30px;line-height:1.4; }
-.proof-boundary { font-size:24px;line-height:1.4; }
-.study-card { display:grid;grid-template-columns:260px 1fr;gap:32px;align-items:center;padding:28px 30px; }
-.study-card .study-number { font-size:42px;margin:0;line-height:1.15;color:var(--gold); }
-.study-card>p:last-child { font-size:25px;line-height:1.45; }
-.comparison-cards { gap:30px; }
-.comparison-cards article { padding:22px 25px; }
-.comparison-cards h3 { font-size:27px;margin-bottom:12px; }
-.comparison-cards article>p:last-child { font-size:23px;line-height:1.4; }
-.result-study { display:grid;grid-template-columns:34% 1fr;gap:50px;align-items:center;border-top:1px solid var(--line);padding-top:28px; }
-.result-value { font-size:clamp(76px,8vw,120px);line-height:1;color:var(--gold);font-weight:500;letter-spacing:-.06em; }
-.result-label { font-size:22px;line-height:1.35;margin-top:16px; }
-.result-context p { font-size:26px;line-height:1.45; }
-.result-context p+p { color:var(--muted);margin-top:18px; }
-.answer-lines p { font-size:28px;line-height:1.4;margin-top:18px; }
-.purpose-panel { padding:22px 28px;max-width:1100px; }
-.purpose-tabs { margin-bottom:0; }
-.prompt { font-size:29px;line-height:1.35;max-width:1000px; }
-.purpose-outcome { font-size:23px;margin-top:18px; }
-.example-label { font-size:16px;margin-bottom:14px; }
-.capability-line { flex-wrap:wrap;gap:12px;margin-top:24px; }
-.scene--case .scene-art-shade { background:linear-gradient(120deg,#0c1216,rgba(9,12,14,.92)); }
-.work-example { display:grid;grid-template-columns:1fr 1fr;gap:48px; }
-.work-example article { border-top:2px solid var(--gold);padding-top:20px; }
-.work-example h3 { font-size:30px;margin-bottom:16px; }
-.work-example article>p:last-child { font-size:24px;line-height:1.45;max-width:520px;color:var(--muted); }
-.check-example { border-left:3px solid var(--gold);padding:4px 0 4px 24px; }
-.check-example h3 { font-size:30px;margin-bottom:12px; }
-.check-example>p:last-child { font-size:24px; }
-.check-row { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:28px; }
-.check-row p { border-top:1px solid var(--line);padding-top:14px; }
-.check-row strong,.check-row span { display:block; }
-.check-row strong { font-size:24px;font-weight:500;margin-bottom:8px; }
-.check-row span { font-size:21px;color:var(--muted);line-height:1.4; }
-.support-list { max-width:1150px; }
-.support-list p { display:grid;grid-template-columns:42% 1fr;gap:32px;padding:19px 0;border-bottom:1px solid var(--line);font-size:24px;line-height:1.35; }
-.support-list strong { font-weight:500;color:var(--ivory); }
-.support-list span { color:var(--muted); }
-.action-list { gap:20px; }
-.action-list li { padding:12px 0; }
-.action-list strong { font-size:26px; }
-.action-list span { font-size:23px;line-height:1.4; }
-.topline { top:22px; }
-.controls { bottom:16px; }
-.navigation-hint { bottom:88px;font-size:14px; }
-@media (min-width:1700px) { .deck-enabled .scene__content { max-width:1440px; }.deck-enabled .scene--left .scene__content { max-width:980px; } }
-@media (max-height:800px) and (min-width:1001px) {
-  .scene { padding-top:82px;padding-bottom:86px; }
-  .deck-enabled .scene__content { max-height:calc(100dvh - 168px); }
-  h2 { font-size:42px;margin-bottom:22px; }
-  .eyebrow { margin-bottom:14px; }
-  .takeaway { margin-top:20px; }
-  .slide-source { margin-top:12px; }
-  .study-card { padding:22px 28px; }
-  .scene--closing h2 { font-size:52px; }
-  .history-three { gap:25px; }
-}
-@media (max-width:1000px) {
-  .scene--left .scene__content { max-width:100%; }
-  .scene-art-shade,.scene--left .scene-art-shade,.scene--astra .scene-art-shade { background:rgba(9,12,14,.9); }
-  .study-card { grid-template-columns:1fr;gap:18px; }
-  .history-three,.check-row { gap:20px; }
-  .support-list p { grid-template-columns:1fr;gap:8px; }
-}
-@media (max-width:700px) {
-  .scene { padding-top:80px;padding-bottom:90px; }
-  .deck-enabled .scene__content { max-height:calc(100dvh - 170px); }
-  h1 { font-size:44px; }h2,.scene--closing h2 { font-size:34px; }
-  .history-three,.work-example,.check-row,.result-study { grid-template-columns:1fr;gap:24px; }
-  .result-value { font-size:78px; }.result-context p { font-size:23px; }
-  .then-now p { grid-template-columns:1fr;gap:6px; }
-  .prompt { font-size:25px; }.purpose-panel { padding:20px; }
-  .support-list p { font-size:22px; }
-  .scene__content h3 { font-size:25px; }
-}
-@media print {
-  .scene { padding:8mm 0; }.deck-enabled .scene__content { max-height:none; }
-  h2,.scene--closing h2 { font-size:30pt; }
-  .result-value { font-size:60pt; }
-  .result-context p,.study-card>p:last-child,.work-example article>p:last-child,.check-row span,.support-list p { font-size:14pt; }
+/* Editorial rhythm: cinematic, literary presentation styling.
+   Restores the open editorial elegance (Cinzel serif headings, divider hairlines,
+   unboxed typographic flow) with harmonized font sizes, balanced paddings, and no overflow. */
+
+:root {
+  --safe-x: clamp(24px, 5vw, 96px);
+  --muted: #d5d8d6;
 }
 
-/* Viewing break: open the supplied video on demand, without autoplay. */
-.video-action { margin-top:26px; }
-.video-link { display:inline-flex;align-items:center;padding:14px 22px;border:1px solid var(--gold);background:var(--gold);color:var(--ink);font-size:22px;font-weight:600;text-decoration:none; }
-.video-link:hover { background:var(--ivory);border-color:var(--ivory); }
-@media print { .video-link { background:none;color:black;border-color:black;font-size:14pt; } }
+body {
+  font-size: 22px;
+}
+
+.scene {
+  padding: 80px var(--safe-x) 82px;
+}
+
+.scene__content {
+  max-width: 1160px;
+}
+
+.deck-enabled .scene__content {
+  max-height: calc(100dvh - 162px);
+  padding: 4px 12px 6px 0;
+}
+
+/* ==========================================================================
+   Cinematic Editorial Typography (Cinzel for Headings, DM Sans for Body)
+   ========================================================================== */
+
+h1,
+h2 {
+  font-family: "Cinzel", Georgia, serif;
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: -.03em;
+  margin-bottom: 20px;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(42px, 4.6vw, 76px);
+  max-width: 1080px;
+}
+
+h2 {
+  font-size: clamp(34px, 3.2vw, 54px);
+  max-width: 1080px;
+}
+
+.scene--closing h2 {
+  font-size: clamp(36px, 3.5vw, 58px);
+}
+
+h1 em,
+h2 em {
+  color: var(--gold);
+  font-style: normal;
+}
+
+.eyebrow {
+  font-size: 14px;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+
+h3 {
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 23px;
+  line-height: 1.25;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.lead {
+  font-size: clamp(21px, 1.7vw, 28px);
+  line-height: 1.45;
+  max-width: 870px;
+}
+
+.scene--opening .lead,
+.scene--closing .lead {
+  margin-top: 20px;
+}
+
+/* Open, unboxed editorial callouts */
+.takeaway {
+  font-size: clamp(17px, 1.4vw, 22px);
+  line-height: 1.4;
+  border-left: 3px solid var(--gold);
+  padding: 6px 0 6px 16px;
+  margin-top: 18px;
+  max-width: 1100px;
+  background: none;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 0;
+}
+
+.conversation {
+  font-size: clamp(18px, 1.45vw, 23px);
+  line-height: 1.4;
+  border-left: 3px solid var(--gold);
+  padding: 8px 0 8px 18px;
+  margin-top: 20px;
+  max-width: 900px;
+  background: none;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 0;
+}
+
+.slide-source {
+  font-size: 13px;
+  line-height: 1.45;
+  margin-top: 14px;
+  color: var(--muted);
+  max-width: 1100px;
+}
+
+.scene--left .scene__content {
+  max-width: 860px;
+}
+
+.scene-art {
+  opacity: .75;
+}
+
+.scene-art-shade,
+.scene--left .scene-art-shade,
+.scene--astra .scene-art-shade {
+  background: linear-gradient(90deg, rgba(9, 12, 14, .98), rgba(9, 12, 14, .94) 47%, rgba(9, 12, 14, .42) 78%, rgba(9, 12, 14, .2));
+}
+
+.scene--history .scene-art {
+  opacity: .4;
+}
+
+.scene--history .scene-art-shade {
+  background: linear-gradient(180deg, rgba(9, 12, 14, .8), rgba(9, 12, 14, .96));
+}
+
+.scene--case .scene-art-shade {
+  background: linear-gradient(120deg, #0c1216, rgba(9, 12, 14, .92));
+}
+
+/* ==========================================================================
+   Open Editorial Slide Layouts (Harmonized Scale & Spacing, No AI Slop Cards)
+   ========================================================================== */
+
+/* Slide 2: Then & Now */
+.then-now {
+  max-width: 960px;
+  margin-top: 16px;
+}
+
+.then-now p {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 20px;
+  align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+.then-now span {
+  color: var(--gold);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.then-now strong {
+  font-size: 22px;
+  line-height: 1.35;
+  font-weight: 500;
+}
+
+/* Slide 3: History 3 */
+.history-three {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  margin-top: 18px;
+}
+
+.history-three article {
+  border-top: 2px solid var(--gold);
+  padding-top: 14px;
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 0;
+}
+
+.history-three .era {
+  color: var(--gold);
+  font-size: 14px;
+  letter-spacing: .05em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.history-three h3 {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.history-three article>p:last-child {
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+/* Slide 4: Question List */
+.question-list {
+  max-width: 940px;
+  margin-top: 16px;
+}
+
+.question-list p {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 22px;
+  line-height: 1.35;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+.question-list span {
+  color: var(--gold);
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+/* Slide 5: Plain Proof */
+.plain-proof {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 16px;
+  max-width: 1080px;
+}
+
+.plain-proof p {
+  padding: 16px 0 16px 20px;
+  border-left: 3px solid var(--line);
+  background: none;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 0;
+}
+
+.proof-main {
+  font-size: 22px;
+  line-height: 1.45;
+}
+
+.proof-boundary {
+  font-size: 20px;
+  line-height: 1.45;
+  border-left-color: var(--gold) !important;
+  color: var(--gold);
+}
+
+/* Slide 6: Study Card */
+.study-card {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 28px;
+  align-items: center;
+  padding: 20px 24px;
+  border-top: 2px solid var(--gold);
+  background: rgba(255, 255, 255, .025);
+  margin-top: 18px;
+  max-width: 1080px;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 0;
+}
+
+.study-card .study-number {
+  font-size: 40px;
+  margin: 0;
+  line-height: 1.1;
+  color: var(--gold);
+  font-family: "Cinzel", Georgia, serif;
+}
+
+.study-card>p:last-child {
+  font-size: 21px;
+  line-height: 1.45;
+}
+
+/* Slide 7: Comparison Cards */
+.comparison-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 18px;
+}
+
+.comparison-cards article {
+  border-top: 2px solid var(--gold);
+  background: rgba(255, 255, 255, .025);
+  padding: 18px 22px;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 0;
+}
+
+.evidence-label {
+  font-size: 14px;
+  letter-spacing: .04em;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.comparison-cards h3 {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.comparison-cards article>p:last-child {
+  font-size: 18px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* Slide 8: Result Study */
+.result-study {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 36px;
+  align-items: center;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+  margin-top: 18px;
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 0;
+}
+
+.result-value {
+  font-size: clamp(68px, 6.5vw, 96px);
+  line-height: 1;
+  color: var(--gold);
+  font-weight: 500;
+  letter-spacing: -.05em;
+  font-family: "DM Sans", system-ui, sans-serif;
+}
+
+.result-label {
+  font-size: 16px;
+  line-height: 1.35;
+  margin-top: 10px;
+  color: var(--muted);
+}
+
+.result-context p {
+  font-size: 21px;
+  line-height: 1.45;
+}
+
+.result-context p+p {
+  color: var(--muted);
+  margin-top: 12px;
+  font-size: 18px;
+}
+
+/* Slide 9: Answer Lines */
+.answer-lines {
+  margin-top: 16px;
+  max-width: 940px;
+}
+
+.answer-lines p {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 22px;
+  line-height: 1.4;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+.answer-lines strong {
+  color: var(--gold);
+  font-weight: 500;
+}
+
+/* Slide 10: Purpose Tabs & Panel */
+.purpose-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 0;
+}
+
+.purpose-tabs button {
+  padding: 8px 16px;
+  font-size: 17px;
+  border: 1px solid var(--line);
+  background: rgba(9, 12, 14, .8);
+  color: var(--ivory);
+  border-radius: 2px;
+}
+
+.purpose-tabs button[aria-selected="true"] {
+  color: var(--ink);
+  background: var(--gold);
+  font-weight: 600;
+}
+
+.purpose-panel {
+  padding: 20px 24px;
+  max-width: 1080px;
+  border-left: 3px solid var(--gold);
+  background: rgba(9, 12, 14, .94);
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 0;
+}
+
+.example-label {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: var(--gold);
+}
+
+.prompt {
+  font-size: 23px;
+  line-height: 1.4;
+  max-width: 1000px;
+}
+
+.purpose-outcome {
+  font-size: 18px;
+  margin-top: 14px;
+}
+
+.purpose-outcome strong {
+  color: var(--gold);
+  font-weight: 500;
+}
+
+/* Slide 11: Astra Model & AGI Reflection */
+.scene--astra .scene__content {
+  max-width: 1020px;
+}
+
+.scene--astra h2 {
+  margin-bottom: 18px;
+}
+
+.astra-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.astra-card {
+  border-top: 2px solid var(--gold);
+  background: rgba(255, 255, 255, .025);
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 0;
+}
+
+.astra-card h3 {
+  font-size: 22px;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.astra-card p {
+  font-size: 18px;
+  line-height: 1.45;
+  color: var(--ivory);
+}
+
+.capability-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.capability-tags span {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  background: rgba(9, 12, 14, .74);
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 2px;
+  letter-spacing: .02em;
+}
+
+.video-link-compact {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 7px 12px;
+  border: 1px solid var(--gold);
+  background: rgba(235, 186, 113, .12);
+  color: var(--gold);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background .2s, color .2s;
+  width: fit-content;
+}
+
+.video-link-compact:hover {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+.video-link-compact svg {
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+.demo-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.demo-links .video-link-compact {
+  margin-top: 0;
+}
+
+.video-link-compact--ghost {
+  background: rgba(255, 255, 255, .04);
+  border-color: var(--line);
+  color: var(--muted);
+}
+
+.video-link-compact--ghost:hover {
+  background: rgba(243, 203, 123, .18);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.card-note {
+  margin-top: 14px;
+  padding: 8px 12px;
+  border-left: 2px solid var(--gold);
+  background: rgba(9, 12, 14, .6);
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.card-note strong {
+  color: var(--ivory);
+}
+
+.scene--astra .takeaway {
+  margin-top: 16px;
+  padding: 6px 0 6px 16px;
+}
+
+.scene--astra .slide-source {
+  margin-top: 12px;
+}
+
+/* Slide 12: Work Example */
+.work-example {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 16px;
+}
+
+.work-example article {
+  border-top: 2px solid var(--gold);
+  padding-top: 16px;
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 0;
+}
+
+.work-example h3 {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.work-example article>p:last-child {
+  font-size: 18px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* Slide 13: Check Example & Check Row (Clean editorial divider layout) */
+.check-example {
+  border-left: 3px solid var(--gold);
+  padding: 4px 0 4px 18px;
+  background: none;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 0;
+}
+
+.check-example h3 {
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.check-example>p:last-child {
+  font-size: 18px;
+  color: var(--muted);
+}
+
+.check-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 16px;
+  background: none;
+}
+
+.check-row p {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 0;
+}
+
+.check-row strong {
+  display: block;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: var(--ivory);
+}
+
+.check-row span {
+  display: block;
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* Slide 14: Support List */
+.support-list {
+  max-width: 1100px;
+  margin-top: 16px;
+}
+
+.support-list p {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  gap: 24px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 18px;
+  line-height: 1.4;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+.support-list strong {
+  font-weight: 500;
+  color: var(--ivory);
+  font-size: 19px;
+}
+
+.support-list span {
+  color: var(--muted);
+  font-size: 17px;
+}
+
+/* Slide 15: Action List */
+.action-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+  max-width: 1000px;
+  list-style: none;
+  counter-reset: action;
+  padding: 0;
+}
+
+.action-list li {
+  counter-increment: action;
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  column-gap: 16px;
+  row-gap: 2px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+}
+
+.action-list li::before {
+  content: "0" counter(action);
+  color: var(--gold);
+  font-size: 15px;
+  font-weight: 500;
+  grid-row: span 2;
+  padding-top: 3px;
+}
+
+.action-list strong {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.action-list span {
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+/* Controls & hints */
+.topline {
+  top: 22px;
+}
+
+.controls {
+  bottom: 16px;
+}
+
+.navigation-hint {
+  bottom: 88px;
+  font-size: 14px;
+}
+
+.video-action {
+  margin-top: 20px;
+}
+
+.video-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 20px;
+  border: 1px solid var(--gold);
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   Responsive & Laptop Heights (Controlled scale, preserves Cinzel & hairlines)
+   ========================================================================== */
+
+@media (min-width: 1700px) {
+  .deck-enabled .scene__content {
+    max-width: 1380px;
+  }
+
+  .deck-enabled .scene--left .scene__content {
+    max-width: 960px;
+  }
+}
+
+@media (max-height: 800px) and (min-width: 701px) {
+  .scene {
+    padding-top: 60px !important;
+    padding-bottom: 64px !important;
+  }
+
+  .deck-enabled .scene__content {
+    max-height: calc(100dvh - 128px) !important;
+  }
+
+  .topline {
+    top: 12px;
+  }
+
+  .controls {
+    bottom: 10px;
+  }
+
+  h1 {
+    font-size: clamp(34px, 3.8vw, 52px);
+    margin-bottom: 12px;
+  }
+
+  h2,
+  .scene--astra h2 {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+
+  .scene--closing h2 {
+    font-size: 34px;
+    margin-bottom: 12px;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .lead {
+    font-size: 18px;
+  }
+
+  .takeaway,
+  .scene--astra .takeaway {
+    margin-top: 12px;
+    padding: 4px 0 4px 14px;
+    font-size: 15px;
+  }
+
+  .conversation {
+    margin-top: 12px;
+    padding: 6px 0 6px 14px;
+    font-size: 16px;
+  }
+
+  .slide-source,
+  .scene--astra .slide-source {
+    margin-top: 8px;
+    font-size: 12px;
+  }
+
+  .history-three,
+  .comparison-cards,
+  .work-example,
+  .astra-grid,
+  .plain-proof {
+    gap: 16px;
+    margin-top: 10px;
+  }
+
+  .history-three article,
+  .work-example article {
+    padding-top: 10px;
+  }
+
+  .comparison-cards article,
+  .astra-card {
+    padding: 12px 16px;
+  }
+
+  .history-three h3,
+  .comparison-cards h3,
+  .work-example h3,
+  .astra-card h3 {
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+
+  .history-three article>p:last-child,
+  .comparison-cards article>p:last-child,
+  .work-example article>p:last-child,
+  .astra-card p {
+    font-size: 14.5px;
+    line-height: 1.35;
+  }
+
+  .plain-proof {
+    gap: 20px;
+  }
+
+  .plain-proof p {
+    padding: 10px 0 10px 14px;
+  }
+
+  .proof-main {
+    font-size: 17px;
+  }
+
+  .proof-boundary {
+    font-size: 16px;
+  }
+
+  .study-card {
+    padding: 14px 18px;
+    gap: 18px;
+    margin-top: 10px;
+  }
+
+  .study-card .study-number {
+    font-size: 32px;
+  }
+
+  .study-card>p:last-child {
+    font-size: 16px;
+  }
+
+  .result-study {
+    gap: 24px;
+    margin-top: 10px;
+    padding-top: 12px;
+  }
+
+  .result-value {
+    font-size: 56px;
+  }
+
+  .result-label {
+    font-size: 13px;
+    margin-top: 6px;
+  }
+
+  .result-context p {
+    font-size: 16px;
+  }
+
+  .result-context p+p {
+    font-size: 14px;
+    margin-top: 6px;
+  }
+
+  .purpose-panel {
+    padding: 12px 18px;
+  }
+
+  .prompt {
+    font-size: 18px;
+  }
+
+  .purpose-outcome {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  .check-example {
+    padding: 2px 0 2px 14px;
+  }
+
+  .check-example h3 {
+    font-size: 17px;
+    margin-bottom: 3px;
+  }
+
+  .check-example>p:last-child {
+    font-size: 14.5px;
+  }
+
+  .check-row {
+    gap: 16px;
+    margin-top: 10px;
+  }
+
+  .check-row p {
+    padding-top: 8px;
+  }
+
+  .check-row strong {
+    font-size: 15px;
+    margin-bottom: 2px;
+  }
+
+  .check-row span {
+    font-size: 13.5px;
+  }
+
+  .support-list {
+    margin-top: 10px;
+  }
+
+  .support-list p {
+    gap: 16px;
+    padding: 8px 0;
+    font-size: 15px;
+  }
+
+  .support-list strong {
+    font-size: 16px;
+  }
+
+  .action-list {
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .action-list li {
+    padding: 8px 0;
+  }
+
+  .action-list strong {
+    font-size: 16px;
+  }
+
+  .action-list span {
+    font-size: 14px;
+  }
+
+  .then-now p,
+  .question-list p,
+  .answer-lines p {
+    padding: 8px 0;
+  }
+
+  .then-now strong,
+  .question-list p,
+  .answer-lines p {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .scene--left .scene__content,
+  .scene--astra .scene__content {
+    max-width: 100%;
+  }
+
+  .scene-art-shade,
+  .scene--left .scene-art-shade,
+  .scene--astra .scene-art-shade {
+    background: rgba(9, 12, 14, .9);
+  }
+
+  .study-card {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .history-three,
+  .check-row {
+    gap: 18px;
+  }
+
+  .support-list p {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 700px) {
+  .scene {
+    padding-top: 76px;
+    padding-bottom: 84px;
+  }
+
+  .deck-enabled .scene__content {
+    max-height: calc(100dvh - 160px);
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  h2,
+  .scene--closing h2 {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  .history-three,
+  .work-example,
+  .check-row,
+  .result-study,
+  .astra-grid,
+  .plain-proof {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .result-value {
+    font-size: 68px;
+  }
+
+  .result-context p {
+    font-size: 18px;
+  }
+
+  .then-now p {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .prompt {
+    font-size: 20px;
+  }
+
+  .purpose-panel {
+    padding: 16px;
+  }
+
+  .support-list p {
+    font-size: 17px;
+  }
+
+  .scene__content h3 {
+    font-size: 20px;
+  }
+}
+
+@media print {
+  .scene {
+    padding: 8mm 0;
+  }
+
+  .deck-enabled .scene__content {
+    max-height: none;
+  }
+
+  h2,
+  .scene--closing h2 {
+    font-size: 28pt;
+  }
+
+  .result-value {
+    font-size: 54pt;
+  }
+
+  .result-context p,
+  .study-card>p:last-child,
+  .work-example article>p:last-child,
+  .check-row span,
+  .support-list p {
+    font-size: 13pt;
+  }
+
+  .video-link {
+    background: none;
+    color: black;
+    border-color: black;
+    font-size: 14pt;
+  }
+}
+
+/* Fullscreen notification toast */
+.fullscreen-notice {
+  position: fixed;
+  bottom: 84px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(14, 18, 22, 0.95);
+  color: var(--ivory);
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-family: var(--font-body);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+  max-width: 90vw;
+  text-align: center;
+}
+
+.fullscreen-notice.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

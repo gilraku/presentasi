@@ -24,7 +24,7 @@ Benang merah: AI dapat membantu menyelesaikan pekerjaan, sementara manusia tetap
 | 8 | Menyeimbangkan bukti dengan studi peningkatan produktivitas layanan pelanggan. |
 | 9 | Menjawab pertanyaan pembuka dengan batas kesimpulan yang sesuai. |
 | 10 | Memberi contoh instruksi; bekerja dan belajar tidak diperlakukan sebagai dua tujuan yang saling meniadakan. |
-| 11 | Jeda nonton video pengenalan Astra, lalu diskusi tentang hal yang ingin dicoba sebelum masuk contoh rekap. |
+| 11 | Membahas lompatan kapabilitas AI saat ini (contoh: OpenAI GPT-6 Astra dengan deep reasoning & agentic execution) serta refleksi wacana menuju AGI. |
 | 12 | Memperkenalkan satu kebutuhan konkret: menggabungkan sepuluh berkas laporan. |
 | 13 | Melanjutkan contoh yang sama untuk menjelaskan pemeriksaan kelengkapan dan perhitungan. |
 | 14 | Menjelaskan dukungan karyawan, tim, dan IT saat alat mulai dipakai bersama. |
@@ -82,12 +82,6 @@ Contoh prompt, kebutuhan aplikasi, dan pengujian rekap bersifat ilustratif. Tida
 - `assets/`: ilustrasi dan font lokal.
 - `vendor/`: Three.js dan lisensinya.
 
-## Pembaruan bahasa dan sesi nonton
+## Pembaruan kapabilitas AI saat ini dan refleksi AGI
 
-Bahasa slide memakai istilah umum dalam pekerjaan: copy paste, file, cek, prompt, error, dan backup. Kalimat penelitian disederhanakan dengan tetap membedakan survei, hasil ujian, produktivitas, dan IQ.
-
-Slide 11 membuka video https://www.youtube.com/watch?v=1QNsdr-Qx_I di tab baru. Tidak ada autoplay atau unduhan video. Sesudah menonton, kembali ke presentasi dan tanyakan: “Dari yang baru kita lihat, apa yang ingin kalian coba untuk pekerjaan sehari-hari?” Lalu lanjutkan contoh rekap di slide 12.
-
-Judul video dan halaman pengumuman Astra sudah diperiksa melalui web. Pemutaran, audio, subtitle, durasi, serta bagian video yang akan dipilih belum diverifikasi. Siapkan waktu nonton sekitar 2–3 menit sebagai usulan agenda, disesuaikan setelah menonton videonya. Video adalah contoh pengenalan produk; penelitian di slide sebelumnya tetap menjadi dasar pembahasan dampak AI.
-
-Pemeriksaan browser 1366×768 dan 1920×1080 di atas dilakukan sebelum pembaruan bahasa dan tautan video ini. Pembaruan terakhir diperiksa melalui struktur HTML, tautan, ID/ARIA, dan aset lokal; pemeriksaan browser ulang belum tersedia pada sesi pembaruan.
+Slide 11 difokuskan pada lompatan kapabilitas AI generasi terbaru dengan contoh GPT-6 Astra dari OpenAI (deep reasoning, alur kerja otonom bertahap, coding, dan computer use), serta refleksi apakah kita semakin mendekati AGI (Artificial General Intelligence). Ditambahkan juga tautan percontohan karya live game 3D WebGL *Storm Race* (https://storm-race.vercel.app) yang dibangun menggunakan Three.js untuk memberikan gambaran nyata bahwa model agen AI saat ini mampu merancang dan menyusun aplikasi/game interaktif 3D yang kompleks, bersanding dengan tombol demo video Astra di YouTube.

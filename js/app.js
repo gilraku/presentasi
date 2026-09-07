@@ -82,18 +82,54 @@
     if (!content || content.scrollHeight <= content.clientHeight + 2) return false;
     return direction > 0 ? content.scrollTop + content.clientHeight < content.scrollHeight - 2 : content.scrollTop > 2;
   }
+  function getFullscreenElement() {
+    return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || null;
+  }
   function updateFullscreenLabel() {
-    const isFull = Boolean(document.fullscreenElement);
+    const isFull = Boolean(getFullscreenElement() || document.body.classList.contains("is-pseudo-fullscreen"));
     fullscreenButton.setAttribute("aria-label", isFull ? "Keluar dari layar penuh" : "Masuk layar penuh");
     fullscreenButton.title = isFull ? "Keluar layar penuh (F)" : "Layar penuh (F)";
+    const path = fullscreenButton.querySelector("path");
+    if (path) {
+      // Ubah ikon: panah ke dalam jika fullscreen aktif, panah ke luar jika normal
+      path.setAttribute("d", isFull ? "M9 4v5H4M15 4v5h5M15 20v-5h5M9 20v-5H4" : "M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5");
+    }
+  }
+  let fsNoticeTimeout = null;
+  function showFullscreenNotice(message) {
+    let toast = document.getElementById("fullscreen-notice");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "fullscreen-notice";
+      toast.className = "fullscreen-notice";
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add("is-visible");
+    clearTimeout(fsNoticeTimeout);
+    fsNoticeTimeout = setTimeout(() => toast.classList.remove("is-visible"), 4500);
   }
   async function toggleFullscreen() {
+    const isFull = getFullscreenElement();
+    const el = document.documentElement;
     try {
-      if (document.fullscreenElement) await document.exitFullscreen();
-      else await document.documentElement.requestFullscreen();
+      if (isFull) {
+        const exit = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+        if (exit) await exit.call(document);
+      } else {
+        const req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+        if (req) {
+          await req.call(el);
+        } else {
+          throw new Error("Fullscreen API tidak didukung browser");
+        }
+      }
+      document.body.classList.remove("is-pseudo-fullscreen");
     } catch (error) {
-      fullscreenButton.title = "Mode layar penuh tidak tersedia di browser ini";
-      console.warn("Mode layar penuh tidak tersedia:", error);
+      console.warn("Layar penuh standar dibatasi browser/iframe:", error);
+      document.body.classList.toggle("is-pseudo-fullscreen");
+      updateFullscreenLabel();
+      showFullscreenNotice("Layar penuh dibatasi jika dibuka di dalam frame preview IDE. Buka http://localhost:4173 langsung di browser Chrome/Edge, lalu tekan F.");
     }
   }
   previousButton.addEventListener("click", () => goToScene(currentScene - 1));
@@ -158,6 +194,8 @@
   window.addEventListener("touchcancel", () => { touchStart = null; }, { passive: true });
   window.addEventListener("hashchange", () => goToScene(initialSceneFromHash(), { updateHash: false }));
   document.addEventListener("fullscreenchange", updateFullscreenLabel);
+  document.addEventListener("webkitfullscreenchange", updateFullscreenLabel);
+  document.addEventListener("mozfullscreenchange", updateFullscreenLabel);
   document.body.classList.add("deck-enabled");
   goToScene(initialSceneFromHash(), { initial: true, updateHash: false });
   updateFullscreenLabel();
