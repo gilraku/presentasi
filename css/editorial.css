@@ -149,13 +149,6 @@ h3 {
   background: linear-gradient(180deg, rgba(9, 12, 14, .8), rgba(9, 12, 14, .96)) !important;
 }
 
-#scene-7 .scene-art,
-#scene-9 .scene-art {
-  object-fit: contain;
-  object-position: 85% center;
-  opacity: .8;
-}
-
 /* ==========================================================================
    Open Editorial Slide Layouts (Harmonized Scale & Spacing, No AI Slop Cards)
    ========================================================================== */
