@@ -108,3 +108,9 @@ h3 { font-size:28px;line-height:1.25; }
   .result-value { font-size:60pt; }
   .result-context p,.study-card>p:last-child,.work-example article>p:last-child,.check-row span,.support-list p { font-size:14pt; }
 }
+
+/* Viewing break: open the supplied video on demand, without autoplay. */
+.video-action { margin-top:26px; }
+.video-link { display:inline-flex;align-items:center;padding:14px 22px;border:1px solid var(--gold);background:var(--gold);color:var(--ink);font-size:22px;font-weight:600;text-decoration:none; }
+.video-link:hover { background:var(--ivory);border-color:var(--ivory); }
+@media print { .video-link { background:none;color:black;border-color:black;font-size:14pt; } }
