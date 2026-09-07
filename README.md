@@ -85,3 +85,12 @@ Contoh prompt, kebutuhan aplikasi, dan pengujian rekap bersifat ilustratif. Tida
 ## Pembaruan kapabilitas AI saat ini dan refleksi AGI
 
 Slide 11 difokuskan pada lompatan kapabilitas AI generasi terbaru dengan contoh GPT-6 Astra dari OpenAI (deep reasoning, alur kerja otonom bertahap, coding, dan computer use), serta refleksi apakah kita semakin mendekati AGI (Artificial General Intelligence). Ditambahkan juga tautan percontohan karya live game 3D WebGL *Storm Race* (https://storm-race.vercel.app) yang dibangun menggunakan Three.js untuk memberikan gambaran nyata bahwa model agen AI saat ini mampu merancang dan menyusun aplikasi/game interaktif 3D yang kompleks, bersanding dengan tombol demo video Astra di YouTube.
+
+## Keselarasan Visual & Ilustrasi Penuh (16 Slide)
+
+Seluruh 16 slide kini dilengkapi ilustrasi digital painting bergaya editorial klasik yang selaras secara semantik dengan topik bahasannya:
+- **Slide 1–4**: Pengantar filosofis, pilihan peran AI, sejarah alat bantu baru, dan fokus 3 pertanyaan.
+- **Slide 5–8**: Bukti empiris & riset ilmiah (Flynn effect lintas generasi, studi risiko percaya buta BCG, riset pemahaman vs menyalin PNAS, dan studi produktivitas NBER).
+- **Slide 9–11**: Resolusi pertanyaan pembuka, panduan 3 mode pakai (cepat, paham, variasi), dan wacana AGI / Astra.
+- **Slide 12–14**: Studi kasus nyata di tempat kerja (otomatisasi rekap laporan, verifikasi hasil & audit checklist, dan tata kelola tim).
+- **Slide 15–16**: Panduan langkah awal konkret dan penutup sesi.

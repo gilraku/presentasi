@@ -133,8 +133,12 @@ h3 {
 
 .scene-art-shade,
 .scene--left .scene-art-shade,
-.scene--astra .scene-art-shade {
-  background: linear-gradient(90deg, rgba(9, 12, 14, .98), rgba(9, 12, 14, .94) 47%, rgba(9, 12, 14, .42) 78%, rgba(9, 12, 14, .2));
+.scene--astra .scene-art-shade,
+.scene--evidence .scene-art-shade,
+.scene--case .scene-art-shade,
+.scene--organization .scene-art-shade,
+.scene--answer .scene-art-shade {
+  background: linear-gradient(90deg, rgba(9, 12, 14, .98) 0%, rgba(9, 12, 14, .92) 48%, rgba(9, 12, 14, .45) 80%, rgba(9, 12, 14, .25) 100%) !important;
 }
 
 .scene--history .scene-art {
@@ -142,11 +146,14 @@ h3 {
 }
 
 .scene--history .scene-art-shade {
-  background: linear-gradient(180deg, rgba(9, 12, 14, .8), rgba(9, 12, 14, .96));
+  background: linear-gradient(180deg, rgba(9, 12, 14, .8), rgba(9, 12, 14, .96)) !important;
 }
 
-.scene--case .scene-art-shade {
-  background: linear-gradient(120deg, #0c1216, rgba(9, 12, 14, .92));
+#scene-7 .scene-art,
+#scene-9 .scene-art {
+  object-fit: contain;
+  object-position: 85% center;
+  opacity: .8;
 }
 
 /* ==========================================================================
