@@ -61,6 +61,7 @@
         this.initRenderer();
         this.initScene();
         this.createWorld();
+        this.objects = window.PresentationObjects ? new window.PresentationObjects(this.renderer) : null;
         this.bindEvents();
         this.resize();
         this.setScene(0, true);
@@ -529,6 +530,7 @@
       if (!this.lastFrame) this.lastFrame = time;
       const delta = Math.min((time - this.lastFrame) / 1000, .05);
       this.lastFrame = time;
+      if (this.objects?.render(this.currentScene, delta, this.pointerTarget)) return;
       this.updateState(delta);
       this.updateCurveGeometry();
       this.updateMotion(delta);
