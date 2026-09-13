@@ -499,7 +499,7 @@ h3 {
   color: var(--muted);
 }
 
-/* Slide 13: Check Example & Check Row (Clean editorial divider layout) */
+/* Slide 9: Check Example & Check Row (Clean editorial divider layout) */
 .check-example {
   border-left: 3px solid var(--gold);
   padding: 4px 0 4px 18px;
@@ -553,7 +553,7 @@ h3 {
   line-height: 1.4;
 }
 
-/* Slide 14: Support List */
+/* Slide 10: Support List */
 .support-list {
   max-width: 1100px;
   margin-top: 16px;
@@ -586,7 +586,7 @@ h3 {
   font-size: 17px;
 }
 
-/* Slide 15: Action List */
+/* Slide 11: Action List */
 .action-list {
   display: flex;
   flex-direction: column;
@@ -1055,55 +1055,9 @@ h3 {
   transform: translateX(-50%) translateY(0);
 }
 
-/* New middle chapter: a simple visual language for the fire analogy,
-   current capabilities, pacing debate, and environmental trade-offs. */
-.scene--fire {
-  background:
-    radial-gradient(circle at 76% 24%, rgba(243, 203, 123, .14), transparent 30%),
-    radial-gradient(circle at 72% 80%, rgba(174, 72, 37, .14), transparent 28%),
-    var(--ink);
-}
-
-.scene--fire .scene__content,
-.scene--pacing .scene__content,
-.scene--environment .scene__content {
-  max-width: 1120px;
-}
-
+/* Current capabilities slide: keep the image atmospheric and the copy primary. */
 .scene--capabilities .scene-art-shade {
   background: linear-gradient(90deg, rgba(9, 12, 14, .98) 0%, rgba(9, 12, 14, .92) 48%, rgba(9, 12, 14, .45) 80%, rgba(9, 12, 14, .25) 100%) !important;
-}
-
-.fire-compare,
-.pacing-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px;
-  margin-top: 24px;
-  max-width: 1100px;
-}
-
-.fire-compare article,
-.pacing-grid article,
-.environment-grid article {
-  border-top: 2px solid var(--gold);
-  padding-top: 16px;
-  background: none;
-}
-
-.fire-compare h3,
-.pacing-grid h3,
-.environment-grid h3 {
-  font-size: 22px;
-  margin-bottom: 8px;
-}
-
-.fire-compare article > p:last-child,
-.pacing-grid article > p:last-child,
-.environment-grid article > p:last-child {
-  color: var(--muted);
-  font-size: 18px;
-  line-height: 1.45;
 }
 
 .capability-line {
@@ -1131,58 +1085,7 @@ h3 {
   font-weight: 500;
 }
 
-.scene--pacing {
-  background:
-    radial-gradient(circle at 82% 30%, rgba(243, 203, 123, .11), transparent 34%),
-    var(--ink);
-}
-
-.scene--environment {
-  background:
-    radial-gradient(circle at 76% 70%, rgba(93, 139, 121, .12), transparent 32%),
-    var(--ink);
-}
-
-.environment-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-  margin-top: 24px;
-  max-width: 1120px;
-}
-
-.environment-grid article > p:last-child {
-  font-size: 17px;
-}
-
 @media (max-height: 800px) and (min-width: 701px) {
-  .fire-compare,
-  .pacing-grid,
-  .environment-grid {
-    gap: 16px;
-    margin-top: 10px;
-  }
-
-  .fire-compare article,
-  .pacing-grid article,
-  .environment-grid article {
-    padding-top: 10px;
-  }
-
-  .fire-compare h3,
-  .pacing-grid h3,
-  .environment-grid h3 {
-    font-size: 18px;
-    margin-bottom: 4px;
-  }
-
-  .fire-compare article > p:last-child,
-  .pacing-grid article > p:last-child,
-  .environment-grid article > p:last-child {
-    font-size: 14.5px;
-    line-height: 1.35;
-  }
-
   .capability-line {
     margin-top: 10px;
   }
@@ -1200,13 +1103,6 @@ h3 {
 }
 
 @media (max-width: 700px) {
-  .fire-compare,
-  .pacing-grid,
-  .environment-grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
   .capability-reflection {
     font-size: 19px;
   }
