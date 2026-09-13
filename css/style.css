@@ -128,7 +128,6 @@ h3 { font-size:clamp(23px,2vw,32px);line-height:1.2;font-weight:500; }
 .purpose-outcome { font-size:clamp(20px,1.65vw,26px);margin-top:23px; }
 .purpose-outcome strong { font-weight:500;color:var(--gold); }
 .scene--purpose .scene-art-shade { background:linear-gradient(90deg,rgba(9,12,14,.94),rgba(9,12,14,.72)); }
-.scene--astra .scene-art-shade { background:linear-gradient(90deg,rgba(9,12,14,.98),rgba(9,12,14,.86) 58%,rgba(9,12,14,.38)); }
 .capability-line { display:flex;flex-wrap:wrap;gap:12px;margin-top:30px; }
 .capability-line span { padding:12px 18px;border:1px solid var(--line);background:rgba(9,12,14,.74);font-size:20px; }
 .opportunity-list { margin-top:26px;max-width:920px; }
@@ -152,7 +151,7 @@ h3 { font-size:clamp(23px,2vw,32px);line-height:1.2;font-weight:500; }
 .scene--closing .scene-art-shade { background:linear-gradient(90deg,rgba(9,12,14,.96),rgba(9,12,14,.88) 45%,rgba(9,12,14,.35)); }
 .controls { position:fixed;z-index:40;bottom:22px;left:var(--safe-x);right:var(--safe-x);display:flex;align-items:center;gap:18px;padding:8px 14px;background:rgba(9,12,14,.93);border-top:1px solid var(--line); }
 .progress { height:2px;background:rgba(255,255,255,.2);flex:1; }
-.progress span { display:block;height:100%;background:var(--gold);width:6.67%;transition:width .4s; }
+.progress span { display:block;height:100%;background:var(--gold);width:5.26%;transition:width .4s; }
 .scene-counter { display:flex;gap:8px;font-size:16px;font-variant-numeric:tabular-nums; }
 .scene-counter i { color:var(--muted);font-style:normal; }
 .sources-button { color:var(--ivory);background:transparent;border:0;border-bottom:1px solid var(--line);padding:8px;font-size:16px; }
