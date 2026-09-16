@@ -15,11 +15,19 @@
   const progressFill = document.getElementById("progress-fill");
   const navigationHint = document.getElementById("navigation-hint");
   const purposeTabs = Array.from(document.querySelectorAll("[data-purpose]"));
+  const aiChatDialog = document.getElementById("ai-chat-dialog");
+  const aiChatOpen = document.getElementById("ai-chat-open");
+  const aiChatClose = document.getElementById("ai-chat-close");
+  const aiChatForm = document.getElementById("ai-chat-form");
+  const aiChatInput = document.getElementById("ai-chat-input");
+  const aiChatBody = document.getElementById("ai-chat-body");
+  const aiPromptButtons = Array.from(document.querySelectorAll("[data-ai-prompt]"));
   let currentScene = 0;
   let wheelSum = 0;
   let lastWheel = 0;
   let wheelLockedUntil = 0;
   let touchStart = null;
+  let aiReplyTimer = null;
   const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
   const pad = n => String(n).padStart(2, "0");
   function initialSceneFromHash() {
@@ -30,6 +38,7 @@
     const next = clamp(index, 0, total - 1);
     const previousScene = scenes[currentScene];
     const focusWasInSlide = previousScene.contains(document.activeElement);
+    if (aiChatDialog?.open) aiChatDialog.close();
     currentScene = next;
     scenes.forEach((scene, i) => {
       const active = i === next;
@@ -77,6 +86,127 @@
       selectPurpose(purposeTabs[next], true);
     });
   });
+
+  /* A small offline conversation demo keeps the presentation self-contained. */
+  const aiResponseRules = [
+    {
+      pattern: /rekap|laporan|data|excel|spreadsheet|dashboard/i,
+      text: "Bisa. Mulai dengan menjelaskan data yang masuk, kolom yang dibutuhkan, dan hasil yang diinginkan. Setelah itu, uji dengan satu contoh dan cocokkan totalnya dengan cara lama."
+    },
+    {
+      pattern: /cek|periksa|benar|aman|hasil/i,
+      text: "Periksa tiga hal: apakah semua input terbaca, apakah hasilnya cocok dengan contoh yang sudah diketahui, dan kapan alat itu tidak boleh dipercaya begitu saja."
+    },
+    {
+      pattern: /mulai|coba|gunakan|pakai|pertama/i,
+      text: "Pilih satu pekerjaan yang berulang dan tidak berisiko tinggi. Jelaskan hasil yang kamu inginkan, minta contoh kecil, lalu periksa sebelum dipakai rutin."
+    },
+    {
+      pattern: /belajar|paham|jelaskan|mengerti|rumus/i,
+      text: "Minta penjelasan bertahap dan satu contoh. Lalu coba ulangi dengan kata-katamu sendiri atau kerjakan satu soal baru."
+    },
+    {
+      pattern: /kode|aplikasi|otomatis|program|buat alat/i,
+      text: "AI dapat membantu membuat rancangan awal. Kamu tetap perlu menjelaskan alur kerja, lalu menguji input, hasil, dan batasannya."
+    },
+    {
+      pattern: /bodoh|malas|takut|berpikir|kognitif/i,
+      text: "AI tidak otomatis membuat kita bodoh. Risikonya muncul jika hasil langsung dipercaya; manfaatnya muncul saat AI membantu kita mencapai tujuan yang jelas."
+    }
+  ];
+
+  function resetAiChat() {
+    if (!aiChatBody) return;
+    window.clearTimeout(aiReplyTimer);
+    aiReplyTimer = null;
+    aiChatBody.innerHTML = "";
+    const empty = document.createElement("p");
+    empty.className = "ai-chat__empty";
+    empty.textContent = "Pilih contoh di atas, atau tulis pertanyaanmu sendiri.";
+    aiChatBody.appendChild(empty);
+  }
+
+  function addAiMessage(type, text) {
+    if (!aiChatBody) return null;
+    const message = document.createElement("div");
+    message.className = `ai-chat__message ai-chat__message--${type}`;
+    const label = document.createElement("small");
+    label.textContent = type === "user" ? "KAMU" : "RESPONS CONTOH";
+    const body = document.createElement("p");
+    body.textContent = text;
+    message.append(label, body);
+    aiChatBody.appendChild(message);
+    aiChatBody.scrollTop = aiChatBody.scrollHeight;
+    return message;
+  }
+
+  function getAiResponse(question) {
+    const match = aiResponseRules.find(rule => rule.pattern.test(question));
+    return match?.text || "Aku akan mulai dari tujuan, data yang tersedia, dan hasil yang diinginkan. Setelah itu, kita bisa memecah pekerjaan menjadi langkah kecil dan menentukan cara mengeceknya.";
+  }
+
+  function setChatControlsDisabled(disabled) {
+    if (aiChatInput) aiChatInput.disabled = disabled;
+    aiPromptButtons.forEach(button => { button.disabled = disabled; });
+    const submit = aiChatForm?.querySelector("button[type=submit]");
+    if (submit) submit.disabled = disabled;
+  }
+
+  function submitAiQuestion(question) {
+    const cleaned = String(question || "").trim();
+    if (!cleaned || !aiChatBody) return;
+    const empty = aiChatBody.querySelector(".ai-chat__empty");
+    empty?.remove();
+    window.clearTimeout(aiReplyTimer);
+    addAiMessage("user", cleaned);
+    setChatControlsDisabled(true);
+    const typing = document.createElement("p");
+    typing.className = "ai-chat__typing";
+    typing.textContent = "Simulasi sedang menyiapkan respons …";
+    typing.setAttribute("aria-label", "Simulasi sedang menyiapkan respons");
+    aiChatBody.appendChild(typing);
+    aiChatBody.scrollTop = aiChatBody.scrollHeight;
+    aiReplyTimer = window.setTimeout(() => {
+      typing.remove();
+      addAiMessage("ai", getAiResponse(cleaned));
+      setChatControlsDisabled(false);
+      aiChatInput?.focus({ preventScroll: true });
+    }, 520);
+  }
+
+  function openAiChat() {
+    if (!aiChatDialog) return;
+    resetAiChat();
+    if (!aiChatDialog.open) aiChatDialog.showModal();
+    window.setTimeout(() => aiChatInput?.focus({ preventScroll: true }), 30);
+  }
+
+  if (aiChatOpen && aiChatDialog) aiChatOpen.addEventListener("click", openAiChat);
+  if (aiChatClose && aiChatDialog) aiChatClose.addEventListener("click", () => aiChatDialog.close());
+  if (aiChatForm) {
+    aiChatForm.addEventListener("submit", event => {
+      event.preventDefault();
+      submitAiQuestion(aiChatInput?.value);
+      if (aiChatInput) aiChatInput.value = "";
+    });
+  }
+  aiPromptButtons.forEach(button => {
+    button.addEventListener("click", () => submitAiQuestion(button.dataset.aiPrompt));
+  });
+  if (aiChatDialog) {
+    aiChatDialog.addEventListener("close", () => {
+      window.clearTimeout(aiReplyTimer);
+      aiReplyTimer = null;
+      setChatControlsDisabled(false);
+      aiChatOpen?.focus({ preventScroll: true });
+    });
+    aiChatDialog.addEventListener("click", event => {
+      if (event.target !== aiChatDialog) return;
+      const rect = aiChatDialog.getBoundingClientRect();
+      if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) aiChatDialog.close();
+    });
+  }
+
   function canScrollWithinSlide(target, direction) {
     const content = target instanceof Element ? target.closest(".scene__content") : null;
     if (!content || content.scrollHeight <= content.clientHeight + 2) return false;
@@ -144,7 +274,7 @@
     if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) sourcesDialog.close();
   });
   window.addEventListener("keydown", event => {
-    if (sourcesDialog.open || event.ctrlKey || event.metaKey || event.altKey) return;
+    if (sourcesDialog.open || aiChatDialog?.open || event.ctrlKey || event.metaKey || event.altKey) return;
     if (event.target instanceof Element && event.target.closest("input,textarea,select,[contenteditable=true]")) return;
     if (event.key === " " && event.target instanceof Element && event.target.closest("button,a")) return;
     if ((event.key === "ArrowDown" || event.key === "ArrowUp") && canScrollWithinSlide(event.target, event.key === "ArrowDown" ? 1 : -1)) return;
@@ -159,7 +289,7 @@
     }
   });
   window.addEventListener("wheel", event => {
-    if (sourcesDialog.open || event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+    if (sourcesDialog.open || aiChatDialog?.open || event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
     if (canScrollWithinSlide(event.target, event.deltaY)) { wheelSum = 0; return; }
     event.preventDefault();
     const now = performance.now();
@@ -175,13 +305,13 @@
     }
   }, { passive: false });
   window.addEventListener("touchstart", event => {
-    if (sourcesDialog.open || event.touches.length !== 1) { touchStart = null; return; }
+    if (sourcesDialog.open || aiChatDialog?.open || event.touches.length !== 1) { touchStart = null; return; }
     const t = event.touches[0];
     const content = event.target instanceof Element ? event.target.closest(".scene__content") : null;
     touchStart = { x: t.clientX, y: t.clientY, target: event.target, scrollTop: content?.scrollTop || 0, content };
   }, { passive: true });
   window.addEventListener("touchend", event => {
-    if (!touchStart || sourcesDialog.open || !event.changedTouches.length) return;
+    if (!touchStart || sourcesDialog.open || aiChatDialog?.open || !event.changedTouches.length) return;
     const start = touchStart;
     touchStart = null;
     if (start.target instanceof Element && start.target.closest("button,a")) return;

@@ -8,8 +8,8 @@
   <meta name="description"
     content="Sharing session tentang AI, ketakutan terhadap teknologi, bukti penelitian, dan peluang membangun cara kerja baru.">
   <title>Apakah AI membuat kita semakin bodoh? — Gilang Swandaru</title>
-  <link rel="stylesheet" href="css/style.css?v=11">
-  <link rel="stylesheet" href="css/editorial.css?v=18">
+  <link rel="stylesheet" href="css/style.css?v=12">
+  <link rel="stylesheet" href="css/editorial.css?v=19">
 </head>
 
 <body data-scene="0">
@@ -165,6 +165,7 @@
         </div>
         <div class="capability-reflection">
           <p><strong>Artinya:</strong> AI makin mudah dipakai untuk membuat prototipe dan membantu pekerjaan yang dulu membutuhkan bantuan teknis khusus.</p>
+          <button class="chat-launch" id="ai-chat-open" type="button">Coba tanya AI <span aria-hidden="true">↗</span></button>
         </div>
         <p class="takeaway">Kita tidak harus menjadi ahli AI. Kita perlu tahu masalah apa yang ingin diselesaikan.</p>
         <p class="slide-source">Contoh kapabilitas umum. Kemampuan setiap model dapat berbeda.</p>
@@ -344,12 +345,39 @@
       </li>
     </ol>
   </dialog>
+  <dialog class="ai-chat-dialog" id="ai-chat-dialog" aria-labelledby="ai-chat-title">
+    <div class="ai-chat__head">
+      <div>
+        <p class="eyebrow">Interaksi singkat</p>
+        <h2 id="ai-chat-title">Coba tanya AI</h2>
+      </div>
+      <button class="icon-button" id="ai-chat-close" type="button" aria-label="Tutup percakapan">×</button>
+    </div>
+    <p class="ai-chat__intro">Pilih contoh atau tulis pertanyaan sendiri. Respons ini adalah simulasi lokal untuk demo, bukan koneksi langsung ke layanan AI.</p>
+    <div class="ai-chat__suggestions" role="group" aria-label="Contoh pertanyaan">
+      <button type="button" data-ai-prompt="Bagaimana AI bisa membantu rekap laporan?">Bantu rekap laporan</button>
+      <button type="button" data-ai-prompt="Apa yang perlu saya cek dari hasil AI?">Apa yang perlu dicek?</button>
+      <button type="button" data-ai-prompt="Bagaimana cara mulai memakai AI?">Mulai dari mana?</button>
+    </div>
+    <div class="ai-chat__window">
+      <div class="ai-chat__bar"><span class="ai-chat__status-dot" aria-hidden="true"></span><strong>Simulasi percakapan</strong><span>offline</span></div>
+      <div class="ai-chat__body" id="ai-chat-body" aria-live="polite">
+        <p class="ai-chat__empty">Pilih contoh di atas, atau tulis pertanyaanmu sendiri.</p>
+      </div>
+    </div>
+    <form class="ai-chat__form" id="ai-chat-form">
+      <label class="sr-only" for="ai-chat-input">Tulis pertanyaan untuk simulasi AI</label>
+      <input id="ai-chat-input" name="question" type="text" maxlength="180" autocomplete="off" placeholder="Contoh: Bantu mulai membuat dashboard laporan">
+      <button type="submit">Kirim</button>
+    </form>
+    <p class="ai-chat__note">Gunakan satu pertanyaan singkat agar mudah dibahas bersama.</p>
+  </dialog>
   <noscript>
     <p class="noscript">JavaScript tidak aktif. Semua slide ditampilkan sebagai bacaan.</p>
   </noscript>
   <script src="vendor/three.r128.min.js"></script>
   <script src="js/three-fx.js?v=8"></script>
-  <script src="js/app.js?v=10"></script>
+  <script src="js/app.js?v=11"></script>
 </body>
 
 </html>

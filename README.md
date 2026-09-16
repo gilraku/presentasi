@@ -39,6 +39,7 @@ Artikel IWH menjadi bacaan tambahan untuk slide tentang alat yang dipakai bersam
 - F: layar penuh. S: sumber. Escape: menutup sumber.
 - Roda tetikus dan usapan layar mendukung navigasi.
 - Tautan #scene-1 sampai #scene-12 membuka slide tertentu.
+- Di slide 7, tombol “Coba tanya AI” membuka simulasi percakapan lokal. Pilih pertanyaan contoh atau ketik pertanyaan sendiri; tidak ada koneksi API.
 
 ## Desain dan aksesibilitas
 
@@ -69,7 +70,7 @@ Temuan penelitian berlaku pada konteksnya masing-masing. Tidak ada klaim bahwa A
 - index.html: narasi, contoh pekerjaan, dan sumber.
 - css/editorial.css: penyesuaian tipografi dan tata letak editorial.
 - css/style.css: tipografi, tata letak, responsivitas, dan gaya cetak.
-- js/app.js: navigasi, sumber, dan layar penuh.
+- js/app.js: navigasi, sumber, layar penuh, dan simulasi percakapan lokal.
 - js/three-fx.js: efek latar Three.js.
 - assets/: ilustrasi dan font lokal.
 - vendor/: Three.js dan lisensinya.
